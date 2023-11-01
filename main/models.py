@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Material(models.Model):
+    material = models.CharField(max_length=100)
