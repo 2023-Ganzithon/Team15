@@ -23,4 +23,4 @@ class Comment(models.Model):
 # 동영상
 class Video(models.Model):
     postId = models.ForeignKey('post.Post', on_delete=models.CASCADE)
-    videoKey = models.CharField()
+    videoKey = models.CharField(max_length=5000)
