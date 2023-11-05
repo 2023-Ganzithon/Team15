@@ -4,7 +4,7 @@ from django.db import models
 
 # 사용자
 class CustomUser(AbstractUser):
-    nickname = models.CharField(max_length=100)
+    nickname = models.CharField(max_length=100,unique=True, null=True)
     coin = models.IntegerField(default=0)
     createdAt = models.DateTimeField(auto_now_add=True)
     cSelect = models.IntegerField(default=2)
