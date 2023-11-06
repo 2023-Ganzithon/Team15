@@ -16,6 +16,7 @@
     <div></div>
     {% if request.user.is_authenticated %}
         <span> 로그인 상태 : {{ request.user.username}}</span>
+        <span> 닉네임 : {{ request.user.nickname}}</span>
         {% else %}
         <span> 비로그인 상태</span>
         {% endif %}
