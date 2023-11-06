@@ -14,7 +14,7 @@
             <li>
                 <strong>{{ challenge.cId.cName }}</strong>
                 <p>Date: {{ challenge.cDate|date:"F d, Y" }}</p>
-                <p>Image: {{ challenge.cImage }}
+                <img src="{{ challenge.cImage.url }}">
                 <p>State {{ challenge.cCheck }}</p>
             </li>
         {% empty %}

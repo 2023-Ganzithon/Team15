@@ -8,7 +8,6 @@
 
     <p>Hello, {{ nickname }}!</p>
 
-    <h2>Your Attendances</h2>
     <ul>
         {% for attendance in attendances %}
             <li>{{ attendance.attDate|date:"F d, Y" }}</li>

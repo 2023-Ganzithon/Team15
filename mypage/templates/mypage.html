@@ -19,21 +19,21 @@
     <p>Coins: {{ coin }}원</p>
     <p>환경을 사랑한지 {{ date }} 일</p>
     <p>나의 포스팅 {{ postcnt }} 건</p>
-    <p>CHALLENGE 
+    <p>오늘 진행 중인 챌린지
         {% if c_empty %}
-            <p>진행한 챌린지가 없습니다.</p>
+            <p>진행 중인 챌린지가 없습니다.</p>
         {% else %}
             <strong>{{ challenge.cId.cName }}</strong>
-            <p>Date: {{ challenge.cDate|date:"F d, Y" }}</p>
-            <p>Image: {{ challenge.cImage }}
-            <p>State {{ challenge.cCheck }}</p>
+            <img src="{{ challenge.cImage.url }}">
+            <p>진행 상태 {{ challenge.cCheck }}</p>
         {% endif %}
     </p>
+    <p>챌린지 성공률 {{ challenge_rate }} %</p>
     <p>나의 저장 목록
         {% if b_empty %}
             <p>북마크한 글이 없습니다.</p>
         {% else %}
-            {% comment %} <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 --> {% endcomment %}
+            <a href="{% url '' bookmark.id %}">{{ bookmark.title }}</a> <!-- 포스트url로 수정해야 함 -->
             <p>{{ bookmark.content }}</p>
             <img src="{{ bookmark.image.url }}">
         {% endif %}

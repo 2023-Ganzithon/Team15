@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from datetime import datetime, timezone
+from datetime import datetime, timedelta
+from django.db.models import Q
 from user.models import Attendance, CustomUser
 from post.models import Post
 from challenge.models import OngoingChallenge
@@ -20,9 +21,14 @@ def mypage_view(request):
         bookmark = ""
         c_empty = True
         b_empty = True
-        if OngoingChallenge.objects.filter(userId = nowuser).exists():
+        challenges = OngoingChallenge.objects.filter(userId = nowuser)
+        try:
+            challenge_rate = len(challenges.filter(cCheck=True))/len(challenges)
+        except:
+            challenge_rate = 0
+        if challenges.filter(cDate__year=year, cDate__month=month, cDate__day=day).exists():
             c_empty = False
-            challenge = OngoingChallenge.objects.filter(userId = nowuser).latest('cDate')
+            challenge = challenges.filter(cDate__year=year, cDate__month=month, cDate__day=day)
         if Post.objects.filter(bookmark = nowuser).exists():
             bookmark = Post.objects.filter(bookmark = nowuser).latest('id')
             b_empty = False
@@ -42,7 +48,8 @@ def mypage_view(request):
             'challenge' : challenge,
             'bookmark' : bookmark,
             'c_empty' : c_empty,
-            'b_empty' : b_empty
+            'b_empty' : b_empty,
+            'challenge_rate' : challenge_rate
         }
         return render(request, 'mypage.html', context)
     return redirect('/') # 로그인 페이지로 이동
@@ -52,10 +59,15 @@ def attendance_view(request):
     if request.user.is_authenticated:
         nowuser = CustomUser.objects.get(username = request.user.username)
         nickname = nowuser.nickname
-        current_date = datetime.today()
-        year = current_date.year
-        month = current_date.month
-        attendances = Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month)
+        current_date = datetime.now()
+        days_until_monday = (current_date.weekday()) % 7  # 월요일까지 남은 일 수
+        if days_until_monday == 0:
+            week_start = current_date - timedelta(hours=current_date.hour, minutes=current_date.minute, seconds=current_date.second)
+        else:
+            week_start = current_date - timedelta(days=days_until_monday, hours=current_date.hour, minutes=current_date.minute, seconds=current_date.second)
+        week_end = week_start + timedelta(days=6, hours=23, minutes=59, seconds=59)
+
+        attendances = Attendance.objects.filter(Q(attDate__gte=week_start) & Q(attDate__lte=week_end))
         context = {
             'nickname' : nickname,
             'attendances' : attendances
