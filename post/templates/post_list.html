@@ -1,0 +1,43 @@
+{% block content %}
+<div>
+    {% csrf_token %}
+    <form method="POST" action="{% url 'post:post_filtered' material status %}">
+          <select name="material">
+              <option value="all" selected>전체</option>
+              {% for material in materials %}
+                  <option value="{{ material.material }}">{{ material.material }}</option>
+              {% endfor %}
+          </select>
+          <select name="status">
+              <option value="all" selected>전체</option>
+              <option value="like">좋아요</option>
+              <option value="buy">살래요</option>
+          </select>
+          <button type="submit">검색</button>
+    </form>
+
+    <hr>
+
+    {% for post in posts %}
+        <div>
+            {{ post.title }}
+        </div>
+        <div>
+            {% if post in request.user.like_posts %}
+                좋아요
+            {% endif %}
+        </div>
+
+        <div>
+            {% if post in request.user.buy_posts %}
+                살래요
+            {% endif %}
+        </div>
+        <div>
+            {% if post in request.user.bookmark_posts %}
+                북마크
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
