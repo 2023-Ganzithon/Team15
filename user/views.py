@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model,login,logout
-from django.contrib import auth
+from django.contrib.auth import login,logout
 from django.contrib.auth.forms import AuthenticationForm
-User = get_user_model()
+from .forms import SignupForm
+
 
 def signup_view(request):
     #GET 요청시 HTML 응답
@@ -11,12 +11,10 @@ def signup_view(request):
     
     else:
         #POST 요청시 데이터 확인 후 회원 생성
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(
-                username=request.POST['username'],
-                password=request.POST['password1'],
-            )
-                
+        form = SignupForm(request.POST)
+        
+        if form.is_valid():
+            instance = form.save()
             return redirect('test')#메인페이지로 이동(수정필요)
         return render(request, 'signup.html',{'error': '회원가입 실패'})#회원가입 실패시
         
