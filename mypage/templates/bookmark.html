@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bookmark Page</title>
+</head>
+<body>
+    <h1>Welcome to the Bookmark Page</h1>
+
+    <p>Hello, {{ nickname }}!</p>
+
+    <h2>Your Bookmarked Posts</h2>
+    <ul>
+        {% for post in bookmarks %}
+            <li>
+                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <p>{{ post.content }}</p>
+                <p>{{ post.image }}</p>
+            </li>
+        {% empty %}
+            <li>No bookmarked posts yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

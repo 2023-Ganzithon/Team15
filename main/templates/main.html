@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Page</title>
+</head>
+<body>
+
+    <!-- Display the Weekly Material -->
+    <h2>이번주 재료</h2>
+    <p>{{ week_material }}</p>
+
+    <!-- Display the Most Liked Posts -->
+    <h2># 인기 많은</h2>
+    <ul>
+        {% for post in most_liked %}
+            <li>
+                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Display the Most Buyed Posts -->
+    <h2># 런칭 가능성 있는</h2>
+    <ul>
+        {% for post in most_buyed %}
+            <li>
+                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
