@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Page</title>
+</head>
+<body>
+    <h1>Welcome to the Attendance Page</h1>
+
+    <p>Hello, {{ nickname }}!</p>
+
+    <h2>Your Attendances</h2>
+    <ul>
+        {% for attendance in attendances %}
+            <li>{{ attendance.attDate|date:"F d, Y" }}</li>
+        {% empty %}
+            <li>No attendances recorded for this month.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
