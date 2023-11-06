@@ -21,5 +21,8 @@
             <li>No ongoing challenges at the moment.</li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'mypage:mypage' %}">
+        <input type="submit" value="뒤로가기">
+    </form>
 </body>
 </html>

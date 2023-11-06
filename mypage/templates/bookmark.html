@@ -20,5 +20,8 @@
             <li>No bookmarked posts yet.</li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'mypage:mypage' %}">
+        <input type="submit" value="뒤로가기">
+    </form>
 </body>
 </html>
