@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+</head>
+<body>
+
+    {% if attended %}
+        <p>이미 출석을 완료하셨어요.</p>
+    {% else %}
+        <form method="post" action="{% url 'mypage:mypage' %}">
+            {% csrf_token %}
+            <input type="submit" value="출석">
+        </form>
+    {% endif %}
+
+    <h2>User Information</h2>
+    <p>{{ nickname }}님</p>
+    <p>Coins: {{ coin }}원</p>
+    <p>환경을 사랑한지 {{ date }} 일</p>
+    <p>나의 포스팅 {{ postcnt }} 건</p>
+    <p>CHALLENGE 
+        {% if c_empty %}
+            <p>진행한 챌린지가 없습니다.</p>
+        {% else %}
+            <strong>{{ challenge.cId.cName }}</strong>
+            <p>Date: {{ challenge.cDate|date:"F d, Y" }}</p>
+            <p>Image: {{ challenge.cImage }}
+            <p>State {{ challenge.cCheck }}</p>
+        {% endif %}
+    </p>
+    <p>나의 저장 목록
+        {% if b_empty %}
+            <p>북마크한 글이 없습니다.</p>
+        {% else %}
+            {% comment %} <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 --> {% endcomment %}
+            <p>{{ bookmark.content }}</p>
+            <img src="{{ bookmark.image.url }}">
+        {% endif %}
+    </p>
+</body>
+</html>
