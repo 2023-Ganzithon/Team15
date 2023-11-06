@@ -14,11 +14,14 @@
             <li>
                 <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
                 <p>{{ post.content }}</p>
-                <p>{{ post.image }}</p>
+                <img src="{{ post.image.url }}">
             </li>
         {% empty %}
             <li>No bookmarked posts yet.</li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'mypage:mypage' %}">
+        <input type="submit" value="뒤로가기">
+    </form>
 </body>
 </html>

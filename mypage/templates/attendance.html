@@ -8,7 +8,6 @@
 
     <p>Hello, {{ nickname }}!</p>
 
-    <h2>Your Attendances</h2>
     <ul>
         {% for attendance in attendances %}
             <li>{{ attendance.attDate|date:"F d, Y" }}</li>
@@ -16,5 +15,8 @@
             <li>No attendances recorded for this month.</li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'mypage:mypage' %}">
+        <input type="submit" value="뒤로가기">
+    </form>
 </body>
 </html>
