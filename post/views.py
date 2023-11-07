@@ -270,15 +270,36 @@ def post_status_view(request, postId, status):
         return render(request, "post_detail.html", context)
 
 
-
-
-
-
 # 동영상 숏폼
-# def video_list_view(request):
-#     if request.method == 'GET':
-#         videos = Video.objects.all()
-#
-#
-#
-#         return render(request, "video_list.html", context={"videos": videos})
+def video_list_view(request):
+    if request.method == 'GET':
+        videos = Video.objects.all()  # 모든 비디오 객체 가져오기
+
+        # 비디오마다 연관된 게시글과 유저 정보를 저장할 리스트
+        related_posts_list = []
+
+        for video in videos:
+            post = video.postId
+            liked_user = post.like.all()  # 게시글에 좋아요 누른 유저
+            buy_user = post.buy.all()  # 게시글에 살래요 누른 유저
+            bookmarked_user = post.bookmark.all()  # 게시글에 북마크 누른 유저
+            comments = Comment.objects.filter(postId=post)
+
+            # 게시글과 연관된 유저 정보를 포함한 딕셔너리 생성
+            post_info = {
+                'post': post,
+                'liked_user': liked_user,
+                'buy_user': buy_user,
+                'bookmarked_user': bookmarked_user,
+                'comments': comments
+            }
+
+            # 리스트에 딕셔너리 저장
+            related_posts_list.append(post_info)
+
+        context = {
+            'videos': videos,
+            'related_posts_list': related_posts_list,
+        }
+
+        return render(request, "video_list.html", context)
