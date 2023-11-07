@@ -140,7 +140,12 @@ def post_detail_view(request, postId):
 
     post = get_object_or_404(Post, pk=postId)
     comments = Comment.objects.filter(postId=post)
-    video = get_object_or_404(Video, postId=post)
+    video = Video.objects.filter(postId=post)
+
+    if video.exists():
+        video = get_object_or_404(Video, postId=post)
+    else:
+        video = None
 
     return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
 
