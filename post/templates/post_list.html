@@ -19,11 +19,12 @@
     <hr>
     {% if posts %}
         {% for post in posts %}
+            <form method="GET" action="{% url 'post:post_detail' postId=post.pk%}">
+                {% csrf_token %}
+                <button type="submit">{{ post.title }}</button>
+            </form>
             <div>
-                {{ post.title }}
-            </div>
-            <div>
-                {% if post in request.user.like_posts %}
+                {% if request.user in post.like %}
                     좋아요
                 {% endif %}
             </div>
@@ -42,5 +43,7 @@
     {% else %}
         <div>검색 결과가 없습니다.</div>
     {% endif %}
+
+
 </div>
 {% endblock %}

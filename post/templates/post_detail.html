@@ -1,0 +1,69 @@
+<h1>재활용 게시판</h1>
+<hr>
+<div>작성자: {{ post.userId.nickname }}</div>
+<div>작성일: {{ post.regTime|date:"Y.m.d H:i" }}</div>
+<div>제목: {{ post.title }}</div>
+<div>내용: {{ post.content }}</div>
+<div><img src="{{ post.image.url }}" width="100" height="100"></div>
+
+{% if video.videoKey %}
+    <div>비디오키: {{ video.videoKey }}</div> <!-- 실제 구현은 js 통해 비디오 출력 -->
+{% endif %}
+<div>
+    {% if request.user in post.like %}
+        좋아요
+    {% endif %}
+</div>
+<div>
+    {% if post in request.user.buy_posts %}
+        살래요
+    {% endif %}
+</div>
+<div>
+    {% if post in request.user.bookmark_posts %}
+        북마크
+    {% endif %}
+</div>
+
+
+
+{% if request.user == post.userId %}
+    <form method="GET" action="{% url 'post:post_update' postId=post.pk %}">
+        {% csrf_token %}
+        <button type="submit">수정</button>
+    </form>
+    <form method="GET" action="{% url 'post:post_delete' postId=post.pk %}">
+        {% csrf_token %}
+        <button type="submit">삭제</button>
+    </form>
+{% endif %}
+
+
+
+<form method="POST" action="{% url 'post:comment_create' postId=post.pk %}">
+    {% csrf_token %}
+    <div><input type="text" name="title" placeholder="댓글을 작성해주세요."/></div>
+    <div>
+        <label for="anonymous">익명 여부:</label>
+        <input type="checkbox" name="anonymous" id="anonymous">
+    </div>
+    <button type="submit">등록</button>
+</form>
+
+{% for comment in comments %}
+    <div>{{ comment.title }}</div>
+
+    {% if comment.anonymous %}}
+        <div>{{ comment.userId.nickname }}</div>
+    {% endif %}
+
+    <div>{{ comment.regTime|date:"Y.m.d H:i" }}</div>
+    <div>{{ comment.content }}</div>
+
+    {% if request.user == comment.userId %}
+        <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk%}">
+            {% csrf_token %}
+            <button type="submit">삭제하기</button>
+        </form>
+    {% endif %}
+{% endfor %}
