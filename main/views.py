@@ -18,7 +18,7 @@ def mainpage_view(request):
             'most_buyed' : most_buyed
         }
         return render(request, 'main.html', context)
-    return redirect('login_view')
+    return redirect('login')
 
 
 def sort_like_view(request):
@@ -38,7 +38,7 @@ def sort_like_view(request):
             'user_bookmarked' : user_bookmarked
         }
         return render(request, 'sort_like.html', context)
-    return redirect('login_view')
+    return redirect('login')
 
 
 def sort_buy_view(request):
@@ -58,4 +58,4 @@ def sort_buy_view(request):
             'user_bookmarked' : user_bookmarked
         }
         return render(request, 'sort_buy.html', context)
-    return redirect('login_view')
+    return redirect('login')
