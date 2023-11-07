@@ -154,10 +154,10 @@ def comment_create_view(request, postId):
     content = request.POST.get('content')
     anonymousText = request.POST.get('anonymous')
 
-    if anonymousText == 'on':
-        anonymous = True
+    if anonymousText == 'on': # 익명 여부 체크
+        anonymous = True # 익명
     else:
-        anonymous = False
+        anonymous = False # 실명
 
     Comment.objects.create(
         userId=request.user,
