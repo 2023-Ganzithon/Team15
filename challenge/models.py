@@ -9,6 +9,12 @@ class OngoingChallenge(models.Model):
     cId = models.ForeignKey('challenge.challenge', on_delete=models.CASCADE)
     userId = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.cId.cName
+
 
 class challenge(models.Model):
     cName = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.cName

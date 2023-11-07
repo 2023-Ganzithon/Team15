@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     cSelect = models.IntegerField(default=2)
     cSuccess = models.IntegerField(default=0)
 
+
 # 출석 체크
 class Attendance(models.Model):
     userId = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
