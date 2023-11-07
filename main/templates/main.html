@@ -18,6 +18,9 @@
             </li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'main:sort_like' %}">
+        <input type="submit" value="좋아요 순 더보기">
+    </form>
 
     <!-- Display the Most Buyed Posts -->
     <h2># 런칭 가능성 있는</h2>
@@ -28,5 +31,8 @@
             </li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'main:sort_buy' %}">
+        <input type="submit" value="살래요 순 더보기">
+    </form>
 </body>
 </html>
