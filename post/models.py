@@ -30,8 +30,10 @@ class Comment(models.Model):
 
 # 동영상
 class Video(models.Model):
-    postId = models.ForeignKey('post.Post', on_delete=models.CASCADE)
+    postId = models.ForeignKey('post.Post', on_delete=models.CASCADE, related_name='videos')
     videoKey = models.CharField(max_length=5000)
+
+
 
     def __str__(self):
         return self.postId.title
