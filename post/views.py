@@ -7,49 +7,93 @@ from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Material, WeeklyMaterial
 from post.models import Post, Video, Comment
 
+# 유저 별 게시글 좋아요 / 살래요 / 북마크 상태
+def post_list_status(request):
+    liked_posts = Post.objects.filter(like=request.user)
+    buy_posts = Post.objects.filter(buy=request.user)
+    bookmarked_posts = Post.objects.filter(bookmark=request.user)
+
+    return liked_posts, buy_posts, bookmarked_posts
+
+# post_form.html의 작성하기 / 수정하기 버튼 변경 위한 메소드
+def determine_edit_mode(user, postId):
+    if postId:
+        post = get_object_or_404(Post, pk=postId)
+
+        # 게시글의 작성자와 현재 사용자를 비교하여 수정 권한을 확인
+        if post.userId == user:
+            return True  # 수정 모드
+    return False  # 작성 모드
 
 # 게시글 전체 조회
 def post_list_view(request):
-
     # 필터링을 위한 재료 목록
-    materials = WeeklyMaterial.objects.all()
+    materials = Material.objects.all()
 
     # 게시글 전체 조회
     if request.method == 'GET':
-        posts = Post.objects.all().order_by('-regTime')
+        posts = Post.objects.all()
+        liked_posts, buy_posts, bookmarked_posts = post_list_status(request)
 
-    return render(request, 'post_list.html', context={'posts':posts, 'materials':materials})
+        context = {
+            'posts': posts,
+            'liked_posts': liked_posts,
+            'buy_posts': buy_posts,
+            'bookmarked_posts': bookmarked_posts,
+            'materials': materials
+        }
+
+    return render(request, 'post_list.html', context)
+
+
+# 게시글 상세 조회
+def post_detail_view(request, postId):
+
+    post = get_object_or_404(Post, pk=postId)
+    comments = Comment.objects.filter(postId=post)
+    video = Video.objects.filter(postId=post)
+
+    if video.exists():
+        video = get_object_or_404(Video, postId=post)
+    else:
+        video = None
+
+    return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
 
 
 # 게시글 필터링
 def post_filtered_view(request):
 
-    # 필터링을 위한 재료 목록
-    materials = WeeklyMaterial.objects.all()
+    materialText = request.POST.get('material') # 재료
+    status = request.POST.get('status') # 최신순 / 좋아요 / 살래요
 
-    materialText = request.POST.get('material')
-    status = request.POST.get('status')
-
-
-    if materialText != 'all':
+    if materialText != 'all':  # 재료 지정한 경우
         # 재료 객체 찾기
         material = get_object_or_404(Material, material=materialText)
         weeklyMaterial = WeeklyMaterial.objects.filter(matId=material)
 
-        posts = Post.objects.filter(material=weeklyMaterial) # 1차 필터링
-        if status != 'all':
-            posts = posts.annotate(count=Count(status)).order_by('-count') # 2차 필터링
-        else:
-            posts = posts
-
-    else:
+        posts = Post.objects.filter(material__in=weeklyMaterial)  # 1차 필터링
+    else:  # 전체 재료인 경우
         posts = Post.objects.all()
-        if status != 'all':
-            posts = posts.annotate(count=Count(status)).order_by('-count')
-        else:
-            posts = posts
 
-    return render(request, 'post_list.html', context={'posts':posts, 'materials':materials, 'status':status})
+    if status != 'all':  # 좋아요/살래요 순이면
+        posts = posts.annotate(count=Count(status)).order_by('-count')  # 2차 필터링
+    else:  # 최신순인 경우
+        posts = posts.order_by('-regTime')
+
+    # 필터링을 위한 재료 목록
+    materials = Material.objects.all()
+    liked_posts, buy_posts, bookmarked_posts = post_list_status(request)
+
+    context = {
+        'posts': posts,
+        'liked_posts': liked_posts,
+        'buy_posts': buy_posts,
+        'bookmarked_posts': bookmarked_posts,
+        'materials': materials
+    }
+
+    return render(request, 'post_list.html', context)
 
 
 # 게시글 생성
@@ -89,15 +133,6 @@ def post_create_view(request):
     return render(request, 'post_form.html')
 
 
-def determine_edit_mode(user, postId):
-    if postId:
-        post = get_object_or_404(Post, pk=postId)
-
-        # 게시글의 작성자와 현재 사용자를 비교하여 수정 권한을 확인
-        if post.userId == user:
-            return True  # 수정 모드
-    return False  # 작성 모드
-
 # 게시글 수정
 @login_required
 def post_update_view(request, postId):
@@ -135,19 +170,6 @@ def post_update_view(request, postId):
 
         return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
 
-# 게시글 상세 조회
-def post_detail_view(request, postId):
-
-    post = get_object_or_404(Post, pk=postId)
-    comments = Comment.objects.filter(postId=post)
-    video = Video.objects.filter(postId=post)
-
-    if video.exists():
-        video = get_object_or_404(Video, postId=post)
-    else:
-        video = None
-
-    return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
 
 # 게시글 삭제
 def post_delete_view(request, postId):
@@ -155,6 +177,7 @@ def post_delete_view(request, postId):
     post.delete()
 
     return redirect('post:post_list')
+
 
 # 댓글 생성
 @login_required
@@ -178,7 +201,6 @@ def comment_create_view(request, postId):
     return redirect('post:post_detail', postId=postId)
 
 
-
 # 댓글 삭제
 def comment_delete_view(request, commentId):
     comment = get_object_or_404(Comment, pk=commentId)
@@ -188,3 +210,11 @@ def comment_delete_view(request, commentId):
     comments = Comment.objects.filter(postId=post)
 
     return render(request, "post_detail.html", context={"post": post, "comments":comments})
+
+# 동영상 숏폼
+def video_list_view(request):
+    if request.method == 'GET':
+        videos = Video.objects.all()
+
+
+        return render(request, "video_list.html", context={"videos": videos})

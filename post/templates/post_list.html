@@ -2,14 +2,14 @@
 <div>
     <form method="POST" action="{% url 'post:post_filtered' %}">
         {% csrf_token %}
-          <select name="material">
+          <select name="material" value="{{ post.material }}">
               <option value="all">전체</option>
               {% for material in materials %}
-                  <option value="{{ material.matId.material }}">{{ material.matId.material }}</option>
+                  <option value="{{ material.material }}">{{ material.material }}</option>
               {% endfor %}
           </select>
-          <select name="status">
-              <option value="all">전체</option>
+          <select name="status" value="{{ status }}">
+              <option value="all">최신순</option>
               <option value="like">좋아요</option>
               <option value="buy">살래요</option>
           </select>
@@ -24,18 +24,18 @@
                 <button type="submit">{{ post.title }}</button>
             </form>
             <div>
-                {% if request.user in post.like %}
+                {% if post in liked_posts %}
                     좋아요
                 {% endif %}
             </div>
 
             <div>
-                {% if post in request.user.buy_posts %}
+                {% if post in buy_posts %}
                     살래요
                 {% endif %}
             </div>
             <div>
-                {% if post in request.user.bookmark_posts %}
+                {% if post in bookmarked_posts %}
                     북마크
                 {% endif %}
             </div>
@@ -44,6 +44,11 @@
         <div>검색 결과가 없습니다.</div>
     {% endif %}
 
+<hr>
+    <form method="GET" action="{% url 'post:post_create' %}">
+        {% csrf_token %}
+        <button type="submit">글 작성하기</button>
+    </form>
 
 </div>
 {% endblock %}
