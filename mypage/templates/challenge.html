@@ -15,7 +15,7 @@
                 <strong>{{ challenge.cId.cName }}</strong>
                 <p>Date: {{ challenge.cDate|date:"F d, Y" }}</p>
                 <img src="{{ challenge.cImage.url }}">
-                <p>State {{ challenge.cCheck }}</p>
+                <p>State {{ challenge.cCheck }}</p> <!-- 챌린지 진행상태 넣을것인가 뺄것인가 -->
             </li>
         {% empty %}
             <li>No ongoing challenges at the moment.</li>

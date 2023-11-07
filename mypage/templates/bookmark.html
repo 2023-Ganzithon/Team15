@@ -12,8 +12,9 @@
     <ul>
         {% for post in bookmarks %}
             <li>
-                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
                 <p>{{ post.content }}</p>
+                <p>{{ post.userId.nickname }}
                 <img src="{{ post.image.url }}">
             </li>
         {% empty %}

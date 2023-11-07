@@ -13,7 +13,7 @@
         {% if c_empty %}
             <p>진행 중인 챌린지가 없습니다.</p>
         {% else %}
-            <strong>{{ challenge.cId.cName }}</strong>
+            <strong>{{ challenge.cId.cName }}</strong> <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
             <img src="{{ challenge.cImage.url }}">
             <p>진행 상태 {{ challenge.cCheck }}</p>
         {% endif %}
@@ -26,7 +26,7 @@
         {% if b_empty %}
             <p>북마크한 글이 없습니다.</p>
         {% else %}
-            <a href="{% url '' bookmark.id %}">{{ bookmark.title }}</a> <!-- 포스트url로 수정해야 함 -->
+            <a href="{% url 'post:post_detail' bookmark.id %}">{{ bookmark.title }}</a>
             <p>{{ bookmark.content }}</p>
             <img src="{{ bookmark.image.url }}">
         {% endif %}

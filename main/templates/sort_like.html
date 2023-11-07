@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>좋아요순</title>
+</head>
+<body>
+    {% for post in likes %}
+        <div>
+            <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
+            <img src="{{ post.image.url }}">
+            <p>{{ post.userId.nickname }}</p>
+        </div>
+        <div>
+            {% if post in user_liked %}
+                좋아요
+            {% endif %}
+        </div>
+
+        <div>
+            {% if post in user_buyed %}
+                살래요
+            {% endif %}
+        </div>
+        <div>
+            {% if post in user_bookmarked %}
+                북마크
+            {% endif %}
+        </div>
+    {% endfor %}
+    <form method="get" action="{% url 'main:main_page' %}">
+        <input type="submit" value="뒤로가기">
+    </form>
+</body>
