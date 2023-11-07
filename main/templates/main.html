@@ -14,7 +14,9 @@
     <ul>
         {% for post in most_liked %}
             <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
+                <p{{ post.userId.nickname }}></p>
+                <img src="{{ post.image.url }}">
             </li>
         {% endfor %}
     </ul>
@@ -27,7 +29,9 @@
     <ul>
         {% for post in most_buyed %}
             <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
+                <p{{ post.userId.nickname }}></p>
+                <img src="{{ post.image.url }}">
             </li>
         {% endfor %}
     </ul>
