@@ -103,11 +103,13 @@ def determine_edit_mode(user, postId):
 def post_update_view(request, postId):
     # 게시글 찾기
     post = get_object_or_404(Post, pk=postId)
+    video = Video.objects.get(postId=post)
+    comments = Comment.objects.filter(postId=post)
     edit_mode = determine_edit_mode(request.user, postId)
 
     # 수정 폼 반환
     if request.method == 'GET':
-        return render(request, "post_form.html", context={"post":post, "edit_mode":edit_mode})
+        return render(request, "post_form.html", context={"post":post, "video":video, "edit_mode":edit_mode})
 
     if request.method == 'POST':
         # 수정
@@ -125,11 +127,13 @@ def post_update_view(request, postId):
         post.image = image
 
         if videoKey:
-            post.videoKey = videoKey
+            video = get_object_or_404(Video, postId=post)
+            video.videoKey=videoKey
 
         post.save()
+        video.save()
 
-        return redirect('post:post_list')
+        return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
 
 # 게시글 상세 조회
 def post_detail_view(request, postId):
