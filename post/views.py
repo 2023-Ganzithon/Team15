@@ -53,12 +53,25 @@ def post_detail_view(request, postId):
     comments = Comment.objects.filter(postId=post)
     video = Video.objects.filter(postId=post)
 
+    liked_user = post.like.all()  # 게시글에 좋아요 누른 유저
+    buy_user = post.buy.all()  # 게시글에 살래요 누른 유저
+    bookmarked_user = post.bookmark.all()  # 게시글에 북마크 누른 유저
+
     if video.exists():
         video = get_object_or_404(Video, postId=post)
     else:
         video = None
 
-    return render(request, "post_detail.html", context={"post": post, "comments":comments, "video":video})
+    context = {
+        "post": post,
+        "comments": comments,
+        "video": video,
+        "liked_user": liked_user,
+        "buy_user": buy_user,
+        "bookmarked_user": bookmarked_user,
+    }
+
+    return render(request, "post_detail.html", context)
 
 
 # 게시글 필터링
@@ -211,10 +224,61 @@ def comment_delete_view(request, commentId):
 
     return render(request, "post_detail.html", context={"post": post, "comments":comments})
 
-# 동영상 숏폼
-def video_list_view(request):
+# 좋아요 / 살래요 / 북마크
+def post_status_view(request, postId, status):
+
     if request.method == 'GET':
-        videos = Video.objects.all()
+        user = request.user
+        post = get_object_or_404(Post, pk=postId)
+        comments = Comment.objects.filter(postId=post)
+        video = Video.objects.filter(postId=post)
+
+        if video.exists():
+            video = get_object_or_404(Video, postId=post)
+        else:
+            video = None
+
+        liked_user = post.like.all() # 게시글에 좋아요 누른 유저
+        buy_user = post.buy.all() # 게시글에 살래요 누른 유저
+        bookmarked_user = post.bookmark.all() # 게시글에 북마크 누른 유저
+
+        # 상태 변경
+        if (status == 'like_cancel'):
+            post.like.remove(user)
+        elif (status == 'like'):
+            post.like.add(user)
+
+        if (status == 'buy_cancel'):
+            post.buy.remove(user)
+        elif (status == 'buy'):
+            post.buy.add(user)
+
+        if (status == 'bookmark_cancel'):
+            post.bookmark.remove(user)
+        elif (status == 'bookmark'):
+            post.bookmark.add(user)
+
+        context = {
+            "post": post,
+            "comments": comments,
+            "video": video,
+            "liked_user": liked_user,
+            "buy_user": buy_user,
+            "bookmarked_user": bookmarked_user,
+        }
+
+        return render(request, "post_detail.html", context)
 
 
-        return render(request, "video_list.html", context={"videos": videos})
+
+
+
+
+# 동영상 숏폼
+# def video_list_view(request):
+#     if request.method == 'GET':
+#         videos = Video.objects.all()
+#
+#
+#
+#         return render(request, "video_list.html", context={"videos": videos})

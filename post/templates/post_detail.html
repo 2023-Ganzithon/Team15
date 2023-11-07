@@ -10,18 +10,42 @@
     <div>비디오키: {{ video.videoKey }}</div> <!-- 실제 구현은 js 통해 비디오 출력 -->
 {% endif %}
 <div>
-    {% if request.user in post.like %}
-        좋아요
+    {% if request.user in liked_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">좋아요 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like' %}">
+            {% csrf_token %}
+            <button type="submit">좋아요</button>
+        </form>
     {% endif %}
 </div>
 <div>
-    {% if post in request.user.buy_posts %}
-        살래요
+    {% if request.user in buy_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">살래요 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy' %}">
+            {% csrf_token %}
+            <button type="submit">살래요</button>
+        </form>
     {% endif %}
 </div>
 <div>
-    {% if post in request.user.bookmark_posts %}
-        북마크
+    {% if request.user in bookmarked_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">북마크 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark' %}">
+            {% csrf_token %}
+            <button type="submit">북마크</button>
+        </form>
     {% endif %}
 </div>
 
@@ -62,9 +86,15 @@
     <div>{{ comment.content }}</div>
 
     {% if request.user == comment.userId %}
-        <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk%}">
+        <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk %}">
             {% csrf_token %}
             <button type="submit">삭제하기</button>
         </form>
     {% endif %}
 {% endfor %}
+
+<hr>
+<form method="GET" action="{% url 'post:post_list'%}">
+    {% csrf_token %}
+    <button type="submit">목록</button>
+</form>
