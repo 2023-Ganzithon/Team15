@@ -1,49 +1,70 @@
 {% block content %}
 <div>
+<!--    필터링 토글 입니다.-->
     <form method="POST" action="{% url 'post:post_filtered' %}">
         {% csrf_token %}
-          <select name="material">
+          <select name="material" value="{{ post.material }}">
               <option value="all">전체</option>
               {% for material in materials %}
-                  <option value="{{ material.matId.material }}">{{ material.matId.material }}</option>
+                  <option value="{{ material.material }}">{{ material.material }}</option>
               {% endfor %}
           </select>
-          <select name="status">
-              <option value="all">전체</option>
+          <select name="status" value="{{ status }}">
+              <option value="all">최신순</option>
               <option value="like">좋아요</option>
               <option value="buy">살래요</option>
           </select>
           <button type="submit">검색</button>
     </form>
 
+<!--    게시글 출력 코드입니다.-->
     <hr>
     {% if posts %}
         {% for post in posts %}
+<!--        게시글 제목 클릭 시 상세 페이지로 이동합니다.-->
+<!--        구현은 제목 말고 게시글 div 클릭하면 이동하도록 수정해주세요.-->
             <form method="GET" action="{% url 'post:post_detail' postId=post.pk%}">
                 {% csrf_token %}
                 <button type="submit">{{ post.title }}</button>
             </form>
+
+<!--        좋아요 / 살래요 / 북마크 여부를 출력하는 코드입니다.-->
+<!--        좋아요 텍스트 부분에는 채워진 하트를, null 텍스트 부분은 비워진 하트 이미지 넣어주시면 됩니다.-->
             <div>
-                {% if request.user in post.like %}
+                {% if post in liked_posts %}
                     좋아요
+                {% else %}
+                    null
                 {% endif %}
             </div>
 
             <div>
-                {% if post in request.user.buy_posts %}
+                {% if post in buy_posts %}
                     살래요
+                {% else %}
+                    null
                 {% endif %}
             </div>
             <div>
-                {% if post in request.user.bookmark_posts %}
+                {% if post in bookmarked_posts %}
                     북마크
+                {% else %}
+                    null
                 {% endif %}
             </div>
+            <hr>
         {% endfor %}
+
     {% else %}
         <div>검색 결과가 없습니다.</div>
     {% endif %}
 
+<hr>
+<!--게시글 작성 페이지로 이동하는 버튼입니다.-->
+    <form method="GET" action="{% url 'post:post_create' %}">
+        {% csrf_token %}
+        <button type="submit">글 작성하기</button>
+    </form>
 
 </div>
 {% endblock %}

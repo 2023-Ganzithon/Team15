@@ -9,24 +9,52 @@
 {% if video.videoKey %}
     <div>비디오키: {{ video.videoKey }}</div> <!-- 실제 구현은 js 통해 비디오 출력 -->
 {% endif %}
+
+<!-- 좋아요 / 살래요 / 북마크 버튼 -->
+<!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
 <div>
-    {% if request.user in post.like %}
-        좋아요
+    {% if request.user in liked_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">좋아요 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like' %}">
+            {% csrf_token %}
+            <button type="submit">좋아요</button>
+        </form>
     {% endif %}
 </div>
 <div>
-    {% if post in request.user.buy_posts %}
-        살래요
+    {% if request.user in buy_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">살래요 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy' %}">
+            {% csrf_token %}
+            <button type="submit">살래요</button>
+        </form>
     {% endif %}
 </div>
 <div>
-    {% if post in request.user.bookmark_posts %}
-        북마크
+    {% if request.user in bookmarked_user %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark_cancel' %}">
+            {% csrf_token %}
+            <button type="submit">북마크 취소</button>
+        </form>
+    {% else %}
+        <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark' %}">
+            {% csrf_token %}
+            <button type="submit">북마크</button>
+        </form>
     {% endif %}
 </div>
 
 
-
+<!-- 게시글 작성 / 수정 버튼 -->
+<!--작성자에게만 보임-->
 {% if request.user == post.userId %}
     <form method="GET" action="{% url 'post:post_update' postId=post.pk %}">
         {% csrf_token %}
@@ -39,7 +67,7 @@
 {% endif %}
 
 
-
+<!--댓글 작성란 입니다.-->
 <form method="POST" action="{% url 'post:comment_create' postId=post.pk %}">
     {% csrf_token %}
     <div><input type="text" name="content" placeholder="댓글을 작성해주세요."/></div>
@@ -50,10 +78,11 @@
     <button type="submit">등록</button>
 </form>
 
+<!--댓글 출력 코드입니다.-->
 {% for comment in comments %}
     <div>{{ comment.title }}</div>
 
-    <!-- False = 실명이면 -->
+    <!-- False = 실명제 -> 작성자 출력 -->
     {% if not comment.anonymous %}}
         <div>{{ comment.userId.nickname }}</div>
     {% endif %}
@@ -62,9 +91,16 @@
     <div>{{ comment.content }}</div>
 
     {% if request.user == comment.userId %}
-        <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk%}">
+        <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk %}">
             {% csrf_token %}
             <button type="submit">삭제하기</button>
         </form>
     {% endif %}
 {% endfor %}
+
+<!--전체 조회 페이지 이동 버튼입니다.-->
+<hr>
+<form method="GET" action="{% url 'post:post_list'%}">
+    {% csrf_token %}
+    <button type="submit">목록</button>
+</form>
