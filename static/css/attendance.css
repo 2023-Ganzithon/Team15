@@ -1,0 +1,173 @@
+.container {
+  width: 393px;
+  height: 852px;
+  /* background: red; */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  text-align: center;
+  -ms-overflow-style: none;
+  overflow: hidden;
+
+  margin: auto;
+
+  /* 미디어 쿼리 적용
+  @media (hover: hover) {
+    width: 390px;
+    margin: 0 auto;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  } */
+}
+
+.bodyWrapper {
+  flex: 1;
+  overflow: auto;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.topBar {
+  background-color: white;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back {
+  width: 40px;
+  height: 40px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+}
+
+.empty {
+  width: 40px;
+  height: 40px;
+  background-color: blue;
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  width: 393px;
+  height: 80px;
+  border-top: 1px solid #a5ec5f;
+  border-bottom: 1px solid #a5ec5f;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.boardImg {
+  width: 30px;
+}
+
+.Btn {
+  width: 80px;
+}
+
+.agree {
+  position: relative;
+  width: 327px;
+  height: 44px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  text-align: center;
+
+  color: #000000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.nim {
+  font-weight: 500;
+  margin-top: 11px;
+  font-size: 20px;
+}
+
+.box {
+  width: 354px;
+  height: 600px;
+  border-radius: 20px;
+  border: 3px solid #a5ec5f;
+  background: #f0ffe4;
+  margin: auto;
+}
+
+.group {
+  position: relative;
+  width: 250px;
+  height: 42px;
+  margin: auto;
+  margin-top: 40px;
+
+  border-radius: 20px;
+  border: 3px solid #a5ec5f;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.title1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39px;
+  text-align: center;
+
+  color: #000000;
+}
+
+.checkDetail {
+  position: relative;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 39px;
+  text-align: center;
+
+  color: #000000;
+
+  margin: auto;
+  margin-top: 15px;
+  width: 200px;
+}
+
+.check-btn {
+  position: absolute;
+  width: 189px;
+  height: 58px;
+  background: #a5ec5f;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  border: none;
+  font-size: 20px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 660px;
+}
