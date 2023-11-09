@@ -64,8 +64,8 @@ def challenge_upload(request):
 
 
 #챌린지 사진 업로드 후 확인
-def challenge_detail(request):
-    chall=OngoingChallenge.objects.last()
+def challenge_detail(request, cId):
+    chall=OngoingChallenge.objects.get(pk=cId)
 
     context = {
         "cImage": chall.cImage,

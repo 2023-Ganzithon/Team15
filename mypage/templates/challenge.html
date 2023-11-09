@@ -28,7 +28,11 @@
 
           {% for challenge in challenges %}
           <div class="challengeBox">
-            <image src="{{ challenge.cImage.url }}" class="img"></image>
+            {% if challenge.cImage %}
+              <image src="{{ challenge.cImage.url }}" class="img"></image>
+            {% else %}
+              <image src=""></image>  <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
+            {% endif %}
             <div class="date">{{ challenge.cDate|date:"F d, Y" }}</div>
             <div class="challengeTitle">{{ challenge.cId.cName }}</div>
           </div>

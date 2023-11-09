@@ -9,7 +9,11 @@
     
     {{ cId }}
     {{ request.user.cSelect }}
-    <img src="{{ cImage.url }}" width="100" height="100"></div>
+    {% if cImage %}
+        <image src="{{ cImage.url }}" class="img"></image>
+    {% else %}
+        <image src=""></image>  <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
+    {% endif %}
     
 
    
