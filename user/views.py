@@ -16,7 +16,7 @@ def signup_view(request):
         if form.is_valid():
             instance = form.save()
 
-            return redirect('main:main_page')#메인페이지로 이동(수정필요)
+            return redirect('user:login')#메인페이지로 이동
 
         return render(request, 'signup.html',{'error': '회원가입 실패'})#회원가입 실패시
         
@@ -28,12 +28,12 @@ def login_view(request):
         form =AuthenticationForm(request, request.POST)
         if form.is_valid():#로그인 인증 성공
             login(request, form.user_cache)
-            return redirect('main')
+            return redirect('main:main_page')
         else:#로그인 실패
            return render(request, 'login.html', {'error': 'username or password is incorrect.'})
         
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)
-    return redirect('main')
+    return redirect('main:main_page')
 
