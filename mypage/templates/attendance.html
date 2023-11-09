@@ -1,31 +1,92 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/css/attendance.css" />
     <title>Attendance Page</title>
-</head>
-<body>
-    <h1>Welcome to the Attendance Page</h1>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bodyWrapper">
+        <div class="body">
+          <div class="topBar">
+            <div class="back">
+              <img
+                src="{% static 'images/back.png' %}"
+                class="back"
+                onClick="goBack()"
+              />
+            </div>
+            <div class="logo"><image></image></div>
+            <div class="empty"></div>
+          </div>
+          <div class="agree">
+            <div class="title">Hello,&nbsp</div>
+            <div class="name">{{ nickname }}</div>
+            <div class="nim">님</div>
+          </div>
 
-    <p>Hello, {{ nickname }}!</p>
+          <div class="box">
+            <div class="group">
+              <div class="title1">이번 주 출석</div>
+            </div>
+            <ol type="1">
+              {% for attendance in attendances %}
+              <li class="checkDetail">
+                {{ attendance.attDate|date:"F d, Y" }}
+              </li>
+              {% empty %}
+              <p>아직 출석 체크를 하지 않으셨어요!</p>
 
-    {% if attended %}
-        <p>이미 출석을 완료하셨어요.</p>
-    {% else %}
-        <form method="post" action="{% url 'mypage:attendance' %}">
-        {% csrf_token %}
-        <input type="submit" value="출석">
-        </form>
-    {% endif %}
+              {% endfor %}
+            </ol>
+            <button type="" class="check-btn">출석 체크</button>
+            <!-- <div class="ment" id="noneDiv">오늘도 환경 지키기 성공!!</div> -->
+          </div>
 
-    <ul>
-        {% for attendance in attendances %}
-            <li>{{ attendance.attDate|date:"F d, Y" }}</li>
-        {% empty %}
-            <li>No attendances recorded for this month.</li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'mypage:mypage' %}">
-        <input type="submit" value="뒤로가기">
-    </form>
-</body>
+          <div class="bottomBar">
+            <div class="Btn">
+              <image
+                src="{% static 'images/messages.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">게시판</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/home.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">숏폼</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/challenge.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">챌린지</div>
+            </div>
+            <div class="Btn" onClick="goMypage()">
+              <image
+                src="{% static 'images/user.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">마이페이지</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goMypage() {
+        window.location.href = "/mypage/";
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
 </html>

@@ -1,0 +1,299 @@
+h1 {
+  width: 229px;
+  height: 31px;
+  left: 82px;
+  top: 65px;
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 30px;
+  font-family: Pretendard;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+select.dropdown1 {
+  height: 34px;
+  left: 25px;
+  width: 165px;
+  top: 123px;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #545454 solid;
+}
+
+select.dropdown2 {
+  height: 34px;
+  left: 205px;
+  width: 165px;
+  top: 123px;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #545454 solid;
+}
+button.board {
+  width: 343px;
+  height: 94px;
+  left: 25px;
+  top: 177px;
+  position: absolute;
+  background: #f0ffe4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 400;
+}
+button.font {
+  width: 305px;
+  left: 44px;
+  top: 192px;
+  position: absolute;
+  color: black;
+  font-size: 18px;
+  font-family: Inter;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+h2 {
+  left: 30px;
+  top: 120px;
+  position: absolute;
+  color: #161616;
+  font-size: 19px;
+  font-family: Pretendard;
+  font-weight: 700;
+  line-height: 26.22px;
+  word-wrap: break-word;
+}
+h3 {
+  left: 27px;
+  top: 171px;
+  position: absolute;
+  color: #161616;
+  font-size: 19px;
+  font-family: Pretendard;
+  font-weight: 600;
+  line-height: 26.22px;
+  word-wrap: break-word;
+}
+p.content {
+  left: 27px;
+  top: 202px;
+  position: absolute;
+  color: #161616;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 18.76px;
+  word-wrap: break-word;
+}
+p.hour {
+  left: 311px;
+  top: 120px;
+  position: absolute;
+  color: #777777;
+  font-size: 10px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 13.8px;
+  word-wrap: break-word;
+}
+img.content_img {
+  width: 334px;
+  height: 245px;
+  left: 26px;
+  top: 237px;
+  position: absolute;
+  background: #d9d9d9;
+}
+
+button.edit {
+  width: 55px;
+  height: 21px;
+  left: 260px;
+  top: 497px;
+  position: absolute;
+  color: #858585;
+  font-size: 10px;
+  font-family: Inter;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+h4 {
+  left: 32px;
+  top: 540px;
+  position: absolute;
+  color: black;
+  font-size: 16px;
+  font-family: Inter;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+p.nick {
+  left: 30px;
+  top: 584px;
+  position: absolute;
+  color: #161616;
+  font-size: 12px;
+  font-family: Pretendard;
+  font-weight: 600;
+  line-height: 16.56px;
+  word-wrap: break-word;
+}
+div.time {
+  left: 94px;
+  top: 586px;
+  position: absolute;
+  color: #858585;
+  font-size: 12px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+button.remove_comment {
+  width: 55px;
+  height: 21px;
+  left: 313px;
+  top: 584px;
+  position: absolute;
+  color: #858585;
+  font-size: 10px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+p.comment_content {
+  width: 340px;
+  left: 30px;
+  top: 612px;
+  position: absolute;
+  color: #161616;
+  font-size: 12px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 15.6px;
+  word-wrap: break-word;
+}
+div.comment1 {
+  width: 345px;
+  height: 42px;
+  left: 19px;
+  top: 770px;
+  position: absolute;
+  border-radius: 5px;
+  border: 1px #a5ec5f solid;
+}
+input.comment1 {
+  width: 345px;
+  height: 30px;
+  left: 70px;
+  top: 5px;
+  position: absolute;
+  border: none;
+}
+label.nonymous {
+  left: 15px;
+  top: 10px;
+  font-size: 14px;
+  font-family: Pretendard;
+}
+button.regi {
+  width: 54px;
+  height: 28px;
+  top: 7px;
+  left: 270px;
+  position: absolute;
+  background: #a5ec5f;
+  border-radius: 5px;
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 19.32px;
+  word-wrap: break-word;
+  border-width: 0;
+}
+img.icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+button.icon {
+  width: 20px;
+  height: 20px;
+  left: 27px;
+  top: 496px;
+  position: absolute;
+  border: none;
+  background: none;
+}
+input.title {
+  width: 312px;
+  height: 50px;
+  left: 32px;
+  top: 134px;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #545454 solid;
+}
+
+textarea {
+  width: 312px;
+  height: 400px;
+  left: 30px;
+  top: 210px;
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  border: 1px #545454 solid;
+}
+button.write {
+  width: 312px;
+  height: 50px;
+  left: 30px;
+  top: 670px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  background: #a5ec5f;
+  border-radius: 5px;
+}
+button.writing {
+  width: 163px;
+  height: 34px;
+  left: 114px;
+  top: 721px;
+  position: absolute;
+  background: #f0ffe4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+button.back {
+  width: 12px;
+  height: 21px;
+  left: 22px;
+  top: 95px;
+  position: absolute;
+  background: none;
+  border: none;
+}
+div.filebox {
+  width: 312px;
+  height: 50px;
+  left: 30px;
+  top: 614px;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  font-size: 12;
+  font-family: Pretendard;
+  border-radius: 5px;
+}
