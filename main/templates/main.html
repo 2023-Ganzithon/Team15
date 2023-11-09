@@ -1,42 +1,489 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Main Page</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메인 페이지</title>
+    <style>
+      .container {
+        /* width: 393px;
+        height: 852px; */
+        /* background: red; */
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+        text-align: center;
+        -ms-overflow-style: none;
+        overflow: hidden;
 
-    <!-- Display the Weekly Material -->
-    <h2>이번주 재료</h2>
-    <p>{{ week_material }}</p>
+        /* 미디어 쿼리 적용
+        @media (hover: hover) {
+          width: 390px;
+          margin: 0 auto;
+        }
 
-    <!-- Display the Most Liked Posts -->
-    <h2># 인기 많은</h2>
-    <ul>
-        {% for post in most_liked %}
-            <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
-                <p{{ post.userId.nickname }}></p>
-                <img src="{{ post.image.url }}">
-            </li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'main:sort_like' %}">
-        <input type="submit" value="좋아요 순 더보기">
-    </form>
+        &::-webkit-scrollbar {
+          display: none;
+        } */
+      }
 
-    <!-- Display the Most Buyed Posts -->
-    <h2># 런칭 가능성 있는</h2>
-    <ul>
-        {% for post in most_buyed %}
-            <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
-                <p{{ post.userId.nickname }}></p>
-                <img src="{{ post.image.url }}">
-            </li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'main:sort_buy' %}">
-        <input type="submit" value="살래요 순 더보기">
-    </form>
-</body>
+      .bodyWrapper {
+        flex: 1;
+        overflow: auto;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
+      .topBar {
+        background-color: white;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .back {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        background-color: blue;
+      }
+
+      .empty {
+        width: 40px;
+        height: 40px;
+        background-color: blue;
+      }
+
+      .bottomBar {
+        height: 80px;
+        position: relative;
+        border: none;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid #a5ec5f;
+        border-bottom: 1px solid #a5ec5f;
+        background-color: white;
+      }
+
+      .topicBox {
+        width: 354px;
+        height: 54px;
+        border-radius: 20px;
+        border: 1px solid #a5ec5f;
+        background: #f0ffe4;
+        margin: auto;
+        margin-top: 10px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .topic {
+        width: 158px;
+        height: 30px;
+
+        color: #728263;
+        text-align: center;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+
+      .realTopic {
+        width: 140px;
+        height: 30px;
+
+        color: #728263;
+        text-align: center;
+        font-family: Inter;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+      }
+
+      .agreeBox {
+        width: 354px;
+        height: 111px;
+        border-radius: 20px;
+        border: 1px solid #a5ec5f;
+        background: #f0ffe4;
+        margin: auto;
+        margin-top: 20px;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .agreeMent {
+        color: #728263;
+
+        font-family: Inter;
+        font-size: 25px;
+        font-style: normal;
+        font-weight: bold;
+        line-height: 40px;
+        width: 217px;
+        height: 79px;
+      }
+
+      .goCheck {
+        width: 95px;
+        height: 66.939px;
+
+        background: #a5ec5f;
+        border: 1px solid #a5ec5f;
+        border-radius: 20px;
+
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .rankBox {
+        width: 354px;
+        height: 480px;
+        border-radius: 20px;
+        border: 1px solid #a5ec5f;
+        background: #f0ffe4;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        font-size: 15px;
+        line-height: 1.3;
+      }
+      ul {
+        list-style: none;
+      }
+      .tabmenu {
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+      }
+      .tabmenu ul {
+        position: relative;
+      }
+      .tabmenu ul li {
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        line-height: 40px;
+        width: 153px;
+        height: 49px;
+        margin-top: 10px;
+      }
+      .tabmenu label {
+        display: block;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+      }
+      .tabmenu input {
+        display: none;
+      }
+      .tabCon {
+        display: none;
+        width: 100%;
+        height: 410px;
+        padding: 20px;
+        position: absolute;
+        left: 0;
+        margin: auto;
+        top: 40px;
+        box-sizing: border-box;
+        margin-top: 30px;
+      }
+      .tabmenu input:checked ~ label {
+        background: #ccc;
+      }
+      .tabmenu input:checked ~ .tabCon {
+        display: block;
+      }
+      .tab1 {
+        width: 153px;
+        height: 49px;
+        left: calc(50% - 153px / 2 - 84px);
+        top: 290px;
+
+        background: #ffffff;
+        border: 1px solid #728263;
+        border-radius: 20px;
+
+        margin-top: 10px;
+      }
+
+      .tab1,
+      .tab2 {
+        width: 50%; /* 레이아웃이 1:1로 정렬되도록 너비를 50%로 설정 */
+        height: 49px;
+        background: #f0ffe4;
+        border: 1px solid #a5ec5f;
+        border-radius: 20px;
+        font-weight: bold;
+      }
+
+      .rank {
+        width: 250px;
+        height: 92px;
+        border-radius: 20px;
+        border: 1px solid #a5ec5f;
+
+        background: #fff;
+        margin-left: 59px;
+        margin-bottom: 20px;
+      }
+
+      .rankNum {
+        position: absolute;
+        width: 40px;
+        margin-left: -154px;
+        margin-top: 23.5px;
+      }
+
+      .rankNum2 {
+        position: absolute;
+        width: 40px;
+        margin-left: -154px;
+        margin-top: 140px;
+      }
+
+      .rankNum3 {
+        position: absolute;
+        width: 40px;
+        margin-left: -154px;
+        margin-top: 256.5px;
+      }
+
+      .title {
+        position: absolute;
+        width: 150px;
+        height: 20px;
+        color: #728263;
+
+        font-family: Inter;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: bold;
+        line-height: normal;
+        text-align: left;
+
+        margin-left: 10px;
+        margin-top: 20px;
+      }
+
+      .writer {
+        position: absolute;
+        width: 150px;
+        height: 20px;
+        color: #728263;
+
+        font-family: Inter;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: bold;
+        line-height: normal;
+        text-align: left;
+
+        margin-left: 10px;
+        margin-top: 44px;
+      }
+
+      .thumbnail {
+        position: absolute;
+        width: 90px;
+        height: 78px;
+        border-radius: 10px;
+        border: 1px solid #a5ec5f;
+        margin-top: 5.5px;
+        margin-left: 20px;
+        object-fit: cover;
+      }
+
+      .plusBtn {
+        width: 30.625px;
+        height: 15px;
+        margin: auto;
+        margin-top: 8px;
+      }
+
+      .boardImg {
+        width: 30px;
+      }
+
+      .Btn {
+        width: 80px;
+      }
+
+      .plusbtn {
+        background: none;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bodyWrapper">
+        <div class="body">
+          <div class="topBar">
+            <div class="back">
+              <img src="{% static 'images/back.png' %}" class="back" />
+            </div>
+            <div class="logo"><image></image></div>
+            <div class="empty"></div>
+          </div>
+
+          <div class="topicBox">
+            <div class="topic">⭐ TOPIC ⭐</div>
+            <div class="realTopic">{{ week_material }}</div>
+          </div>
+
+          <div class="agreeBox">
+            <div class="agreeMent">안녕하세요 이름님, 오늘도 환영합니다!</div>
+            <button class="goCheck">
+              출석 체크<br />
+              하러 가기
+            </button>
+          </div>
+
+          <div class="rankBox">
+            <div class="tabmenu out-tabmenu">
+              <ul>
+                <li id="tab1" class="btnCon">
+                  <input type="radio" checked name="tabmenu" id="tabmenu1" />
+                  <label for="tabmenu1" class="tab1">좋아요 ❤️</label>
+                  <div class="tabCon">
+                    <image
+                      src="{% static 'images/1.png' %}"
+                      class="rankNum"
+                    ></image>
+                    <image
+                      src="{% static 'images/2.png' %}"
+                      class="rankNum2"
+                    ></image>
+                    <image
+                      src="{% static 'images/3.png' %}"
+                      class="rankNum3"
+                    ></image>
+                    {% for post in most_liked %}
+                    <a href="{% url 'post:post_detail' post.id %}"
+                      ><div class="rank">
+                        <div class="title">{{ post.title }}</div>
+                        <div class="writer">{{ post.userId.nickname }}</div>
+                        <image
+                          src="{{ post.image.url }}"
+                          class="thumbnail"
+                        ></image></div
+                    ></a>
+                    {% endfor %}
+
+                    <form method="get" action="{% url 'main:sort_like' %}">
+                      <button type="submit" class="plusbtn">
+                        <image
+                          src="{% static 'images/plus.png' %}"
+                          class="plusBtn"
+                        ></image>
+                      </button>
+                    </form>
+                  </div>
+                </li>
+
+                <li id="tab2" class="btnCon">
+                  <input type="radio" name="tabmenu" id="tabmenu2" />
+                  <label for="tabmenu2" class="tab1">살래요 🛍️</label>
+                  <div class="tabCon">
+                    <image
+                      src="{% static 'images/1.png' %}"
+                      class="rankNum"
+                    ></image>
+                    <image
+                      src="{% static 'images/2.png' %}"
+                      class="rankNum2"
+                    ></image>
+                    <image
+                      src="{% static 'images/3.png' %}"
+                      class="rankNum3"
+                    ></image>
+                    {% for post in most_buyed %}
+                    <a href="{% url 'post:post_detail' post.id %}"
+                      ><div class="rank">
+                        <div class="title">{{ post.title }}</div>
+                        <div class="writer">{{ post.userId.nickname }}</div>
+                        <image
+                          src="{{ post.image.url }}"
+                          class="thumbnail"
+                        ></image></div
+                    ></a>
+                    {% endfor %}
+                    <form method="get" action="{% url 'main:sort_buy' %}">
+                      <button type="submit" class="plusbtn">
+                        <image
+                          src="{% static 'images/plus.png' %}"
+                          class="plusBtn"
+                        ></image>
+                      </button>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bottomBar">
+            <div class="Btn">
+              <image
+                src="{% static 'images/messages.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">게시판</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/home.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">숏폼</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/challenge.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">챌린지</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/user.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">마이페이지</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
