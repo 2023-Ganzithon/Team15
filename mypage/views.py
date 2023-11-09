@@ -23,12 +23,12 @@ def mypage_view(request):
         b_empty = True
         challenges = OngoingChallenge.objects.filter(userId = nowuser)
         try:
-            challenge_rate = len(challenges.filter(cCheck=True))/len(challenges)
+            challenge_rate = len(challenges.filter(cCheck=True))/len(challenges) * 100
         except:
             challenge_rate = 0
         if challenges.filter(cDate__year=year, cDate__month=month, cDate__day=day).exists():
             c_empty = False
-            challenge = challenges.filter(cDate__year=year, cDate__month=month, cDate__day=day)
+            challenge = challenges.filter(cDate__year=year, cDate__month=month, cDate__day=day).latest('id')
         if Post.objects.filter(bookmark = nowuser).exists():
             bookmark = Post.objects.filter(bookmark = nowuser).latest('id')
             b_empty = False
