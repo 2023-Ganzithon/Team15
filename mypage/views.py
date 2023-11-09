@@ -57,19 +57,32 @@ def attendance_view(request):
         nowuser = CustomUser.objects.get(username = request.user.username)
         nickname = nowuser.nickname
         
-        if Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month, attDate__day=day).exists():
-            attended = True
-        if request.method == 'POST':
-            att = Attendance(userId=nowuser)
-            att.save()
         days_until_monday = (current_date.weekday()) % 7  # 월요일까지 남은 일 수
         if days_until_monday == 0:
             week_start = current_date - timedelta(hours=current_date.hour, minutes=current_date.minute, seconds=current_date.second)
         else:
             week_start = current_date - timedelta(days=days_until_monday, hours=current_date.hour, minutes=current_date.minute, seconds=current_date.second)
         week_end = week_start + timedelta(days=6, hours=23, minutes=59, seconds=59)
+        
+        if Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month, attDate__day=day).exists():
+            attended = True
+        else:
+            if request.method == 'POST':
+                att = Attendance(userId=nowuser)
+                att.save()
+                nowuser.coin += 1
+                month_count = len(Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month))
+                if month_count % 7 == 0 and month_count != 0:
+                    nowuser.coin += 5
+                attendances = Attendance.objects.filter(Q(userId = nowuser) & Q(attDate__gte=week_start) & Q(attDate__lte=week_end))
+                context = {
+                    'nickname' : nickname,
+                    'attendances' : attendances,
+                    'attended' : attended
+                }
+                return render(request, 'attendance.html', context)
 
-        attendances = Attendance.objects.filter(Q(attDate__gte=week_start) & Q(attDate__lte=week_end))
+        attendances = Attendance.objects.filter(Q(userId = nowuser) & Q(attDate__gte=week_start) & Q(attDate__lte=week_end))
         context = {
             'nickname' : nickname,
             'attendances' : attendances,
