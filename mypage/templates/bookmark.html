@@ -1,28 +1,82 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Bookmark Page</title>
-</head>
-<body>
-    <h1>Welcome to the Bookmark Page</h1>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/css/bookmark.css" />
+    <title>저장 목록</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bodyWrapper">
+        <a class="body">
+          <div class="topBar">
+            <div class="back">
+              <img
+                src="{% static 'images/back.png' %}"
+                class="back"
+                onClick="goBack()"
+              />
+            </div>
+            <div class="logo"><image></image></div>
+            <div class="empty"></div>
+          </div>
 
-    <p>Hello, {{ nickname }}!</p>
+          <div class="save">저장 목록</div>
+          <!-- <div class="latest">최신순</div> -->
 
-    <h2>Your Bookmarked Posts</h2>
-    <ul>
-        {% for post in bookmarks %}
-            <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
-                <p>{{ post.content }}</p>
-                <p>{{ post.userId.nickname }}
-                <img src="{{ post.image.url }}">
-            </li>
-        {% empty %}
-            <li>No bookmarked posts yet.</li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'mypage:mypage' %}">
-        <input type="submit" value="뒤로가기">
-    </form>
-</body>
+          {% for post in bookmarks %}
+          <div class="saveBox">
+            <image src="{{ post.image.url }}" class="img"></image>
+            <div class="saveTitle">{{ post.title }}</div>
+            <div class="saveWriter">{{ post.userId.nickname }}</div>
+          </div>
+          {% empty %}
+          <p>No bookmarked posts yet.</p>
+          {% endfor %}
+
+          <div class="bottomBar">
+            <div class="Btn">
+              <image
+                src="{% static 'images/messages.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">게시판</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/home.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">숏폼</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/challenge.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">챌린지</div>
+            </div>
+            <div class="Btn" onClick="goMypage()">
+              <image
+                src="{% static 'images/user.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">마이페이지</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goMypage() {
+        window.location.href = "/mypage/";
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
 </html>
