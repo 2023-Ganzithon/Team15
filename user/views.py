@@ -15,14 +15,14 @@ def signup_view(request):
         
         if form.is_valid():
             instance = form.save()
-            return redirect('test')#메인페이지로 이동(수정필요)
+            return redirect('main:main_page')#메인페이지로 이동(수정필요)
         return render(request, 'signup.html',{'error': '회원가입 실패'})#회원가입 실패시
         
 
 def login_view(request):
     if request.method == 'GET':#로그인 HTML응답
         return render(request, 'login.html')
-    else:#POST
+    else: #POST
         form =AuthenticationForm(request, request.POST)
         if form.is_valid():#로그인 인증 성공
             login(request, form.user_cache)
