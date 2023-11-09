@@ -13,7 +13,11 @@
         <div class="body">
           <div class="topBar">
             <div class="back">
-              <img src="{% static 'images/back.png' %}" class="back" />
+              <img
+                src="{% static 'images/back.png' %}"
+                class="back"
+                onClick="goBack()"
+              />
             </div>
             <div class="logo"><image></image></div>
             <div class="empty"></div>
@@ -104,7 +108,7 @@
               ></image>
               <div class="boardName">챌린지</div>
             </div>
-            <div class="Btn">
+            <div class="Btn" onClick="goMypage()">
               <image
                 src="{% static 'images/user.png' %}"
                 class="boardImg"
@@ -115,5 +119,14 @@
         </div>
       </div>
     </div>
+    <script>
+      function goMypage() {
+        window.location.href = "/mypage/";
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
   </body>
 </html>
