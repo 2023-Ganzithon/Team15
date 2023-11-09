@@ -6,8 +6,8 @@
 <div>내용: {{ post.content }}</div>
 <div><img src="{{ post.image.url }}" width="100" height="100"></div>
 
-{% if video.videoKey %}
-    <div>비디오키: {{ video.videoKey }}</div> <!-- 실제 구현은 js 통해 비디오 출력 -->
+{% if post.videoKey %}
+    <div>비디오키: {{ post.videoKey }}</div> <!-- 실제 구현은 js 통해 비디오 출력 -->
 {% endif %}
 
 <!-- 좋아요 / 살래요 / 북마크 버튼 -->

@@ -1,52 +1,13 @@
-{% for post_info in related_posts_list %}
-    <div>비디오 키: {{ post_info.post.video_set.first.videoKey }}</div>
+{% for post_status in posts_status %}
+    <!-- 숏폼에서도 해당 게시글 제목 표시 및 클릭 시 상세 페이지 이동 -->
+    <form method="GET" action="{% url 'post:post_detail' postId=post_status.post.pk%}">
+        {% csrf_token %}
+        <button type="submit">{{ post_status.post.title }}</button>
+    </form>
 
-        <!-- 좋아요 / 살래요 / 북마크 버튼 -->
-        <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
-        <div><img src="{{ post_info.post.image.url }}" width="100" height="100"></div>
-        <div>
-            {% if request.user in post_info.liked_user %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='like_cancel' %}">
-                    {% csrf_token %}
-                    <button type="submit">좋아요 취소</button>
-                </form>
-            {% else %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='like' %}">
-                    {% csrf_token %}
-                    <button type="submit">좋아요</button>
-                </form>
-            {% endif %}
-        </div>
-        <div>
-            {% if request.user in post_info.buy_user %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='buy_cancel' %}">
-                    {% csrf_token %}
-                    <button type="submit">살래요 취소</button>
-                </form>
-            {% else %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='buy' %}">
-                    {% csrf_token %}
-                    <button type="submit">살래요</button>
-                </form>
-            {% endif %}
-        </div>
-        <div>
-            {% if request.user in post_info.bookmarked_user %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='bookmark_cancel' %}">
-                    {% csrf_token %}
-                    <button type="submit">북마크 취소</button>
-                </form>
-            {% else %}
-                <form method="GET" action="{% url 'post:post_status' postId=post_info.post.pk status='bookmark' %}">
-                    {% csrf_token %}
-                    <button type="submit">북마크</button>
-                </form>
-            {% endif %}
-        </div>
-
-        <br>
-        <!--댓글 출력 코드입니다.-->
-        {% for comment in post_info.comments %}
+    <!--댓글 출력 코드입니다.-->
+    {% for comment in comments %}
+        {% if comment.postId == post_status.post %}
             <div>{{ comment.title }}</div>
 
             <!-- False = 실명제 -> 작성자 출력 -->
@@ -63,7 +24,52 @@
                     <button type="submit">삭제하기</button>
                 </form>
             {% endif %}
-        {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+
+    <!-- 좋아요 / 살래요 / 북마크 버튼 -->
+    <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
+
+    <div>
+        {% if request.user in post_status.liked_user %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='like_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">좋아요 취소</button>
+            </form>
+        {% else %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='like' %}">
+                {% csrf_token %}
+                <button type="submit">좋아요</button>
+            </form>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user in post_status.buy_user %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='buy_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">살래요 취소</button>
+            </form>
+        {% else %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='buy' %}">
+                {% csrf_token %}
+                <button type="submit">살래요</button>
+            </form>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user in post_status.bookmarked_user %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">북마크 취소</button>
+            </form>
+        {% else %}
+            <form method="GET" action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark' %}">
+                {% csrf_token %}
+                <button type="submit">북마크</button>
+            </form>
+        {% endif %}
+    </div>
+
     <hr>
 {% endfor %}
-
