@@ -26,7 +26,7 @@ def login_view(request):
         form =AuthenticationForm(request, request.POST)
         if form.is_valid():#로그인 인증 성공
             login(request, form.user_cache)
-            return redirect('test')#메인 페이지로 이동(수정필요)
+            return redirect('main:main_page')#메인 페이지로 이동(수정필요)
         else:#로그인 실패
            return render(request, 'login.html', {'error': 'username or password is incorrect.'})
         

@@ -7,13 +7,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from main.models import Material, WeeklyMaterial
 from post.models import Post, Comment
 
-# 유저 별 게시글 좋아요 / 살래요 / 북마크 상태
+# 유저 별 좋아요 / 살래요 / 북마크 누른 게시글 리스트
 def post_list_status(request):
     liked_posts = Post.objects.filter(like=request.user)
     buy_posts = Post.objects.filter(buy=request.user)
     bookmarked_posts = Post.objects.filter(bookmark=request.user)
 
     return liked_posts, buy_posts, bookmarked_posts
+
+# 특정 게시글에 좋아요 / 살래요 / 북마크 누른 유저 리스트
+def post_list_status_user(post):
+    liked_user = post.like.all()  # 게시글에 좋아요 누른 유저
+    buy_user = post.buy.all()  # 게시글에 살래요 누른 유저
+    bookmarked_user = post.bookmark.all()  # 게시글에 북마크 누른 유저
+
+    return liked_user, buy_user, bookmarked_user
 
 # post_form.html의 작성하기 / 수정하기 버튼 변경 위한 메소드
 def determine_edit_mode(user, postId):
@@ -43,7 +51,9 @@ def post_list_view(request):
             'materials': materials
         }
 
-    return render(request, 'post_list.html', context)
+        return render(request, 'post_list.html', context)
+
+
 
 
 # 게시글 상세 조회
@@ -52,9 +62,7 @@ def post_detail_view(request, postId):
     post = get_object_or_404(Post, pk=postId)
     comments = Comment.objects.filter(postId=post)
 
-    liked_user = post.like.all()  # 게시글에 좋아요 누른 유저
-    buy_user = post.buy.all()  # 게시글에 살래요 누른 유저
-    bookmarked_user = post.bookmark.all()  # 게시글에 북마크 누른 유저
+    liked_user, buy_user, bookmarked_user = post_list_status_user(post)
 
     context = {
         "post": post,
@@ -225,9 +233,7 @@ def post_status_view(request, postId, status):
             post = get_object_or_404(Post, pk=postId)
             comments = Comment.objects.filter(postId=post)
 
-            liked_user = post.like.all() # 게시글에 좋아요 누른 유저
-            buy_user = post.buy.all() # 게시글에 살래요 누른 유저
-            bookmarked_user = post.bookmark.all() # 게시글에 북마크 누른 유저
+            liked_user, buy_user, bookmarked_user = post_list_status_user(post)
 
             # 상태 변경
             if (status == 'like_cancel'):
@@ -269,9 +275,7 @@ def video_list_view(request):
 
         for post in posts:
             post = post
-            liked_user = post.like.all()  # 게시글에 좋아요 누른 유저
-            buy_user = post.buy.all()  # 게시글에 살래요 누른 유저
-            bookmarked_user = post.bookmark.all()  # 게시글에 북마크 누른 유저
+            liked_user, buy_user, bookmarked_user = post_list_status_user(post)
 
             post_status = {
                 'post':post,
