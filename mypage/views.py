@@ -8,7 +8,6 @@ from challenge.models import OngoingChallenge
 def mypage_view(request):
     if request.user.is_authenticated:
         nowuser = CustomUser.objects.get(username = request.user.username)
-        attended = False
         current_date = datetime.now()
         year = current_date.year
         month = current_date.month
@@ -32,19 +31,12 @@ def mypage_view(request):
         if Post.objects.filter(bookmark = nowuser).exists():
             bookmark = Post.objects.filter(bookmark = nowuser).latest('id')
             b_empty = False
-        if Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month, attDate__day=day).exists():
-            attended = True
-        # POST 요청 시 출석체크 후 마이페이지 로딩(attended = True일 때는 화면에서 아예 출석체크 버튼 비활성화해서 post 못 하게 하기)
-        if request.method == 'POST':
-            att = Attendance(userId=nowuser)
-            att.save()
         # GET 요청 시 마이페이지 로딩
         context = {
             'nickname' : nickname,
             'coin' : coin,
             'date' : date,
             'postcnt' : postcnt,
-            'attended' : attended,
             'challenge' : challenge,
             'bookmark' : bookmark,
             'c_empty' : c_empty,
@@ -57,9 +49,19 @@ def mypage_view(request):
 
 def attendance_view(request):
     if request.user.is_authenticated:
+        attended = False
+        current_date = datetime.now()
+        year = current_date.year
+        month = current_date.month
+        day = current_date.day
         nowuser = CustomUser.objects.get(username = request.user.username)
         nickname = nowuser.nickname
-        current_date = datetime.now()
+        
+        if Attendance.objects.filter(userId = nowuser, attDate__year=year, attDate__month=month, attDate__day=day).exists():
+            attended = True
+        if request.method == 'POST':
+            att = Attendance(userId=nowuser)
+            att.save()
         days_until_monday = (current_date.weekday()) % 7  # 월요일까지 남은 일 수
         if days_until_monday == 0:
             week_start = current_date - timedelta(hours=current_date.hour, minutes=current_date.minute, seconds=current_date.second)
@@ -70,7 +72,8 @@ def attendance_view(request):
         attendances = Attendance.objects.filter(Q(attDate__gte=week_start) & Q(attDate__lte=week_end))
         context = {
             'nickname' : nickname,
-            'attendances' : attendances
+            'attendances' : attendances,
+            'attended' : attended
         }
         return render(request, 'attendance.html', context)
     return redirect('user:login') # 로그인 페이지로 이동

@@ -8,6 +8,15 @@
 
     <p>Hello, {{ nickname }}!</p>
 
+    {% if attended %}
+        <p>이미 출석을 완료하셨어요.</p>
+    {% else %}
+        <form method="post" action="{% url 'mypage:attendance' %}">
+        {% csrf_token %}
+        <input type="submit" value="출석">
+        </form>
+    {% endif %}
+
     <ul>
         {% for attendance in attendances %}
             <li>{{ attendance.attDate|date:"F d, Y" }}</li>
