@@ -1,70 +1,136 @@
-{% block content %}
-<div>
-<!--    필터링 토글 입니다.-->
-    <form method="POST" action="{% url 'post:post_filtered' %}">
-        {% csrf_token %}
-          <select name="material" value="{{ post.material }}">
-              <option value="all">전체</option>
-              {% for material in materials %}
-                  <option value="{{ material.material }}">{{ material.material }}</option>
-              {% endfor %}
-          </select>
-          <select name="status" value="{{ status }}">
-              <option value="all">최신순</option>
-              <option value="like">좋아요</option>
-              <option value="buy">살래요</option>
-          </select>
-          <button type="submit">검색</button>
-    </form>
+{%load static%}
+<!DOCTYPE html>
+<html lang="ko">
 
-<!--    게시글 출력 코드입니다.-->
-    <hr>
-    {% if posts %}
-        {% for post in posts %}
-<!--        게시글 제목 클릭 시 상세 페이지로 이동합니다.-->
-<!--        구현은 제목 말고 게시글 div 클릭하면 이동하도록 수정해주세요.-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" href="../../static/css/board.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="iphone-frame">
+        <div class="all">
+            {% block content %}
+            <h1>재활용 게시판</h1>
+            <form method="POST" action="{% url 'post:post_filtered' %}">
+                {% csrf_token %}
+                <select class="dropdown1" name="material" value="{{ post.material }}">
+                    <option value="all">전체</option>
+                    {% for material in materials %}
+
+                    <option value="{{ material.material }}">{{ material.material }}</option>
+                    {% endfor %}
+
+                </select>
+
+                <select class="dropdown2" name="status" value="{{ status }}">
+                    <option value="like">좋아요 랭킹</option>
+                    <option value="buy">살래요 랭킹</option>
+                    <option value="all">최신순</option>
+                    <button type="submit">검색</button>
+                </select>
+            </form>
+            <!--    게시글 출력 코드입니다.-->
+            <hr>
+
+            {% if posts %}
+            {% for post in posts %}
+            <!--        게시글 제목 클릭 시 상세 페이지로 이동합니다.-->
+            <!--        구현은 제목 말고 게시글 div 클릭하면 이동하도록 수정해주세요.-->
             <form method="GET" action="{% url 'post:post_detail' postId=post.pk%}">
                 {% csrf_token %}
-                <button type="submit">{{ post.title }}</button>
+                <button type="submit" class="board">{{ post.title }}
+
+
+                    <div>
+                        {% if post in liked_posts %}
+                        <img src="{%static 'images/blackheart.png'%}" class="icon" style="top: 56px; left: 17px"
+                            alt="검정하트">
+                        {% else %}
+                        <img class="icon" style="top: 56px; left: 17px" src="{%static 'images/heart.png'%}" alt="하트">
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if post in buy_posts %}
+                        <img class="icon" style="top: 56px; left: 37px" src="{%static 'images/blackbuy.svg'%}"
+                            alt="검정가방">
+                        {% else %}
+                        <img class="icon" style="top: 56px; left: 37px" src="{%static 'images/buy.svg'%}" alt="가방">
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if post in bookmarked_posts %}
+                        <img class="icon" style="top: 56px; left: 57px" src="{%static 'images/blackbookmark.png'%}"
+                            alt="검정북마크">
+                        {% else %}
+                        <img class="icon" style="top: 56px; left: 57px" src="{%static 'images/bookmark.png'%}"
+                            alt="북마크">
+                        {% endif %}
+                    </div>
+                </button>
+
+            </form>
+            {% endfor %}
+
+            {% else %}
+            <div>검색 결과가 없습니다.</div>
+            {% endif %}
+
+            <hr>
+            <!--게시글 작성 페이지로 이동하는 버튼입니다.-->
+            <form method="GET" action="{% url 'post:post_create' %}">
+                {% csrf_token %}
+                <button class="writing" type="submit">글 작성하기</button>
             </form>
 
-<!--        좋아요 / 살래요 / 북마크 여부를 출력하는 코드입니다.-->
-<!--        좋아요 텍스트 부분에는 채워진 하트를, null 텍스트 부분은 비워진 하트 이미지 넣어주시면 됩니다.-->
-            <div>
-                {% if post in liked_posts %}
-                    좋아요
-                {% else %}
-                    null
-                {% endif %}
-            </div>
+        </div>
+        {% endblock %}
 
-            <div>
-                {% if post in buy_posts %}
-                    살래요
-                {% else %}
-                    null
-                {% endif %}
-            </div>
-            <div>
-                {% if post in bookmarked_posts %}
-                    북마크
-                {% else %}
-                    null
-                {% endif %}
-            </div>
-            <hr>
-        {% endfor %}
 
-    {% else %}
-        <div>검색 결과가 없습니다.</div>
-    {% endif %}
+        <nav class="하단바">
+            <div class="하단바선"></div>
 
-<hr>
-<!--게시글 작성 페이지로 이동하는 버튼입니다.-->
-    <form method="GET" action="{% url 'post:post_create' %}">
-        {% csrf_token %}
-        <button type="submit">글 작성하기</button>
-    </form>
+            <button class="하단바게시판구역" style="cursor: pointer;" onclick="location.href='../board/board.html'">
+                <div class="하단바게시판이미지">
+                    <img src="{%static 'images/messages.svg'%}" />
+                </div>
+                <div class="하단바폰트">게시판</div>
+            </button>
 
-</div>
-{% endblock %}
+            <button class="하단바숏폼구역" style="cursor: pointer;" onclick="location.href='../home/home.html'">
+                <div class="하단바숏폼이미지">
+                    <img src="{%static 'images/home.svg'%}" />
+                </div>
+                <div class="하단바폰트">숏폼</div>
+            </button>
+
+            <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge/challenge.html'">
+                <div class="하단바챌린지이미지">
+                    <img src="{%static 'images/frame.svg'%}" />
+
+                    <div class=" 하단바폰트">챌린지
+                    </div>
+            </button>
+
+            <button class="하단바마이페이지구역" style="cursor: pointer;" onclick="location.href='../commu/commu.html'">
+                <div class="하단바마이페이지이미지">
+                    <img src="{%static 'images/user.svg'%}" />
+                </div>
+                <div class="하단바폰트">마이페이지</div>
+            </button>
+
+            <div class="하단바선" style="bottom: 0px"></div>
+        </nav>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+h1 {
+  width: 229px;
+  height: 31px;
+  left: 82px;
+  top: 65px;
+  position: absolute;
+  text-align: center;
+  color: black;
+  font-size: 30px;
+  font-family: Pretendard;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.iphone-frame {
+  width: 390px;
+  height: 844px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0, 1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div.all {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: white;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+/*하단바*/
+nav {
+  width: 390px;
+  height: 67px;
+  justify-content: center;
+  bottom: 0px;
+  position: fixed;
+  background: #fcfcfc;
+}
+.하단바선 {
+  width: 100%;
+  height: 0px;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  border: 0.5px #d9d9d9 solid;
+}
+.하단바폰트 {
+  width: 100%;
+  top: 33px;
+  left: 0px;
+  position: absolute;
+  text-align: center;
+  color: #6a6a6a;
+  font-size: 11px;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 15.18px;
+  word-wrap: break-word;
+}
+.하단바게시판구역 {
+  width: 46px;
+  height: 46px;
+  left: 51px;
+  top: 10px;
+  position: absolute;
+  border: none;
+  background: none;
+}
+.하단바게시판이미지 {
+  width: 32px;
+  height: 32px;
+  left: 7px;
+  top: 0px;
+  position: absolute;
+}
+.하단바숏폼구역 {
+  width: 32px;
+  height: 47px;
+  left: 140px;
+  top: 10px;
+  position: absolute;
+  border: none;
+  background: none;
+}
+.하단바숏폼이미지 {
+  width: 32px;
+  height: 32px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+}
+.하단바챌린지구역 {
+  width: 53px;
+  height: 47px;
+  left: 210px;
+  top: 10px;
+  position: absolute;
+  border: none;
+  background: none;
+}
+.하단바챌린지이미지 {
+  width: 32px;
+  height: 32px;
+  left: 10.5px;
+  top: 0px;
+  position: absolute;
+}
+
+.하단바마이페이지구역 {
+  width: 53px;
+  height: 47px;
+  left: 290px;
+  top: 10px;
+  position: absolute;
+  border: none;
+  background: none;
+}
+.하단바마이페이지이미지 {
+  width: 32px;
+  height: 32px;
+  left: 10.5px;
+  top: 0px;
+  position: absolute;
+}
