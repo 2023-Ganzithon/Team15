@@ -43,14 +43,14 @@
               {% endfor %}
             </ol>
             {% if attended %}
-                <p>이미 출석을 완료하셨어요.</p>
+            <p>이미 출석을 완료하셨어요.</p>
             {% else %}
-                <form method="post" action="{% url 'mypage:attendance' %}">
-                {% csrf_token %}
-                <input type="submit" value="출석">
-                </form>
+            <form method="post" action="{% url 'mypage:attendance' %}">
+              {% csrf_token %}
+              <button type="submit" class="check-btn">출석 체크</button>
+            </form>
             {% endif %}
-            <button type="" class="check-btn">출석 체크</button>
+            <!-- <button type="submit" class="check-btn">출석 체크</button> -->
             <!-- <div class="ment" id="noneDiv">오늘도 환경 지키기 성공!!</div> -->
           </div>
 
