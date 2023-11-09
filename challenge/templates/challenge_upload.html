@@ -1,8 +1,9 @@
 <div>
-  <form method="POST" action="{% url 'challenge:challenge_upload' %}">
+  
+  <form method="POST" action="{% url 'challenge:challenge_upload' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ cId }}
-    <div><input type="file" name="image" value="{{ post.image }}"></div>
+    <div><input type="file" name="cImage" value="{{ post.image }}"></div>
     <div><button type="submit">작성하기</button></div>
   </form>
 </div>
