@@ -24,4 +24,5 @@ urlpatterns = [
     path('mypage/', include('mypage.urls')),
     path('main/', include('main.urls')),
     path('post/', include('post.urls')),
+    path('challenge/', include('challenge.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {{ cId }}
+    {{ request.user.cSelect }}
+    <form method="POST">
+        {% csrf_token %}
+        
+        <br><br>
+        <input type="submit" class="btn btn-primary" value="재선택">
+    </form>
+    
+    <form method="GET" action="{% url 'challenge:challenge_upload' %}">
+        {% csrf_token %}    
+        <div> 글 작성 페이지로</div>
+            
+            <form><button type ='submit'> 이동</button></form>
+    </form>
+</body>
+</html>
