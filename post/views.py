@@ -41,17 +41,21 @@ def post_list_view(request):
     # 게시글 전체 조회
     if request.method == 'GET':
         posts = Post.objects.all()
-        liked_posts, buy_posts, bookmarked_posts = post_list_status(request)
 
-        context = {
-            'posts': posts,
-            'liked_posts': liked_posts,
-            'buy_posts': buy_posts,
-            'bookmarked_posts': bookmarked_posts,
-            'materials': materials
-        }
+        if request.user.is_authenticated:
+            liked_posts, buy_posts, bookmarked_posts = post_list_status(request)
 
-        return render(request, 'post_list.html', context)
+            context = {
+                'posts': posts,
+                'liked_posts': liked_posts,
+                'buy_posts': buy_posts,
+                'bookmarked_posts': bookmarked_posts,
+                'materials': materials
+            }
+
+            return render(request, 'post_list.html', context)
+
+        return render(request, 'post_list.html', context={"posts":posts})
 
 
 
