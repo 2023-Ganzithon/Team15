@@ -103,146 +103,159 @@ def post_filtered_view(request):
 
 
 # 게시글 생성
-@login_required
 def post_create_view(request):
+    if request.user.is_authenticated:
+        material = WeeklyMaterial.objects.latest("week")
 
-    material = WeeklyMaterial.objects.latest("week")
+        # 생성 폼 반환
+        if request.method == 'GET':
+            return render(request, 'post_form.html')
 
-    # 생성 폼 반환
-    if request.method == 'GET':
+        # 게시글, 비디오 생성
+        if request.method == 'POST':
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            image = request.FILES.get('image')
+            videoKey = request.POST.get('videoKey')
+
+            Post.objects.create(
+                userId=request.user,
+                material=material,
+                title=title,
+                content=content,
+                image=image,
+                videoKey=videoKey
+            )
+
+            return redirect('post:post_list')
         return render(request, 'post_form.html')
 
-    # 게시글, 비디오 생성
-    if request.method == 'POST':
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        image = request.FILES.get('image')
-        videoKey = request.POST.get('videoKey')
-
-        Post.objects.create(
-            userId=request.user,
-            material=material,
-            title=title,
-            content=content,
-            image=image,
-            videoKey=videoKey
-        )
-
-        return redirect('post:post_list')
-
-    return render(request, 'post_form.html')
+    return redirect('user:login')
 
 
 # 게시글 수정
-@login_required
 def post_update_view(request, postId):
-    # 게시글 찾기
-    post = get_object_or_404(Post, pk=postId)
-    comments = Comment.objects.filter(postId=post)
-    edit_mode = determine_edit_mode(request.user, postId)
+    if request.user.is_authenticated:
+        # 게시글 찾기
+        post = get_object_or_404(Post, pk=postId)
+        comments = Comment.objects.filter(postId=post)
+        edit_mode = determine_edit_mode(request.user, postId)
 
-    # 수정 폼 반환
-    if request.method == 'GET':
-        return render(request, "post_form.html", context={"post":post, "edit_mode":edit_mode})
+        # 수정 폼 반환
+        if request.method == 'GET':
+            return render(request, "post_form.html", context={"post":post, "edit_mode":edit_mode})
 
-    if request.method == 'POST':
-        # 수정
-        title = request.POST.get('title')
-        content = request.POST.get('content')
-        image = request.FILES.get('image')
-        videoKey = request.POST.get('videoKey')
+        if request.method == 'POST':
+            # 수정
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+            image = request.FILES.get('image')
+            videoKey = request.POST.get('videoKey')
 
-        if image is None:
-            # 새로운 이미지가 제출되지 않은 경우 기존 이미지 유지
-            image = post.image
+            if image is None:
+                # 새로운 이미지가 제출되지 않은 경우 기존 이미지 유지
+                image = post.image
 
-        post.title = title
-        post.content = content
-        post.image = image
-        post.videoKey = videoKey
+            post.title = title
+            post.content = content
+            post.image = image
+            post.videoKey = videoKey
 
-        post.save()
+            post.save()
 
-        return render(request, "post_detail.html", context={"post": post, "comments":comments})
+            return render(request, "post_detail.html", context={"post": post, "comments":comments})
+
+    return redirect('user:login')
 
 
 # 게시글 삭제
 def post_delete_view(request, postId):
-    post = get_object_or_404(Post, pk=postId)
-    post.delete()
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=postId)
+        post.delete()
 
-    return redirect('post:post_list')
+        return redirect('post:post_list')
+
+    return redirect('user:login')
 
 
 # 댓글 생성
-@login_required
 def comment_create_view(request, postId):
-    post = get_object_or_404(Post, pk=postId)
-    content = request.POST.get('content')
-    anonymousText = request.POST.get('anonymous')
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=postId)
+        content = request.POST.get('content')
+        anonymousText = request.POST.get('anonymous')
 
-    if anonymousText == 'on': # 익명 여부 체크
-        anonymous = True # 익명
-    else:
-        anonymous = False # 실명
+        if anonymousText == 'on': # 익명 여부 체크
+            anonymous = True # 익명
+        else:
+            anonymous = False # 실명
 
-    Comment.objects.create(
-        userId=request.user,
-        postId=post,
-        content=content,
-        anonymous=anonymous
-    )
+        Comment.objects.create(
+            userId=request.user,
+            postId=post,
+            content=content,
+            anonymous=anonymous
+        )
 
-    return redirect('post:post_detail', postId=postId)
+        return redirect('post:post_detail', postId=postId)
+
+    return redirect('user:login')
 
 
 # 댓글 삭제
 def comment_delete_view(request, commentId):
-    comment = get_object_or_404(Comment, pk=commentId)
-    post = comment.postId
-    comment.delete()
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=commentId)
+        post = comment.postId
+        comment.delete()
 
-    comments = Comment.objects.filter(postId=post)
+        comments = Comment.objects.filter(postId=post)
 
-    return render(request, "post_detail.html", context={"post": post, "comments":comments})
+        return render(request, "post_detail.html", context={"post": post, "comments":comments})
+
+    return redirect('user:login')
+
 
 # 좋아요 / 살래요 / 북마크
 def post_status_view(request, postId, status):
+    if request.user.is_authenticated:
+        if request.method == 'GET':
+            user = request.user
+            post = get_object_or_404(Post, pk=postId)
+            comments = Comment.objects.filter(postId=post)
 
-    if request.method == 'GET':
-        user = request.user
-        post = get_object_or_404(Post, pk=postId)
-        comments = Comment.objects.filter(postId=post)
+            liked_user = post.like.all() # 게시글에 좋아요 누른 유저
+            buy_user = post.buy.all() # 게시글에 살래요 누른 유저
+            bookmarked_user = post.bookmark.all() # 게시글에 북마크 누른 유저
 
-        liked_user = post.like.all() # 게시글에 좋아요 누른 유저
-        buy_user = post.buy.all() # 게시글에 살래요 누른 유저
-        bookmarked_user = post.bookmark.all() # 게시글에 북마크 누른 유저
+            # 상태 변경
+            if (status == 'like_cancel'):
+                post.like.remove(user)
+            elif (status == 'like'):
+                post.like.add(user)
 
-        # 상태 변경
-        if (status == 'like_cancel'):
-            post.like.remove(user)
-        elif (status == 'like'):
-            post.like.add(user)
+            if (status == 'buy_cancel'):
+                post.buy.remove(user)
+            elif (status == 'buy'):
+                post.buy.add(user)
 
-        if (status == 'buy_cancel'):
-            post.buy.remove(user)
-        elif (status == 'buy'):
-            post.buy.add(user)
+            if (status == 'bookmark_cancel'):
+                post.bookmark.remove(user)
+            elif (status == 'bookmark'):
+                post.bookmark.add(user)
 
-        if (status == 'bookmark_cancel'):
-            post.bookmark.remove(user)
-        elif (status == 'bookmark'):
-            post.bookmark.add(user)
-
-        context = {
-            "post": post,
-            "comments": comments,
-            "liked_user": liked_user,
-            "buy_user": buy_user,
-            "bookmarked_user": bookmarked_user,
-        }
+            context = {
+                "post": post,
+                "comments": comments,
+                "liked_user": liked_user,
+                "buy_user": buy_user,
+                "bookmarked_user": bookmarked_user,
+            }
 
         return render(request, "post_detail.html", context)
+
+    return redirect('user:login')
 
 
 # 동영상 전체 조회 (숏폼)

@@ -4,7 +4,7 @@
 {% block content %}
 <div class="wrapper" style="text-align: center;">
     <h1>회원가입</h1>
-    <form method="POST">
+    <form method="POST" >
         {% csrf_token %}
         아이디: <br>
         <input name="username" type="text">
