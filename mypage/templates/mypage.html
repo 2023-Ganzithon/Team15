@@ -1,46 +1,132 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>My Page</title>
-</head>
-<body>
-    <h2>User Information</h2>
-    <p>{{ nickname }}님</p>
-    <p>Coins: {{ coin }}원</p>
-    <p>환경을 사랑한지 {{ date }} 일</p>
-    <p>나의 포스팅 {{ postcnt }} 건</p>
-    <p>오늘 진행 중인 챌린지
-        {% if c_empty %}
-            <p>진행 중인 챌린지가 없습니다.</p>
-        {% else %}
-            <strong>{{ challenge.cId.cName }}</strong> <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
-            <img src="{{ challenge.cImage.url }}">
-            <p>진행 상태 {{ challenge.cCheck }}</p>
-        {% endif %}
-    </p>
-    <p>챌린지 성공률 {{ challenge_rate }} %</p>
-    <form method="get" action="{% url 'mypage:challenge' %}">
-        <input type="submit" value="챌린지 더보기">
-    </form>
-    <p>나의 저장 목록
-        {% if b_empty %}
-            <p>북마크한 글이 없습니다.</p>
-        {% else %}
-            <a href="{% url 'post:post_detail' bookmark.id %}">{{ bookmark.title }}</a>
-            <p>{{ bookmark.content }}</p>
-            <img src="{{ bookmark.image.url }}">
-        {% endif %}
-    </p>
-    <form method="get" action="{% url 'mypage:bookmark' %}">
-        <input type="submit" value="저장목록 더보기">
-    </form>
-    {% if attended %}
-        <p>이미 출석을 완료하셨어요.</p>
-    {% else %}
-        <form method="post" action="{% url 'mypage:attendance' %}">
-            {% csrf_token %}
-            <input type="submit" value="출석">
-        </form>
-    {% endif %}
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/css/mypage.css" />
+    <title>마이페이지</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bodyWrapper">
+        <div class="body">
+          <div class="topBar">
+            <div class="back">
+              <img
+                src="{% static 'images/back.png' %}"
+                class="back"
+                onClick="goBack()"
+              />
+            </div>
+            <div class="logo"><image></image></div>
+            <div class="empty"></div>
+          </div>
+
+          <div class="profileBox">
+            <div class="logoBig"></div>
+            <div class="nameG">
+              <div class="name">{{ nickname }}</div>
+              <div class="name1">님</div>
+            </div>
+            <div class="coinG">
+              <div class="coinImg">🪙</div>
+              <div class="coin">{{ coin }}</div>
+              <div class="won">원</div>
+            </div>
+          </div>
+
+          <div class="secondBox">
+            <div class="loveG">
+              <div class="love">환경을 사랑한 지</div>
+              <div class="date">{{ date }}</div>
+              <div class="ill">일</div>
+            </div>
+            <div class="line"></div>
+            <div class="postG">
+              <div class="myPosting">나의 포스팅</div>
+              <div class="posting">{{ postcnt }}</div>
+              <div class="gun">건</div>
+            </div>
+          </div>
+
+          <div class="challenge">CHALLENGE</div>
+          <form method="get" action="{% url 'mypage:challenge' %}">
+            <button type="submit" class="plusBtn">더보기></button>
+          </form>
+          <div class="challengeBox">
+            <div class="title">< 오늘 진행 중인 챌린지 ></div>
+            <div class="challengeTitle">
+              {% if c_empty %} 진행 중인 챌린지가 없습니다. {% else %} {{
+              challenge.cId.cName }}
+              <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
+              <!-- <img src="{{ challenge.cImage.url }}"> -->
+              <!-- <p>진행 상태 {{ challenge.cCheck }}</p> -->
+              {% endif %}
+            </div>
+            <div class="line2"></div>
+            <div class="success">챌린지 성공률</div>
+            <div class="number">{{ challenge_rate }}</div>
+            <div class="percent">%</div>
+          </div>
+
+          <div class="saveList">나의 저장 목록</div>
+          <form method="get" action="{% url 'mypage:bookmark' %}">
+            <button type="submit" class="plusBtn">더보기></button>
+          </form>
+          {% if b_empty %}
+          <p>북마크한 글이 없습니다.</p>
+          {% else %}
+          <a href="{% url 'post:post_detail' bookmark.id %}">
+            <div class="saveBox">
+              <image src="{{ bookmark.image.url }}" class="saveImg"></image>
+              <div class="saveTitle">{{ bookmark.title }}</div>
+              <div class="saveWriter">{{ bookmark.content }}</div>
+            </div></a
+          >
+          {% endif %}
+
+          <div class="bottomBar">
+            <div class="Btn">
+              <image
+                src="{% static 'images/messages.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">게시판</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/home.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">숏폼</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/challenge.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">챌린지</div>
+            </div>
+            <div class="Btn" onClick="goMypage()">
+              <image
+                src="{% static 'images/user.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">마이페이지</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goMypage() {
+        window.location.href = "/mypage/";
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
 </html>

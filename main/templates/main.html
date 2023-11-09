@@ -1,42 +1,168 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Main Page</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/css/main.css" />
+    <title>메인 페이지</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bodyWrapper">
+        <div class="body">
+          <div class="topBar">
+            <div class="back">
+              <img
+                src="{% static 'images/back.png' %}"
+                class="back"
+                onClick="goBack()"
+              />
+            </div>
+            <div class="logo"><image></image></div>
+            <div class="empty"></div>
+          </div>
 
-    <!-- Display the Weekly Material -->
-    <h2>이번주 재료</h2>
-    <p>{{ week_material }}</p>
+          <div class="topicBox">
+            <div class="topic">⭐ TOPIC ⭐</div>
+            <div class="realTopic">{{ week_material }}</div>
+          </div>
 
-    <!-- Display the Most Liked Posts -->
-    <h2># 인기 많은</h2>
-    <ul>
-        {% for post in most_liked %}
-            <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
-                <p{{ post.userId.nickname }}></p>
-                <img src="{{ post.image.url }}">
-            </li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'main:sort_like' %}">
-        <input type="submit" value="좋아요 순 더보기">
-    </form>
+          <div class="agreeBox">
+            <div class="agreeMent">
+              어서오세요,<br />
+              오늘도 환영합니다!
+            </div>
+            <button class="goCheck">
+              출석 체크<br />
+              하러 가기
+            </button>
+          </div>
 
-    <!-- Display the Most Buyed Posts -->
-    <h2># 런칭 가능성 있는</h2>
-    <ul>
-        {% for post in most_buyed %}
-            <li>
-                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
-                <p{{ post.userId.nickname }}></p>
-                <img src="{{ post.image.url }}">
-            </li>
-        {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'main:sort_buy' %}">
-        <input type="submit" value="살래요 순 더보기">
-    </form>
-</body>
+          <div class="rankBox">
+            <div class="tabmenu out-tabmenu">
+              <ul>
+                <li id="tab1" class="btnCon">
+                  <input type="radio" checked name="tabmenu" id="tabmenu1" />
+                  <label for="tabmenu1" class="tab1">좋아요 ❤️</label>
+                  <div class="tabCon">
+                    <image
+                      src="{% static 'images/1.png' %}"
+                      class="rankNum"
+                    ></image>
+                    <image
+                      src="{% static 'images/2.png' %}"
+                      class="rankNum2"
+                    ></image>
+                    <image
+                      src="{% static 'images/3.png' %}"
+                      class="rankNum3"
+                    ></image>
+                    {% for post in most_liked %}
+                    <a href="{% url 'post:post_detail' post.id %}"
+                      ><div class="rank">
+                        <div class="title">{{ post.title }}</div>
+                        <div class="writer">{{ post.userId.nickname }}</div>
+                        <image
+                          src="{{ post.image.url }}"
+                          class="thumbnail"
+                        ></image></div
+                    ></a>
+                    {% endfor %}
+
+                    <form method="get" action="{% url 'main:sort_like' %}">
+                      <button type="submit" class="plusbtn">
+                        <image
+                          src="{% static 'images/plus.png' %}"
+                          class="plusBtn"
+                        ></image>
+                      </button>
+                    </form>
+                  </div>
+                </li>
+
+                <li id="tab2" class="btnCon">
+                  <input type="radio" name="tabmenu" id="tabmenu2" />
+                  <label for="tabmenu2" class="tab1">살래요 🛍️</label>
+                  <div class="tabCon">
+                    <image
+                      src="{% static 'images/1.png' %}"
+                      class="rankNum"
+                    ></image>
+                    <image
+                      src="{% static 'images/2.png' %}"
+                      class="rankNum2"
+                    ></image>
+                    <image
+                      src="{% static 'images/3.png' %}"
+                      class="rankNum3"
+                    ></image>
+                    {% for post in most_buyed %}
+                    <a href="{% url 'post:post_detail' post.id %}"
+                      ><div class="rank">
+                        <div class="title">{{ post.title }}</div>
+                        <div class="writer">{{ post.userId.nickname }}</div>
+                        <image
+                          src="{{ post.image.url }}"
+                          class="thumbnail"
+                        ></image></div
+                    ></a>
+                    {% endfor %}
+                    <form method="get" action="{% url 'main:sort_buy' %}">
+                      <button type="submit" class="plusbtn">
+                        <image
+                          src="{% static 'images/plus.png' %}"
+                          class="plusBtn"
+                        ></image>
+                      </button>
+                    </form>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bottomBar">
+            <div class="Btn">
+              <image
+                src="{% static 'images/messages.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">게시판</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/home.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">숏폼</div>
+            </div>
+            <div class="Btn">
+              <image
+                src="{% static 'images/challenge.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">챌린지</div>
+            </div>
+            <div class="Btn" onClick="goMypage()">
+              <image
+                src="{% static 'images/user.png' %}"
+                class="boardImg"
+              ></image>
+              <div class="boardName">마이페이지</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function goMypage() {
+        window.location.href = "../mypage/";
+      }
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+  </body>
 </html>
