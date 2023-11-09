@@ -6,7 +6,7 @@
       <div><input type="text" name="title" value="{{ post.title }}"/></div>
       <div><input type="textarea" name="content" value="{{ post.content }}"/></div>
       <div><input type="file" name="image" value="{{ post.image }}"></div>
-      <div><input type="text" name="videoKey" value="{{ video.videoKey }}"/></div>
+      <div><input type="text" name="videoKey" value="{{ post.videoKey }}"/></div>
       <div><button type="submit">수정하기</button></div>
     </form>
   <!--생성-->
@@ -16,7 +16,7 @@
       <div><input type="text" name="title" value="{{ post.title }}" placeholder="제목을 입력해주세요."/></div>
       <div><input type="textarea" name="content" value="{{ post.content }}" placeholder="내용을 입력해주세요."/></div>
       <div><input type="file" name="image" value="{{ post.image }}"></div>
-      <div><input type="text" name="videoKey" value="{{ video.videoKey }}" placeholder="비디오 키를 입력해주세요."/></div>
+      <div><input type="text" name="videoKey" value="{{ post.videoKey }}" placeholder="비디오 키를 입력해주세요."/></div>
       <div><button type="submit">작성하기</button></div>
     </form>
   {% endif %}
