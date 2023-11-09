@@ -52,7 +52,7 @@ def mypage_view(request):
             'challenge_rate' : challenge_rate
         }
         return render(request, 'mypage.html', context)
-    return redirect('login_view') # 로그인 페이지로 이동
+    return redirect('user:login') # 로그인 페이지로 이동
 
 
 def attendance_view(request):
@@ -73,7 +73,7 @@ def attendance_view(request):
             'attendances' : attendances
         }
         return render(request, 'attendance.html', context)
-    return redirect('login_view') # 로그인 페이지로 이동
+    return redirect('user:login') # 로그인 페이지로 이동
 
 
 def challenge_view(request):
@@ -86,7 +86,7 @@ def challenge_view(request):
             'challenges' : challenges
         }
         return render(request, 'challenge.html', context)
-    return redirect('login_view') # 로그인 페이지로 이동
+    return redirect('user:login') # 로그인 페이지로 이동
         
         
 def bookmark_view(request):
@@ -99,4 +99,4 @@ def bookmark_view(request):
             'bookmarks' : bookmarks
         }
         return render(request, 'bookmark.html', context)
-    return redirect('login_view') # 로그인 페이지로 이동
+    return redirect('user:login') # 로그인 페이지로 이동

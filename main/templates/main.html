@@ -14,19 +14,29 @@
     <ul>
         {% for post in most_liked %}
             <li>
-                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
+                <p{{ post.userId.nickname }}></p>
+                <img src="{{ post.image.url }}">
             </li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'main:sort_like' %}">
+        <input type="submit" value="좋아요 순 더보기">
+    </form>
 
     <!-- Display the Most Buyed Posts -->
     <h2># 런칭 가능성 있는</h2>
     <ul>
         {% for post in most_buyed %}
             <li>
-                <a href="{% url '' post.id %}">{{ post.title }}</a> <!-- 포스트url로 수정해야 함 -->
+                <a href="{% url 'post:post_detail' post.id %}">{{ post.title }}</a>
+                <p{{ post.userId.nickname }}></p>
+                <img src="{{ post.image.url }}">
             </li>
         {% endfor %}
     </ul>
+    <form method="get" action="{% url 'main:sort_buy' %}">
+        <input type="submit" value="살래요 순 더보기">
+    </form>
 </body>
 </html>
