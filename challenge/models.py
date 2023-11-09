@@ -5,7 +5,7 @@ from django.db import models
 class OngoingChallenge(models.Model):
     cCheck = models.BooleanField(default=False) # True = 성공/False = 실패
     cDate = models.DateTimeField(auto_now_add=True)
-    cImage = models.ImageField(null=False)
+    cImage = models.ImageField()
     cId = models.ForeignKey('challenge.challenge', on_delete=models.CASCADE)
     userId = models.ForeignKey('user.CustomUser', on_delete=models.CASCADE)
 
