@@ -1,6 +1,6 @@
 .container {
   /* width: 393px;
-    height: 852px; */
+  height: 852px; */
   /* background: red; */
   display: flex;
   flex-direction: column;
@@ -10,15 +10,15 @@
   -ms-overflow-style: none;
   overflow: hidden;
 
-  /* 미디어 s쿼리 적용
-    @media (hover: hover) {
-      width: 390px;
-      margin: 0 auto;
-    }
+  /* 미디어 쿼리 적용
+  @media (hover: hover) {
+    width: 390px;
+    margin: 0 auto;
+  }
 
-    &::-webkit-scrollbar {
-      display: none;
-    } */
+  &::-webkit-scrollbar {
+    display: none;
+  } */
 }
 
 .bodyWrapper {
