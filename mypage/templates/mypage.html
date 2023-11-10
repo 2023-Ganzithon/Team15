@@ -24,7 +24,17 @@
           </div>
 
           <div class="profileBox">
-            <div class="logoBig"></div>
+            <div class="logoBig">
+              {% if top_percentage <= 5 %}
+                🌲
+              {% elif top_percentage <= 15 %}
+                🌳
+              {% elif top_percentage <= 30 %}
+                🌿
+              {% else %}
+                🌱
+              {% endif %}
+            </div>
             <div class="nameG">
               <div class="name">{{ nickname }}</div>
               <div class="name1">님</div>
