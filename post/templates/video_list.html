@@ -4,30 +4,32 @@
     <form method="GET" action="{% url 'post:post_detail' postId=post_status.post.pk %}">
         {% csrf_token %}
         <button type="submit">{{ post_status.post.title }}</button>
-    </form>
+      </form> -->
 
-    <!--댓글 출력 코드입니다.-->
-    {% for comment in comments %}
-        {% if comment.postId == post_status.post %}
-            <div>{{ comment.title }}</div>
+      <!-- 영상 출력 코드입니다. -->
+      <div id="player" class="shorts-container"></div>
 
-            <!-- False = 실명제 -> 작성자 출력 -->
-            {% if not comment.anonymous %}}
-                <div>{{ comment.userId.nickname }}</div>
-            {% endif %}
+      <!--댓글 출력 코드입니다.-->
+      {% for comment in comments %} {% if comment.postId == post_status.post %}
+      <div>{{ comment.title }}</div>
 
-            <div>{{ comment.regTime|date:"Y.m.d H:i" }}</div>
-            <div>{{ comment.content }}</div>
+      <!-- False = 실명제 -> 작성자 출력 -->
+      {% if not comment.anonymous %}
+      <div>{{ comment.userId.nickname }}</div>
+      {% endif %}
 
-            {% if request.user == comment.userId %}
-                <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk %}">
-                    {% csrf_token %}
-                    <button type="submit">삭제하기</button>
-                </form>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
+      <div>{{ comment.regTime|date:"Y.m.d H:i" }}</div>
+      <div>{{ comment.content }}</div>
 
+      {% if request.user == comment.userId %}
+      <form
+        method="GET"
+        action="{% url 'post:comment_delete' commentId=comment.pk %}"
+      >
+        {% csrf_token %}
+        <button type="submit">삭제하기</button>
+      </form>
+      {% endif %} {% endif %} {% endfor %}
 
     <!-- 좋아요 / 살래요 / 북마크 버튼 -->
     <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
@@ -72,5 +74,22 @@
         {% endif %}
     </div>
 
-    <hr>
-{% endfor %}
+        <hr />
+        {% endfor %}
+
+        <!-- <div class="Btn">
+          <image src="{% static 'images/heart.png' %}" class="boardImg"></image>
+        </div>
+        <div class="Btn">
+          <image src="{% static 'images/bag.png' %}" class="boardImg"></image>
+        </div>
+        <div class="Btn">
+          <image src="{% static 'images/chat.png' %}" class="boardImg"></image>
+        </div>
+        <div class="Btn">
+          <image src="{% static 'images/save.png' %}" class="boardImg"></image>
+        </div> -->
+      </div>
+    </div>
+  </body>
+</html>
