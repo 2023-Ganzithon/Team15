@@ -24,7 +24,17 @@
           </div>
 
           <div class="profileBox">
-            <div class="logoBig"></div>
+            <div class="logoBig">
+              {% if top_percentage <= 5 %}
+                🌲
+              {% elif top_percentage <= 15 %}
+                🌳
+              {% elif top_percentage <= 30 %}
+                🌿
+              {% else %}
+                🌱
+              {% endif %}
+            </div>
             <div class="nameG">
               <div class="name">{{ nickname }}</div>
               <div class="name1">님</div>
@@ -57,8 +67,11 @@
           <div class="challengeBox">
             <div class="title">< 오늘 진행 중인 챌린지 ></div>
             <div class="challengeTitle">
-              {% if c_empty %} 진행 중인 챌린지가 없습니다. {% else %} 
-              <a href="{% url 'challenge:challenge_detail' challenge.id %}">{{ challenge.cId.cName }}</a>
+              {% if c_empty %} 진행 중인 챌린지가 없습니다. {% else %} {{
+              challenge.cId.cName }}
+              <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
+              <!-- <img src="{{ challenge.cImage.url }}"> -->
+              <!-- <p>진행 상태 {{ challenge.cCheck }}</p> -->
               {% endif %}
             </div>
             <div class="line2"></div>

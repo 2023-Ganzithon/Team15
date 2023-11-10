@@ -1,110 +1,7 @@
-{% load static %}
-
-<html>
-  <head>
-    <title>Video Detail</title>
-    <link
-      rel="stylesheet"
-      href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"
-    />
-    <style>
-      .container {
-        width: 393px;
-        height: 852px;
-        /* background: red; */
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        position: relative;
-        text-align: center;
-        -ms-overflow-style: none;
-        overflow: hidden;
-
-        margin: auto;
-
-        /* 미디어 쿼리 적용
-        @media (hover: hover) {
-          width: 390px;
-          margin: 0 auto;
-        }
-    
-        &::-webkit-scrollbar {
-          display: none;
-        } */
-      }
-
-      .back {
-        width: 40px;
-        height: 40px;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-      }
-
-      .bottomBar {
-        position: fixed;
-        bottom: 0;
-        width: 393px;
-        height: 80px;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        background-color: white;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-      }
-
-      .boardImg {
-        width: 30px;
-      }
-
-      .Btn {
-        width: 80px;
-      }
-
-      .shorts-container {
-        width: 393px;
-        height: 802px;
-        background-color: blue;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <image class="back" src="{% static 'images/back.png' %}"></image>
-      {% for post_status in posts_status %}
-      <!-- <div>비디오 키: {{ post_status.post.videoKey }}</div> -->
-
-      <script>
-        var videoKey = "{{ post_status.post.videoKey }}";
-        console.log("Video Key:", videoKey);
-
-        var tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-
-        var firstScriptTag = document.getElementsByTagName("script")[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-          player = new YT.Player("player", {
-            height: "781",
-            width: "393",
-            videoId: videoKey,
-          });
-        }
-      </script>
-
-      <!-- 숏폼에서도 해당 게시글 제목 표시 및 클릭 시 상세 페이지 이동 -->
-      <!-- <form
-        method="GET"
-        action="{% url 'post:post_detail' postId=post_status.post.pk%}"
-      >
+{% for post_status in posts_status %}
+    <div>비디오 키: {{ post_status.post.videoKey }}</div>
+<!-- 숏폼에서도 해당 게시글 제목 표시 및 클릭 시 상세 페이지 이동 -->
+    <form method="GET" action="{% url 'post:post_detail' postId=post_status.post.pk %}">
         {% csrf_token %}
         <button type="submit">{{ post_status.post.title }}</button>
       </form> -->
@@ -134,97 +31,48 @@
       </form>
       {% endif %} {% endif %} {% endfor %}
 
-      <!-- 좋아요 / 살래요 / 북마크 버튼 -->
-      <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
-      <div class="bottomBar">
-        <div>
-          {% if request.user in post_status.liked_user %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='like_cancel' %}"
-          >
-            {% csrf_token %}
+    <!-- 좋아요 / 살래요 / 북마크 버튼 -->
+    <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
 
-            <button type="submit">
-              <image
-                src="{% static 'images/heart.png' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% else %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='like' %}"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              <image
-                src="{% static 'images/blackheart.png' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% endif %}
-        </div>
-        <div>
-          {% if request.user in post_status.buy_user %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='buy_cancel' %}"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              <image
-                src="{% static 'images/bag.png' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% else %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='buy' %}"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              <image
-                src="{% static 'images/blackbuy.svg' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% endif %}
-        </div>
-        <div>
-          {% if request.user in post_status.bookmarked_user %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark_cancel' %}"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              <image
-                src="{% static 'images/save.png' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% else %}
-          <form
-            method="GET"
-            action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark' %}"
-          >
-            {% csrf_token %}
-            <button type="submit">
-              <image
-                src="{% static 'images/balckbookmark.png' %}"
-                class="boardImg"
-              ></image>
-            </button>
-          </form>
-          {% endif %}
-        </div>
+    <div>
+        {% if request.user in post_status.liked_user %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='like_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">좋아요 취소</button>
+            </form>
+        {% else %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='like' %}">
+                {% csrf_token %}
+                <button type="submit">좋아요</button>
+            </form>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user in post_status.buy_user %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='buy_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">살래요 취소</button>
+            </form>
+        {% else %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='buy' %}">
+                {% csrf_token %}
+                <button type="submit">살래요</button>
+            </form>
+        {% endif %}
+    </div>
+    <div>
+        {% if request.user in post_status.bookmarked_user %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark_cancel' %}">
+                {% csrf_token %}
+                <button type="submit">북마크 취소</button>
+            </form>
+        {% else %}
+            <form method="POST" action="{% url 'post:post_status' postId=post_status.post.pk status='bookmark' %}">
+                {% csrf_token %}
+                <button type="submit">북마크</button>
+            </form>
+        {% endif %}
+    </div>
 
         <hr />
         {% endfor %}
