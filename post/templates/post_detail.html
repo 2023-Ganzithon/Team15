@@ -36,11 +36,12 @@
 
                 <!-- 게시글 작성 / 수정 버튼 -->
                 <!--작성자에게만 보임-->
+                {% if request.user == post.userId %}
                 <form method="GET" action="{% url 'post:post_delete' postId=post.pk %}">
                     {% csrf_token %}
                     <button class="edit" type="submit" style="left: 313px">글 삭제</button>
                 </form>
-                {% if request.user == post.userId %}
+
                 <form method="GET" action="{% url 'post:post_update' postId=post.pk %}">
                     {% csrf_token %}
                     <button class="edit" type="submit">글 수정</button>
@@ -54,14 +55,14 @@
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like_cancel' %}">
                         {% csrf_token %}
                         <button class="icon" type="submit">
-                            <img class="icon" src="{%static 'images/heart.png'%}" alt="하트">
+                            <img class="icon" src="{%static 'images/blackheart.png'%}" alt="검정하트">
                         </button>
                     </form>
                     {% else %}
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like' %}">
                         {% csrf_token %}
                         <button class="icon" type="submit">
-                            <img class="icon" src="{%static 'images/blackheart.png'%}" alt="검정하트">
+                            <img class="icon" src="{%static 'images/heart.png'%}" alt="하트">
                         </button>
                     </form>
 
@@ -74,14 +75,14 @@
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy_cancel' %}">
                         {% csrf_token %}
                         <button class="icon" style="left: 58px;" type="submit">
-                            <img class="icon" src="{%static 'images/buy.svg'%}" alt="사고싶다">
+                            <img class="icon" src="{%static 'images/blackbuy.svg'%}" alt="사고싶다">
                         </button>
                     </form>
                     {% else %}
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy' %}">
                         {% csrf_token %}
                         <button class="icon" style="left: 58px;" type="submit">
-                            <img class="icon" src="{%static 'images/blackbuy.svg'%}" alt="사고싶다">
+                            <img class="icon" src="{%static 'images/buy.svg'%}" alt="사고싶다">
                         </button>
                     </form>
                     {% endif %}
@@ -92,14 +93,14 @@
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark_cancel' %}">
                         {% csrf_token %}
                         <button class="icon" style="left: 98px" type="submit">
-                            <img class="icon" src="{%static 'images/bookmark.png'%}" alt="북마크">
+                            <img class="icon" src="{%static 'images/blackbookmark.svg'%}" alt="북마크">
                         </button>
                     </form>
                     {% else %}
                     <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark' %}">
                         {% csrf_token %}
                         <button class="icon" style="left: 98px" type="submit">
-                            <img class="icon" src="{%static 'images/blackbookmark.svg'%}" alt="북마크">
+                            <img class="icon" src="{%static 'images/bookmark.png'%}" alt="북마크">
                         </button>
 
                     </form>

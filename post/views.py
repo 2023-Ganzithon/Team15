@@ -224,7 +224,7 @@ def comment_delete_view(request, commentId):
 
         comments = Comment.objects.filter(postId=post)
 
-        return render(request, "post_detail.html", context={"post": post, "comments":comments})
+        return redirect('post:post_detail', postId=post.pk)
 
     return redirect('user:login')
 
@@ -263,7 +263,7 @@ def post_status_view(request, postId, status):
                 "bookmarked_user": bookmarked_user,
             }
 
-        return render(request, "post_detail.html", context)
+        return redirect('post:post_detail', postId=post.pk)
 
     return redirect('user:login')
 
