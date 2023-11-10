@@ -92,7 +92,7 @@ def mypage_view(request):
             'c_empty' : c_empty,
             'b_empty' : b_empty,
             'challenge_rate' : challenge_rate,
-            'top_percentage' : top_percentage,
+            'top_percentage' : int(top_percentage),
             'coin_message' : coin_message
         }
         return render(request, 'mypage.html', context)
