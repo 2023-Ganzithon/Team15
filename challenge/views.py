@@ -86,10 +86,12 @@ def challenge_upload(request, Id):
 #챌린지 사진 업로드 후 확인
 def challenge_detail(request, Id):
     chall=OngoingChallenge.objects.get(pk=Id)
-    check=False
     user = request.user
-    if request.method == 'POST' and check == False and chall.cCheck == True:
+    
+    if request.method == 'POST' and chall.cCheck == True and chall.uCheck == False:
         check=True
+        chall.uCheck=True
+        chall.save()
         user.coin+=1
         user.save()
     context = {
@@ -98,7 +100,7 @@ def challenge_detail(request, Id):
         "cCheck": chall.cCheck,
         "cId": chall.cId,
         "userId":chall.userId,
-        "check":check,
+        "check":chall.uCheck,
         
     }
 
