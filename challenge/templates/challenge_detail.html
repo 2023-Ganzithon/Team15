@@ -1,31 +1,104 @@
+{%load static%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/chall.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
 </head>
-<body>
-    
-    {{ cId }}
-    {{ request.user.cSelect }}
-    {% if check %}
-    <div> 챌린지 성공</div>
-    {% else %}
-    <div> 챌린지 결과 대기중</div>
-    <form method="POST" >
-        {% csrf_token %}
-        <div> 챌린지 진행 확인하기</div>
-        <div><button type = 'submit'> 확인</button></div>
-    </form>
-    {% endif %}
-    {% if cImage %}
-        <image src="{{ cImage.url }}" class="img"></image>
-    {% else %}
-        <image src=""></image>  <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
-    {% endif %}
-    
 
-   
+
+<body>
+    <div class="iphone-frame">
+        <div class="all">
+            <h1>챌린지</h1>
+
+
+
+
+
+
+            <button class="mission" style="top:602px;">
+                {% if check %}
+                <div> 챌린지 성공</div>
+                {% else %}
+                <div> 챌린지 결과 대기중</div>
+            </button>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div> 챌린지 진행 확인하기</div>
+                <div><button type='submit'> 확인</button></div>
+
+
+
+
+                <p class="line"></p>
+                <button class="challenge" id="Button1" style="top:180px;">
+                    {{ cId }}
+                    {{ request.user.cSelect }}
+                </button>
+            </form>
+
+            {% endif %}
+            {% if cImage %}
+            <img src="{{ cImage.url }}" style="width: 334px;
+            height: 245px;
+            left: 30px;
+            top: 322px;
+            position: absolute;" />
+
+
+
+            {% else %}
+            <image src=""></image> <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
+            {% endif %}
+
+
+
+
+
+
+            <nav class="하단바">
+                <div class="하단바선"></div>
+
+                <button class="하단바게시판구역" style="cursor: pointer;" onclick="location.href='../board/board.html'">
+                    <div class="하단바게시판이미지">
+                        <img src="{%static 'images/messages.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">게시판</div>
+                </button>
+
+                <button class="하단바숏폼구역" style="cursor: pointer;" onclick="location.href='../home/home.html'">
+                    <div class="하단바숏폼이미지">
+                        <img src="{%static 'images/home.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">숏폼</div>
+                </button>
+
+                <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge/challenge.html'">
+                    <div class="하단바챌린지이미지">
+                        <img src="{%static 'images/frame.svg'%}" />
+
+                        <div class=" 하단바폰트">챌린지
+                        </div>
+                </button>
+
+                <button class="하단바마이페이지구역" style="cursor: pointer;" onclick="location.href='../commu/commu.html'">
+                    <div class="하단바마이페이지이미지">
+                        <img src="{%static 'images/user.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">마이페이지</div>
+                </button>
+
+                <div class="하단바선" style="bottom: 0px"></div>
+            </nav>
+        </div>
+    </div>
+
 </body>
+
 </html>

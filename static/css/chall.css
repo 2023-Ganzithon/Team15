@@ -1,0 +1,73 @@
+p.line {
+  width: 390px;
+  height: 0px;
+  left: -1px;
+  top: 120px;
+  position: absolute;
+  border: 1px #969696 solid;
+}
+button.challenge {
+  width: 327px;
+  height: 107px;
+  left: 30px;
+  top: 309px;
+  position: absolute;
+  background: #f0ffe4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: 1px rgba(0, 0, 0, 0) solid;
+  color: black;
+  font-size: 24px;
+  font-family: Pretendard;
+  font-weight: 700;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+button.theme {
+  width: 60px;
+  height: 34px;
+  left: 112px;
+  top: 434px;
+  position: absolute;
+  background: #f0ffe4;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+  border: 1px #a5ec5f solid;
+
+  font-size: 20px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+  cursor: pointer;
+  align-items: center;
+}
+button.mission {
+  width: 277px;
+  height: 71px;
+  left: 58px;
+  top: 594px;
+  position: absolute;
+  background: #a5ec5f;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  font-family: Pretendard;
+  font-weight: 700;
+  word-wrap: break-word;
+  border-color: #a5ec5f;
+}
+
+nav {
+  width: 428px;
+  height: 67px;
+  position: relative;
+}
+
+div.completeimg {
+  width: 334px;
+  height: 245px;
+  left: 30px;
+  top: 322px;
+  position: absolute;
+}

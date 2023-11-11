@@ -8,8 +8,7 @@
     <title>게시판</title>
     <link rel="stylesheet" href="../../static/css/board.css">
     <link rel="stylesheet" href="../../static/css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -32,56 +31,79 @@
                     <option value="like">좋아요 랭킹</option>
                     <option value="buy">살래요 랭킹</option>
                     <option value="all">최신순</option>
-                    <button type="submit">검색</button>
+
                 </select>
+                <button type="submit">검색</button>
             </form>
-            <!--    게시글 출력 코드입니다.-->
-            <hr>
-
-            {% if posts %}
-            {% for post in posts %}
-            <!--        게시글 제목 클릭 시 상세 페이지로 이동합니다.-->
-            <!--        구현은 제목 말고 게시글 div 클릭하면 이동하도록 수정해주세요.-->
-            <form method="GET" action="{% url 'post:post_detail' postId=post.pk%}">
-                {% csrf_token %}
-                <button type="submit" class="board">{{ post.title }}
 
 
-                    <div>
-                        {% if post in liked_posts %}
-                        <img src="{%static 'images/blackheart.png'%}" class="icon" style="top: 56px; left: 17px"
-                            alt="검정하트">
-                        {% else %}
-                        <img class="icon" style="top: 56px; left: 17px" src="{%static 'images/heart.png'%}" alt="하트">
-                        {% endif %}
+            <article class="bigbox2">
+
+                <!--    게시글 출력 코드입니다.-->
+                {% if posts %}
+                {% for post in posts %}
+                <!--        게시글 제목 클릭 시 상세 페이지로 이동합니다.-->
+                <!--        구현은 제목 말고 게시글 div 클릭하면 이동하도록 수정해주세요.-->
+
+
+
+                <form method="GET" action="{% url 'post:post_detail' postId=post.pk%}">
+                    <div class="board">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-post">{{ post.title }}
+
+
+
+
+                            <div>
+                                <div>
+                                    <div>
+                                        {% if post in liked_posts %}
+                                        <img src="{%static 'images/blackheart.png'%}" class="icon"
+                                            style="top: 56px; left: 17px" alt="검정하트">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 17px"
+                                            src="{%static 'images/heart.png'%}" alt="하트">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if post in buy_posts %}
+                                        <img class="icon" style="top: 56px; left: 47px"
+                                            src="{%static 'images/blackbuy.svg'%}" alt="검정가방">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 47px"
+                                            src="{%static 'images/buy.svg'%}" alt="가방">
+                                        {% endif %}
+                                    </div>
+
+
+
+                                    <div>
+                                        {% if post in bookmarked_posts %}
+                                        <img class="icon" style="top: 56px; left: 80px"
+                                            src="{%static 'images/blackbookmark.svg'%}" alt="검정북마크">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 80px"
+                                            src="{%static 'images/bookmark.png'%}" alt="북마크">
+                                        {% endif %}
+                                    </div>
+                        </button>
                     </div>
-                    <div>
-                        {% if post in buy_posts %}
-                        <img class="icon" style="top: 56px; left: 37px" src="{%static 'images/blackbuy.svg'%}"
-                            alt="검정가방">
-                        {% else %}
-                        <img class="icon" style="top: 56px; left: 37px" src="{%static 'images/buy.svg'%}" alt="가방">
-                        {% endif %}
-                    </div>
-                    <div>
-                        {% if post in bookmarked_posts %}
-                        <img class="icon" style="top: 56px; left: 57px" src="{%static 'images/blackbookmark.svg'%}"
-                            alt="검정북마크">
-                        {% else %}
-                        <img class="icon" style="top: 56px; left: 57px" src="{%static 'images/bookmark.png'%}"
-                            alt="북마크">
-                        {% endif %}
-                    </div>
-                </button>
 
-            </form>
-            {% endfor %}
 
-            {% else %}
-            <div>검색 결과가 없습니다.</div>
-            {% endif %}
+                </form>
 
-            <hr>
+                {% endfor %}
+
+
+
+
+
+                {% else %}
+                <div class="nopost">검색 결과가 없습니다.</div>
+                {% endif %}
+
+            </article>
             <!--게시글 작성 페이지로 이동하는 버튼입니다.-->
             <form method="GET" action="{% url 'post:post_create' %}">
                 {% csrf_token %}
@@ -109,7 +131,7 @@
                 <div class="하단바폰트">숏폼</div>
             </button>
 
-            <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge/challenge.html'">
+            <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge_hone'">
                 <div class="하단바챌린지이미지">
                     <img src="{%static 'images/frame.svg'%}" />
 
@@ -128,9 +150,7 @@
         </nav>
     </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+
 </body>
 
 </html>
