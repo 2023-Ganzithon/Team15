@@ -21,11 +21,11 @@
     <td align="center">최유신</a></td>
   </tr>
   <tr width="100%">
-  <td align="center"><img src="./images/jimin.png" alt="image" border="0" width="90px"></td>
-  <td align="center"><img src="./images/seoyeon.png" alt="image" border="0" width="90px"></td>
-  <td align="center"><img src="./images/jeonga.png" alt="image" border="0" width="90px"></td>
-  <td align="center"><img src="./images/taeyeon.png" alt="image" border="0" width="90px"></td>
-  <td align="center"><img src="./images/yushin.png" alt="image" border="0" width="90px"></td>
+  <td align="center"><img src="./readmeImages/jimin.png" alt="image" border="0" width="90px"></td>
+  <td align="center"><img src="./readmeImages/seoyeon.png" alt="image" border="0" width="90px"></td>
+  <td align="center"><img src="./readmeImages/jeonga.png" alt="image" border="0" width="90px"></td>
+  <td align="center"><img src="./readmeImages/taeyeon.jpeg" alt="image" border="0" width="90px"></td>
+  <td align="center"><img src="./readmeImages/yushin.png" alt="image" border="0" width="90px"></td>
   </tr>
   <tr width="100%">
   <td  align="center">프론트엔드</td>
@@ -102,5 +102,5 @@ ctrl + c
 
 
 ## 🌿API 명세서
-<img src="./images/userapi.png">
+<img src="./readmeImages/userapi.png">
 
