@@ -1,6 +1,6 @@
 <div>
   
-  <form method="POST" action="{% url 'challenge:challenge_upload' %}" enctype="multipart/form-data">
+  <form method="POST" action="{% url 'challenge:challenge_upload' Id=id %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ cId }}
     <div><input type="file" name="cImage" value="{{ post.image }}"></div>

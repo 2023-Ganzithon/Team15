@@ -9,6 +9,16 @@
     
     {{ cId }}
     {{ request.user.cSelect }}
+    {% if check %}
+    <div> 챌린지 성공</div>
+    {% else %}
+    <div> 챌린지 결과 대기중</div>
+    <form method="POST" >
+        {% csrf_token %}
+        <div> 챌린지 진행 확인하기</div>
+        <div><button type = 'submit'> 확인</button></div>
+    </form>
+    {% endif %}
     {% if cImage %}
         <image src="{{ cImage.url }}" class="img"></image>
     {% else %}
