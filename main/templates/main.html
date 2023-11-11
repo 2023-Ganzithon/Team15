@@ -123,28 +123,28 @@
           </div>
 
           <div class="bottomBar">
-            <div class="Btn">
+            <div class="Btn" onclick="location.href='{% url 'post:post_list' %}'">
               <image
                 src="{% static 'images/messages.png' %}"
                 class="boardImg"
               ></image>
               <div class="boardName">게시판</div>
             </div>
-            <div class="Btn">
+            <div class="Btn" onclick="location.href='{% url 'post:video_list' %}'">
               <image
                 src="{% static 'images/home.png' %}"
                 class="boardImg"
               ></image>
               <div class="boardName">숏폼</div>
             </div>
-            <div class="Btn">
+            <div class="Btn" onclick="location.href='{% url 'challenge:challenge_home' %}'">
               <image
                 src="{% static 'images/challenge.png' %}"
                 class="boardImg"
               ></image>
               <div class="boardName">챌린지</div>
             </div>
-            <div class="Btn" onClick="goMypage()">
+            <div class="Btn" onclick="location.href='{% url 'mypage:mypage' %}'">
               <image
                 src="{% static 'images/user.png' %}"
                 class="boardImg"
