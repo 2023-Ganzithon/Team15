@@ -2,48 +2,65 @@ from django.shortcuts import render,redirect
 from django.utils import timezone
 import random
 from .models import challenge, OngoingChallenge
+from datetime import datetime
 from user.models import CustomUser
 #챌린지 홈 + 주제 선택
 first = 1
 
 def challenge_home(request):
     global first
+    current_date = datetime.now()
+    year = current_date.year
+    month = current_date.month
+    day = current_date.day
     user=request.user
     clist=challenge.objects.all()
-    
-    if first == 1:
+    if OngoingChallenge.objects.filter(userId = user, cDate__year=year, cDate__month=month, cDate__day=day).exists():
+        new= OngoingChallenge.objects.filter(userId=user, cDate__year=year, cDate__month=month, cDate__day=day).last()
+        if OngoingChallenge.objects.filter(userId = user, cDate__year=year, cDate__month=month, cDate__day=day, cImage__isnull=True).exists():
+            return redirect('challenge:challenge_detail',cId=new.id)
+        
+            
+        
+        newid=new.id
+        
+    else:
         cname= random.choice(clist)
         context={"cId": cname}
-        first=0
-        OngoingChallenge.objects.create(
+        
+        new= OngoingChallenge.objects.create(
             userId=request.user,
             cId = cname,
-        )   
-    update= OngoingChallenge.objects.last()
+        )
+        newid=new.id   
+    update=OngoingChallenge.objects.get(pk=newid)
+    
     cname=update.cId
-    context={"cId": cname}
+    id=update.id
+    context={"cId": cname,"id": id}
 
     if request.method == 'GET':#html응답
         return render(request, 'challenge_home.html', context)
-    else:#post
+    else:#post 재선택
         cSelect = request.user
         if(cSelect.cSelect>0):
+            
             cname= random.choice(clist)
             cSelect.cSelect -=1
             cSelect.save()
-            context={"cId":cname}
-            update= OngoingChallenge.objects.last()
+            context={"cId":cname,"id":id}
+            
             update.cId = cname
             update.save()
         return render(request, 'challenge_home.html', context)
 
 
 #챌린지 사진 업로드
-def challenge_upload(request):
+def challenge_upload(request, Id):
     user = request.user
     global cname
-    upload= OngoingChallenge.objects.last()
-    context={"cId":upload.cId}
+    upload= OngoingChallenge.objects.get(pk=Id)
+    context={"cId":upload.cId,"id":upload.id}
     
     # 생성 폼
     if request.method == 'GET':
@@ -58,7 +75,7 @@ def challenge_upload(request):
          
         upload.save()
 
-        return redirect('challenge:challenge_detail')
+        return redirect('challenge:challenge_detail',cId=upload.id)
 
     return render(request, 'challenge_upload.html')
 
