@@ -417,3 +417,33 @@ div.nopost {
   font-weight: 400;
   text-align: center;
 }
+
+.topBar {
+  background-color: white;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back {
+  width: 40px;
+  height: 40px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  /* background-color: blue; */
+}
+
+.empty {
+  width: 40px;
+  height: 40px;
+  /* background-color: blue; */
+}
+
+.boardImg2 {
+  width: 40px;
+}

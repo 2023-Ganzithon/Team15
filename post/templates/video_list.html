@@ -93,12 +93,9 @@
         font-size: 25px;;
       }
 
-      /* #player {
-        width: 393px;
-        height: auto; 
-        background-color: black;
-        overflow-y: auto;
-      } */
+      .boardImg2 {
+  width: 40px;
+}
     </style>
   </head>
   <body>
@@ -107,14 +104,17 @@
       <div class="shorts-container">
       {% for post_status in posts_status %}
       <div class="topBar">
-      <image src="{% static 'images/back.png' %}" class="back"></image>
+      <image src="{% static 'images/back.png' %}" class="back" onClick="goBack()"></image>
 
        <!-- 숏폼에서도 해당 게시글 제목 표시 및 클릭 시 상세 페이지 이동 -->
        <form method="GET" action="{% url 'post:post_detail' postId=post_status.post.pk %}">
         {% csrf_token %}
         <button type="submit" class="title">{{ post_status.post.title }}</button>
       </form>
-      <div class="empty"></div>
+      <div class="empty"><image
+        src="{% static 'images/logo.png' %}"
+        class="boardImg2" onClick="goMain()"
+      ></image></div>
     </div>
         <!-- 비디오출력하는 자바스크립트 코드입니다 -->
         <script>
@@ -136,7 +136,7 @@
             });
           }
         </script>
-        
+
         <!-- 영상 출력 코드입니다. -->
         <div id="player" class="shorts-container"></div>
        
@@ -184,5 +184,14 @@
       </div>
       {% endfor %}
     </div>
+    <script>
+      function goBack() {
+            window.history.back();
+          }
+
+          function goMain() {
+        window.location.href = "/main/";
+      }
+    </script>
   </body>
 </html>

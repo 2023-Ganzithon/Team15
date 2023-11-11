@@ -19,7 +19,10 @@
                 onClick="goBack()"
               />
             </div>
-            <div class="logo"><image></image></div>
+            <div class="logo"><image
+              src="{% static 'images/logo.png' %}"
+              class="boardImg2"  onClick="goMain()"
+            ></image></div>
             <div class="empty"></div>
           </div>
 
@@ -40,35 +43,7 @@
           <p>No ongoing challenges at the moment.</p>
           {% endfor %}
 
-          <div class="bottomBar">
-            <div class="Btn">
-              <image
-                src="{% static 'images/messages.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">게시판</div>
-            </div>
-            <div class="Btn">
-              <image
-                src="{% static 'images/home.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">숏폼</div>
-            </div>
-            <div class="Btn">
-              <image
-                src="{% static 'images/challenge.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">챌린지</div>
-            </div>
-            <div class="Btn" onClick="goMypage()">
-              <image
-                src="{% static 'images/user.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">마이페이지</div>
-            </div>
+          {% include 'footer.html' %}
           </div>
         </div>
       </div>
@@ -80,6 +55,10 @@
 
       function goBack() {
         window.history.back();
+      }
+
+      function goMain() {
+        window.location.href = "/main/";
       }
     </script>
   </body>

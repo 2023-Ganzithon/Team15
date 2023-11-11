@@ -19,7 +19,13 @@
                 onClick="goBack()"
               />
             </div>
-            <div class="logo"><image></image></div>
+            <div class="logo">
+              <image
+                src="{% static 'images/logo.png' %}"
+                class="boardImg2"
+                onClick="goMain()"
+              ></image>
+            </div>
             <div class="empty"></div>
           </div>
 
@@ -60,13 +66,9 @@
           <div class="challengeBox">
             <div class="title">< 오늘 진행 중인 챌린지 ></div>
             <div class="challengeTitle">
-              {% if c_empty %} 진행 중인 챌린지가 없습니다. 
-              {% else %} 
-              {{ challenge.cId.cName }}
-              <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
-              <!-- <img src="{{ challenge.cImage.url }}"> -->
-              <!-- <p>진행 상태 {{ challenge.cCheck }}</p> -->
-              {% endif %}
+              {% if c_empty %}
+              <p>진행 중인 챌린지가 없습니다.</p>
+              {% else %} {{ challenge.cId.cName }} {% endif %}
             </div>
             <div class="line2"></div>
             <div class="success">챌린지 성공률</div>
@@ -88,38 +90,7 @@
               <div class="saveWriter">{{ bookmark.userId.nickname }}</div>
             </div></a
           >
-          {% endif %}
-
-          <div class="bottomBar">
-            <div class="Btn">
-              <image
-                src="{% static 'images/messages.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">게시판</div>
-            </div>
-            <div class="Btn">
-              <image
-                src="{% static 'images/home.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">숏폼</div>
-            </div>
-            <div class="Btn">
-              <image
-                src="{% static 'images/challenge.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">챌린지</div>
-            </div>
-            <div class="Btn" onClick="goMypage()">
-              <image
-                src="{% static 'images/user.png' %}"
-                class="boardImg"
-              ></image>
-              <div class="boardName">마이페이지</div>
-            </div>
-          </div>
+          {% endif %} {% include 'footer.html' %}
         </div>
       </div>
     </div>
@@ -130,6 +101,10 @@
 
       function goBack() {
         window.history.back();
+      }
+
+      function goMain() {
+        window.location.href = "/main/";
       }
     </script>
   </body>

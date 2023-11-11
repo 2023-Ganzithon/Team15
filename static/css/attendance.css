@@ -49,13 +49,13 @@
 .logo {
   width: 40px;
   height: 40px;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .empty {
   width: 40px;
   height: 40px;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .bottomBar {
@@ -170,4 +170,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   top: 660px;
+}
+
+.boardImg2 {
+  width: 40px;
 }
