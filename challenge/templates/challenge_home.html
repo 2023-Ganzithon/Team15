@@ -26,11 +26,7 @@
                     {{ request.user.cSelect }}
                 </button>
 
-                <button class="theme">
-                    <!-- <button class="theme" id="selectButton"> -->
-                    <input type="submit" value="재선택">
-                </button>
-
+                <button class="theme" type="submit">재선택<button>
             </form>
 
             <form method="GET" action="{% url 'challenge:challenge_upload' Id=id %}">
