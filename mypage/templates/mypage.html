@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../static/css/mypage.css" />
+    <link rel="stylesheet" href="{%static 'css/mypage.css'%}" />
     <title>마이페이지</title>
   </head>
   <body>
@@ -25,15 +25,8 @@
 
           <div class="profileBox">
             <div class="logoBig">
-              {% if top_percentage <= 5 %}
-                🌲
-              {% elif top_percentage <= 15 %}
-                🌳
-              {% elif top_percentage <= 30 %}
-                🌿
-              {% else %}
-                🌱
-              {% endif %}
+              {% if top_percentage <= 5 %} 🌲 {% elif top_percentage <= 15 %} 🌳
+              {% elif top_percentage <= 30 %} 🌿 {% else %} 🌱 {% endif %}
             </div>
             <div class="nameG">
               <div class="name">{{ nickname }}</div>
@@ -67,8 +60,9 @@
           <div class="challengeBox">
             <div class="title">< 오늘 진행 중인 챌린지 ></div>
             <div class="challengeTitle">
-              {% if c_empty %} 진행 중인 챌린지가 없습니다. {% else %} {{
-              challenge.cId.cName }}
+              {% if c_empty %} 진행 중인 챌린지가 없습니다. 
+              {% else %} 
+              {{ challenge.cId.cName }}
               <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
               <!-- <img src="{{ challenge.cImage.url }}"> -->
               <!-- <p>진행 상태 {{ challenge.cCheck }}</p> -->
@@ -91,7 +85,7 @@
             <div class="saveBox">
               <image src="{{ bookmark.image.url }}" class="saveImg"></image>
               <div class="saveTitle">{{ bookmark.title }}</div>
-              <div class="saveWriter">{{ bookmark.content }}</div>
+              <div class="saveWriter">{{ bookmark.userId.nickname }}</div>
             </div></a
           >
           {% endif %}

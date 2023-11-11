@@ -152,7 +152,7 @@
                 <form method="POST" action="{% url 'post:comment_create' postId=post.pk %}">
                     {% csrf_token %}
 
-                    <label for="nonymous" class="nonymous">익명</label>
+                    <label for="anonymous" class="nonymous">익명</label>
                     <input type="checkbox" name="anonymous" id="anonymous" checked>
 
                     <input class="comment1" type="text" name="content" placeholder="클릭하여 댓글 작성하기">

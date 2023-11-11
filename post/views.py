@@ -155,7 +155,7 @@ def post_update_view(request, postId):
 
         # 수정 폼 반환
         if request.method == 'GET':
-            return render(request, "post_form.html", context={"post":post, "edit_mode":edit_mode})
+            return render(request, 'post_form.html', context={"post":post, "comments":comments, "edit_mode":edit_mode})
 
         if request.method == 'POST':
             # 수정
@@ -175,7 +175,7 @@ def post_update_view(request, postId):
 
             post.save()
 
-            return render(request, "post_detail.html", context={"post": post, "comments":comments})
+            return redirect('post:post_detail', postId=post.pk)
 
     return redirect('user:login')
 
@@ -221,8 +221,6 @@ def comment_delete_view(request, commentId):
         comment = get_object_or_404(Comment, pk=commentId)
         post = comment.postId
         comment.delete()
-
-        comments = Comment.objects.filter(postId=post)
 
         return redirect('post:post_detail', postId=post.pk)
 
