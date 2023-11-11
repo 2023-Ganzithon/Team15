@@ -50,15 +50,17 @@
           {% csrf_token %}
 
 
-          <input type="text" name="title" class="title" value="{{ post.title }}" placeholder="클릭하여 제목을 작성해 주세요" required>
+          <input type="text" name="title" class="title" value="{{ post.title }}" placeholder="클릭하여 제목을 작성해 주세요"
+            required>
 
-          <textarea type="textarea" name="content" value="{{ post.content }}" placeholder="클릭하여 내용을 입력해 주세요" required></textarea>
+          <textarea type="textarea" name="content" value="{{ post.content }}" placeholder="클릭하여 내용을 입력해 주세요"
+            required></textarea>
           <div class="filebox"><input type="file" class="file" name="image" value="{{ post.image }}" required>
             <input type="text" name="videoKey" value="{{ post.videoKey }}" placeholder="비디오 키를 입력해주세요." />
           </div>
 
       </article>
-      <button class="write" type="submit" >작성하기</button>
+      <button class="write" type="submit">작성하기</button>
       </form>
 
       {% endif %}
