@@ -98,9 +98,9 @@
 .logoBig {
   width: 80px;
   height: 80px;
-  background-color: blue;
   margin-left: 30px;
   margin-top: 16px;
+  font-size: 60px;
 }
 
 .nameG {
@@ -151,7 +151,6 @@
   text-align: center;
 
   color: #728263;
-  /* background-color: green; */
 
   margin-left: 117px;
   margin-top: -40px;
@@ -162,9 +161,7 @@
 .coinImg {
   width: 40px;
   height: 39px;
-
-  margin-left: 50px;
-
+  margin-left: 88px;
   font-size: 28px;
   font-weight: 700;
 }
