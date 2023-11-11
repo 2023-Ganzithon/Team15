@@ -103,4 +103,8 @@ ctrl + c
 
 ## 🌿API 명세서
 <img src="./readmeImages/userapi.png">
+<img src="./readmeImages/mainapi.png">
+<img src="./readmeImages/mypageapi.png">
+<img src="./readmeImages/challengeapi.png">
+<img src="./readmeImages/postapi.png">
 
