@@ -11,6 +11,7 @@ from django.db.models import Sum, Count
 def mypage_view(request):
     if request.user.is_authenticated:
         nowuser = CustomUser.objects.get(username = request.user.username)
+        challenges = OngoingChallenge.objects.filter(userId = nowuser)
         
         # 현재 사용자의 백분위 구하기
         users = CustomUser.objects.annotate(
@@ -33,8 +34,8 @@ def mypage_view(request):
         
         # 현재 로그인된 사용자의 스코어
         postcnt = Post.objects.filter(userId = nowuser).count()
-        challenges = OngoingChallenge.objects.filter(userId = nowuser, cCheck = True)
-        challengecnt = challenges.count()
+        
+        challengecnt = challenges.filter(cCheck=True).count()
         current_user_score = postcnt * 0.4 + challengecnt * 0.6
         
         # 현재 로그인된 사용자의 스코어가 전체 사용자 중 어느 위치에 있는지 계산
@@ -91,7 +92,7 @@ def mypage_view(request):
             'bookmark' : bookmark,
             'c_empty' : c_empty,
             'b_empty' : b_empty,
-            'challenge_rate' : challenge_rate,
+            'challenge_rate' : int(challenge_rate),
             'top_percentage' : int(top_percentage),
             'coin_message' : coin_message
         }
