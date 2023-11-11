@@ -3,50 +3,45 @@
 <html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
-    <link rel="stylesheet" href="{%static 'css/chall.css'%}">
-    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+  <link rel="stylesheet" href="{%static 'css/chall.css'%}">
+  <link rel="stylesheet" href="{%static 'css/style.css'%}">
 </head>
 
 <body>
-    <div class="iphone-frame">
-        <div class="all">
-            <div class="topBar">
-                <div class="back">
-                  <img
-                    src="{% static 'images/back.png' %}"
-                    class="back"
-                    onClick="goBack()"
-                  />
-                </div>
-                <div class="logo" onClick="goMain()"><image
-                  src="{% static 'images/logo.png' %}"
-                  class="boardImg2" 
-                ></image></div>
-                <div class="empty"></div>
-              </div>
-            <h1>챌린지</h1>
+  <div class="iphone-frame">
+    <div class="all">
+      <div class="topBar">
+        <div class="back">
+          <img src="{% static 'images/back.png' %}" class="back" onClick="goBack()" />
+        </div>
+        <div class="logo" onClick="goMain()">
+          <image src="{% static 'images/logo.png' %}" class="boardImg2"></image>
+        </div>
+        <div class="empty"></div>
+      </div>
+      <h1>챌린지</h1>
 
 
 
 
 
 
-            <button class="mission" type='submit' style="top:602px;">
-                {% if check %}
-                <div> 챌린지 성공</div>
-                {% else %}
-                <div> 챌린지 결과 대기중</div>
-                <form method="POST">
-                    {% csrf_token %}
+      <button class="mission" type='submit' style="top:602px;">
+        {% if check %}
+        <div> 챌린지 성공</div>
+        {% else %}
+        <div> 챌린지 결과 대기중</div>
+        <form method="POST">
+          {% csrf_token %}
 
 
-                </form>
-            </button>
-            {% endif %}
+        </form>
+      </button>
+      {% endif %}
 
 
 
@@ -55,16 +50,16 @@
 
 
 
-            <p class="line"></p>
-            <button class="challenge" id="Button1" style="top:180px;">
-                {{ cId }}
-                {{ request.user.cSelect }}
-            </button>
-            </form>
+      <p class="line"></p>
+      <button class="challenge" id="Button1" style="top:180px;">
+        {{ cId }}
+        {{ request.user.cSelect }}
+      </button>
+      </form>
 
 
-            {% if cImage %}
-            <img src="{{ cImage.url }}" style="width: 334px;
+      {% if cImage %}
+      <img src="{{ cImage.url }}" style="width: 334px;
         height: 245px;
         left: 30px;
         top: 322px;
@@ -72,31 +67,31 @@
 
 
 
-            <!-- {% else %} -->
-            <!-- <image src=""></image> -->
-            <!-- {% endif %} -->
+      <!-- {% else %} -->
+      <!-- <image src=""></image> -->
+      <!-- {% endif %} -->
 
 
 
 
 
 
-            {% include 'footer.html' %}
-        </div>
+      {% include 'footer.html' %}
     </div>
-    <script>
-        function goMypage() {
-          window.location.href = "/mypage/";
-        }
-  
-        function goBack() {
-          window.history.back();
-        }
-  
-        function goMain() {
-          window.location.href = "/main/";
-        }
-      </script>
+  </div>
+  <script>
+    function goMypage() {
+      window.location.href = "/mypage/";
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    function goMain() {
+      window.location.href = "/main/";
+    }
+  </script>
 </body>
 
 </html>

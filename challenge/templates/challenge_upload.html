@@ -22,10 +22,14 @@
         </button>
 
         <button class="theme">
-          <!-- <button class="theme" id="selectButton"> -->
-          <input type="file" name="cImage" value="{{ post.image }}" required>
+          <label for="file-id" class="submit">파일 선택</label>
+          <input type="file" name="cImage" value="{{ post.image }}" style="display:none" id="file-id" required>
 
         </button>
+
+
+
+
 
 
         <button class="mission" type='submit'>
