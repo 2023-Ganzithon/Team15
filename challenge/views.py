@@ -5,10 +5,10 @@ from .models import challenge, OngoingChallenge
 from datetime import datetime
 from user.models import CustomUser
 #챌린지 홈 + 주제 선택
-first = 1
+
 
 def challenge_home(request):
-    global first
+    
     current_date = datetime.now()
     year = current_date.year
     month = current_date.month
@@ -17,12 +17,15 @@ def challenge_home(request):
     clist=challenge.objects.all()
     if OngoingChallenge.objects.filter(userId = user, cDate__year=year, cDate__month=month, cDate__day=day).exists():
         new= OngoingChallenge.objects.filter(userId=user, cDate__year=year, cDate__month=month, cDate__day=day).last()
-        if OngoingChallenge.objects.filter(userId = user, cDate__year=year, cDate__month=month, cDate__day=day, cImage__isnull=True).exists():
-            return redirect('challenge:challenge_detail',cId=new.id)
+        newid=new.id
+        if OngoingChallenge.objects.filter(pk=newid, cImage ='').exists():
+            pass
+        else:
+            return redirect('challenge:challenge_detail',Id=new.id)
         
             
         
-        newid=new.id
+        
         
     else:
         cname= random.choice(clist)
@@ -75,21 +78,28 @@ def challenge_upload(request, Id):
          
         upload.save()
 
-        return redirect('challenge:challenge_detail',cId=upload.id)
+        return redirect('challenge:challenge_detail',Id=upload.id)
 
     return render(request, 'challenge_upload.html')
 
 
 #챌린지 사진 업로드 후 확인
-def challenge_detail(request, cId):
-    chall=OngoingChallenge.objects.get(pk=cId)
-
+def challenge_detail(request, Id):
+    chall=OngoingChallenge.objects.get(pk=Id)
+    check=False
+    user = request.user
+    if request.method == 'POST' and check == False and chall.cCheck == True:
+        check=True
+        user.coin+=1
+        user.save()
     context = {
         "cImage": chall.cImage,
         "cDate": chall.cDate,
         "cCheck": chall.cCheck,
         "cId": chall.cId,
         "userId":chall.userId,
+        "check":check,
+        
     }
 
     return render(request, "challenge_detail.html", context)
