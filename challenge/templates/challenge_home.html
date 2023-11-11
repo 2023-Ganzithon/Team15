@@ -33,7 +33,7 @@
 
             </form>
 
-            <form method="GET" action="{% url 'challenge:challenge_upload' %}">
+            <form method="GET" action="{% url 'challenge:challenge_upload' Id=id %}">
                 {% csrf_token %}
 
                 <form><button class="mission" type='submit'>

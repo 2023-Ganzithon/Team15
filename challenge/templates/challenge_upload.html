@@ -15,9 +15,7 @@
     <div class="all">
       <h1>챌린지</h1>
       <p class="line"></p>
-
-      <form method="POST" action="{% url 'challenge:challenge_upload' %}" enctype="multipart/form-data">
-
+      <form method="POST" action="{% url 'challenge:challenge_upload' Id=id%}" enctype="multipart/form-data">
         <button class="challenge" id="Button1">
           {% csrf_token %}
           {{ cId }}

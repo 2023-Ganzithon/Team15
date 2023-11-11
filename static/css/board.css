@@ -265,7 +265,7 @@ button.btn-post {
   margin-top: 10px;
   position: relative;
   word-wrap: break-word;
-  align-items: center;
+  text-align: justify;
   display: flex;
 }
 /* 버튼 간의 간격을 조절합니다. */
@@ -279,9 +279,9 @@ button.board:nth-child(2) {
   top: 200px; /* 예시: 두 번째 버튼은 첫 번째 버튼 아래에 위치하도록 조정 */
 }
 div.input-container {
-  width: 335px;
-  height: 42px;
-  left: 20px;
+  width: 340px;
+  height: 44px;
+  left: 25px;
   top: 572px;
   position: absolute;
   display: flex;

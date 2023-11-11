@@ -15,5 +15,5 @@ urlpatterns = [
     path('createComment/<int:postId>/', comment_create_view, name='comment_create'),
     path('deleteComment/<int:commentId>/', comment_delete_view, name='comment_delete'),
     path('status/<int:postId>/<str:status>/', post_status_view, name='post_status'),
-    path('video/', video_list_view, name='vide_list')
+    path('video/', video_list_view, name='video_list')
 ]

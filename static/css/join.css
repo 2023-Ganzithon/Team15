@@ -33,7 +33,7 @@ input {
   border-radius: 5px;
 }
 
-/* input.signup {
+button.submit {
   width: 344px;
   height: 52px;
   left: 23px;
@@ -43,4 +43,4 @@ input {
   border-radius: 5px;
   border-radius: 20px;
   border: 1px solid #a5ec5f;
-} */
+}

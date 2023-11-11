@@ -224,7 +224,7 @@ def comment_delete_view(request, commentId):
 
         comments = Comment.objects.filter(postId=post)
 
-        return render(request, "post_detail.html", context={"post": post, "comments":comments})
+        return redirect('post:post_detail', postId=post.pk)
 
     return redirect('user:login')
 
@@ -232,38 +232,41 @@ def comment_delete_view(request, commentId):
 # 좋아요 / 살래요 / 북마크
 def post_status_view(request, postId, status):
     if request.user.is_authenticated:
+
+        user = request.user
+        post = get_object_or_404(Post, pk=postId)
+        comments = Comment.objects.filter(postId=post)
+
+        liked_user, buy_user, bookmarked_user = post_list_status_user(post)
+
+        # 상태 변경
+        if (status == 'like_cancel'):
+            post.like.remove(user)
+        elif (status == 'like'):
+            post.like.add(user)
+
+        if (status == 'buy_cancel'):
+            post.buy.remove(user)
+        elif (status == 'buy'):
+            post.buy.add(user)
+
+        if (status == 'bookmark_cancel'):
+            post.bookmark.remove(user)
+        elif (status == 'bookmark'):
+            post.bookmark.add(user)
+
+        context = {
+            "post": post,
+            "comments": comments,
+            "liked_user": liked_user,
+            "buy_user": buy_user,
+            "bookmarked_user": bookmarked_user,
+        }
+
         if request.method == 'GET':
-            user = request.user
-            post = get_object_or_404(Post, pk=postId)
-            comments = Comment.objects.filter(postId=post)
-
-            liked_user, buy_user, bookmarked_user = post_list_status_user(post)
-
-            # 상태 변경
-            if (status == 'like_cancel'):
-                post.like.remove(user)
-            elif (status == 'like'):
-                post.like.add(user)
-
-            if (status == 'buy_cancel'):
-                post.buy.remove(user)
-            elif (status == 'buy'):
-                post.buy.add(user)
-
-            if (status == 'bookmark_cancel'):
-                post.bookmark.remove(user)
-            elif (status == 'bookmark'):
-                post.bookmark.add(user)
-
-            context = {
-                "post": post,
-                "comments": comments,
-                "liked_user": liked_user,
-                "buy_user": buy_user,
-                "bookmarked_user": bookmarked_user,
-            }
-
-        return render(request, "post_detail.html", context)
+            return redirect('post:post_detail', postId=post.pk)
+        else:
+            return redirect('post:video_list')
 
     return redirect('user:login')
 

@@ -31,8 +31,9 @@
                     <option value="like">좋아요 랭킹</option>
                     <option value="buy">살래요 랭킹</option>
                     <option value="all">최신순</option>
-                    <button type="submit">검색</button>
+
                 </select>
+                <button type="submit">검색</button>
             </form>
 
 
@@ -50,44 +51,47 @@
                     <div class="board">
                         {% csrf_token %}
                         <button type="submit" class="btn-post">{{ post.title }}
+
+
+
+
+                            <div>
+                                <div>
+                                    <div>
+                                        {% if post in liked_posts %}
+                                        <img src="{%static 'images/blackheart.png'%}" class="icon"
+                                            style="top: 56px; left: 17px" alt="검정하트">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 17px"
+                                            src="{%static 'images/heart.png'%}" alt="하트">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        {% if post in buy_posts %}
+                                        <img class="icon" style="top: 56px; left: 47px"
+                                            src="{%static 'images/blackbuy.svg'%}" alt="검정가방">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 47px"
+                                            src="{%static 'images/buy.svg'%}" alt="가방">
+                                        {% endif %}
+                                    </div>
+
+
+
+                                    <div>
+                                        {% if post in bookmarked_posts %}
+                                        <img class="icon" style="top: 56px; left: 80px"
+                                            src="{%static 'images/blackbookmark.svg'%}" alt="검정북마크">
+                                        {% else %}
+                                        <img class="icon" style="top: 56px; left: 80px"
+                                            src="{%static 'images/bookmark.png'%}" alt="북마크">
+                                        {% endif %}
+                                    </div>
                         </button>
                     </div>
 
 
                 </form>
-
-
-                <div>
-                    <div>
-                        <div>
-                            {% if post in liked_posts %}
-                            <img src="{%static 'images/blackheart.png'%}" class="icon" style="top: 56px; left: 17px"
-                                alt="검정하트">
-                            {% else %}
-                            <img class="icon" style="top: 56px; left: 17px" src="{%static 'images/heart.png'%}"
-                                alt="하트">
-                            {% endif %}
-                        </div>
-                        <div>
-                            {% if post in buy_posts %}
-                            <img class="icon" style="top: 56px; left: 47px" src="{%static 'images/blackbuy.svg'%}"
-                                alt="검정가방">
-                            {% else %}
-                            <img class="icon" style="top: 56px; left: 47px" src="{%static 'images/buy.svg'%}" alt="가방">
-                            {% endif %}
-                        </div>
-                        <div>
-                            {% if post in bookmarked_posts %}
-                            <img class="icon" style="top: 56px; left: 80px" src="{%static 'images/blackbookmark.svg'%}"
-                                alt="검정북마크">
-                            {% else %}
-                            <img class="icon" style="top: 56px; left: 80px" src="{%static 'images/bookmark.png'%}"
-                                alt="북마크">
-                            {% endif %}
-                        </div>
-
-                    </div>
-                </div>
 
                 {% endfor %}
 

@@ -10,16 +10,41 @@
     <link rel="stylesheet" href="../../static/css/style.css">
 </head>
 
+
 <body>
     <div class="iphone-frame">
         <div class="all">
             <h1>챌린지</h1>
-            <p class="line"></p>
-            <button class="challenge" id="Button1" style="top:180px;">
-                {{ cId }}
-                {{ request.user.cSelect }}
+
+
+
+
+
+
+            <button class="mission" style="top:602px;">
+                {% if check %}
+                <div> 챌린지 성공</div>
+                {% else %}
+                <div> 챌린지 결과 대기중</div>
             </button>
 
+            <form method="POST">
+                {% csrf_token %}
+                <div> 챌린지 진행 확인하기</div>
+                <div><button type='submit'> 확인</button></div>
+
+
+
+
+                <p class="line"></p>
+                <button class="challenge" id="Button1" style="top:180px;">
+                    {{ cId }}
+                    {{ request.user.cSelect }}
+                </button>
+            </form>
+
+            {% endif %}
+            {% if cImage %}
             <img src="{{ cImage.url }}" style="width: 334px;
             height: 245px;
             left: 30px;
@@ -28,9 +53,11 @@
 
 
 
-            <button class="mission" style="top:602px;">
-                미션 완료
-            </button>
+            {% else %}
+            <image src=""></image> <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
+            {% endif %}
+
+
 
 
 
