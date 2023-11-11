@@ -60,8 +60,9 @@
           <div class="challengeBox">
             <div class="title">< 오늘 진행 중인 챌린지 ></div>
             <div class="challengeTitle">
-              {% if c_empty %} 진행 중인 챌린지가 없습니다. {% else %} {{
-              challenge.cId.cName }}
+              {% if c_empty %} 진행 중인 챌린지가 없습니다. 
+              {% else %} 
+              {{ challenge.cId.cName }}
               <!-- 오늘 진행중인 챌린지 페이지로 넘길 것인가?? -->
               <!-- <img src="{{ challenge.cImage.url }}"> -->
               <!-- <p>진행 상태 {{ challenge.cCheck }}</p> -->
@@ -84,7 +85,7 @@
             <div class="saveBox">
               <image src="{{ bookmark.image.url }}" class="saveImg"></image>
               <div class="saveTitle">{{ bookmark.title }}</div>
-              <div class="saveWriter">{{ bookmark.content }}</div>
+              <div class="saveWriter">{{ bookmark.userId.nickname }}</div>
             </div></a
           >
           {% endif %}
