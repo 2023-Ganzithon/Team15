@@ -282,7 +282,7 @@ div.input-container {
   width: 340px;
   height: 44px;
 
-  top: 620px;
+  top: 630px;
   position: fixed; /* position을 fixed로 변경 */
   /* display: flex; */
   background-color: none;
