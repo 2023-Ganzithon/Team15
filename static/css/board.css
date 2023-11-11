@@ -362,7 +362,7 @@ button.write {
   width: 312px;
   height: 50px;
   left: 30px;
-  top: 670px;
+  top: 720px;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -374,7 +374,7 @@ button.write {
 button.writing {
   width: 163px;
   height: 34px;
-  left: 114px;
+  left: 135px;
   top: 721px;
   position: absolute;
   background: #f0ffe4;
@@ -393,7 +393,7 @@ button.back {
 }
 div.filebox {
   width: 312px;
-  height: 50px;
+  height: 150px;
   left: 30px;
   top: 614px;
   position: absolute;
