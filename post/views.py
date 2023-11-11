@@ -263,8 +263,11 @@ def post_status_view(request, postId, status):
             "bookmarked_user": bookmarked_user,
         }
 
+        # 로직은 같으나 요청 메소드를 다르게 하여 다른 페이지로 이동하도록 구현
+        # 게시글 상세 페이지에서 상태 변경하는 경우 변경 후 상세 페이지로 리다이렉트
         if request.method == 'GET':
             return redirect('post:post_detail', postId=post.pk)
+        # 숏폼 페이지에서 상태 변경하는 경우 변경 후 숏폼 페이지로 리다리렉트
         else:
             return redirect('post:video_list')
 
