@@ -1,26 +1,86 @@
+{%load static%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/chall.css">
+    <link rel="stylesheet" href="../../static/css/style.css">
+
 </head>
+
 <body>
-    
-    {{ cId }}
-    {{ request.user.cSelect }}
-    <form method="POST">
-        {% csrf_token %}
-        
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="재선택">
-    </form>
-    
-    <form method="GET" action="{% url 'challenge:challenge_upload' Id=id %}">
-        {% csrf_token %}   
-        <div> 글 작성 페이지로</div>
-            
-            <form><button type ='submit'> 이동</button></form>
-    </form>
+    <div class="iphone-frame">
+        <div class="all">
+            <h1>챌린지</h1>
+            <p class="line"></p>
+
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <button class="challenge" id="Button1">
+                    {{ cId }}
+                    {{ request.user.cSelect }}
+                </button>
+
+                <button class="theme">
+                    <!-- <button class="theme" id="selectButton"> -->
+                    <input type="submit" value="재선택">
+                </button>
+
+            </form>
+
+            <form method="GET" action="{% url 'challenge:challenge_upload' Id=id %}">
+                {% csrf_token %}
+
+                <form><button class="mission" type='submit'>
+                        미션 인증하기
+                    </button></form>
+            </form>
+
+
+
+
+            <nav class="하단바">
+                <div class="하단바선"></div>
+
+                <button class="하단바게시판구역" style="cursor: pointer;" onclick="location.href='../board/board.html'">
+                    <div class="하단바게시판이미지">
+                        <img src="{%static 'images/messages.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">게시판</div>
+                </button>
+
+                <button class="하단바숏폼구역" style="cursor: pointer;" onclick="location.href='../home/home.html'">
+                    <div class="하단바숏폼이미지">
+                        <img src="{%static 'images/home.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">숏폼</div>
+                </button>
+
+                <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge/challenge.html'">
+                    <div class="하단바챌린지이미지">
+                        <img src="{%static 'images/frame.svg'%}" />
+
+                        <div class=" 하단바폰트">챌린지
+                        </div>
+                </button>
+
+                <button class="하단바마이페이지구역" style="cursor: pointer;" onclick="location.href='../commu/commu.html'">
+                    <div class="하단바마이페이지이미지">
+                        <img src="{%static 'images/user.svg'%}" />
+                    </div>
+                    <div class="하단바폰트">마이페이지</div>
+                </button>
+
+                <div class="하단바선" style="bottom: 0px"></div>
+            </nav>
+        </div>
+    </div>
+
 </body>
+
 </html>

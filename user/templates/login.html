@@ -1,21 +1,50 @@
 <!-- accounts/templates/login.html -->
+{%load static%}
+<!DOCTYPE html>
+<html lang="ko">
 
-{% block content %}
-<div class="wrapper">
-    <div style="text-align: center;">
-        <h1>로그인</h1>
-        <form method="POST">
-            {% csrf_token %}
-            아이디:
-            <br>
-            <input name="username" type="text">
-            <br>
-            비밀번호:
-            <br>
-            <input name="password" type="password">
-            <br><br>
-            <input type="submit" class="btn btn-primary" value="Login">
-        </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/join.css">
+
+</head>
+
+<body>
+    {% block content %}
+    <div class="iphone-frame">
+        <div class="all">
+
+            <h2>로그인</h2>
+            <p class="ex">로그인 없이 시작하면 게시물 열람만 가능합니다.</p>
+
+
+
+            <form method="POST">
+
+                <!-- 아이디 입력란 -->
+                {% csrf_token %}
+                <input class="text" style="top: 305px" type="text" id="username" name="username" placeholder="아이디">
+
+                <!-- 비밀번호 입력란 -->
+
+                <input type="password" id="password" name="password" placeholder="비밀번호">
+
+
+                <!-- 입력 완료 버튼 -->
+                <button class="submit" style="top: 500px">
+                    <input type="submit" value="Login">로그인 하기</button>
+                <button class="submit" style="top: 570px">
+                    <input type="submit" value="noLogin">로그인 없이 시작하기</button>
+        </div>
+
+
     </div>
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}
+
+</body>
+
+</html>

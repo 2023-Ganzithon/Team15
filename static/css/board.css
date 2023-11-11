@@ -33,19 +33,7 @@ select.dropdown2 {
   border-radius: 5px;
   border: 1px #545454 solid;
 }
-button.board {
-  width: 343px;
-  height: 94px;
-  left: 25px;
-  top: 177px;
-  position: absolute;
-  background: #f0ffe4;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  font-size: 18px;
-  font-family: Inter;
-  font-weight: 400;
-}
+
 button.font {
   width: 305px;
   left: 44px;
@@ -70,7 +58,7 @@ h2 {
 }
 h3 {
   left: 27px;
-  top: 171px;
+  top: 150px;
   position: absolute;
   color: #161616;
   font-size: 19px;
@@ -91,7 +79,7 @@ p.content {
   word-wrap: break-word;
 }
 p.hour {
-  left: 311px;
+  left: 280px;
   top: 120px;
   position: absolute;
   color: #777777;
@@ -113,19 +101,22 @@ img.content_img {
 button.edit {
   width: 55px;
   height: 21px;
-  left: 260px;
+  left: 240px;
   top: 497px;
   position: absolute;
-  color: #858585;
+  color: #d9d9d9;
   font-size: 10px;
   font-family: Inter;
   font-weight: 400;
   word-wrap: break-word;
+  border-radius: 5px;
+  border: 1px solid #a5ec5f;
+  background: #f0ffe4;
 }
 
 h4 {
   left: 32px;
-  top: 540px;
+  top: 520px;
   position: absolute;
   color: black;
   font-size: 16px;
@@ -134,19 +125,21 @@ h4 {
   word-wrap: break-word;
 }
 p.nick {
-  left: 30px;
-  top: 584px;
+  left: 13px;
+  top: 0px;
+  width: 60px;
   position: absolute;
   color: #161616;
-  font-size: 12px;
+  font-size: 15px;
   font-family: Pretendard;
   font-weight: 600;
-  line-height: 16.56px;
+
   word-wrap: break-word;
+  text-align: left;
 }
-div.time {
-  left: 94px;
-  top: 586px;
+p.time {
+  left: 60px;
+  top: 0px;
   position: absolute;
   color: #858585;
   font-size: 12px;
@@ -157,55 +150,166 @@ div.time {
 button.remove_comment {
   width: 55px;
   height: 21px;
-  left: 313px;
-  top: 584px;
+  right: 0;
+  top: 0px;
   position: absolute;
-  color: #858585;
+  color: #9c9b9b;
   font-size: 10px;
   font-family: Pretendard;
   font-weight: 400;
   word-wrap: break-word;
+  border: 1px solid #a5ec5f;
+  background: #f0ffe4;
 }
 p.comment_content {
   width: 340px;
-  left: 30px;
-  top: 612px;
+  left: 20px;
+  top: 20px;
   position: absolute;
   color: #161616;
   font-size: 12px;
   font-family: Pretendard;
   font-weight: 500;
-  line-height: 15.6px;
+
   word-wrap: break-word;
+  text-align: left;
 }
-div.comment1 {
-  width: 345px;
-  height: 42px;
-  left: 19px;
-  top: 770px;
-  position: absolute;
+article.bigbox {
+  top: 550px;
+  left: 25px;
+  width: 336px;
   border-radius: 5px;
-  border: 1px #a5ec5f solid;
+  border: 0px #545454 solid;
+  /* line-height: 18.76px; */
+  word-wrap: break-word;
+  height: 200px; /* 세로 길이를 내용에 따라 자동으로 조절 */
+  overflow: y-auto; /* 내용이 넘칠 때 스크롤 표시 */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  -ms-overflow-style: none;
+  /* width: 100%; */
+  /* height: 410px; */
+  /* padding: 20px; */
+  position: absolute;
+  margin: auto;
+  box-sizing: border-box;
+  margin-top: 30px;
+  background-color: #fffefe;
 }
+article.bigbox2 {
+  top: 150px;
+  left: 25px;
+  width: 336px;
+  border-radius: 5px;
+  border: 0px #545454 solid;
+  /* line-height: 18.76px; */
+  word-wrap: break-word;
+  height: 500px; /* 세로 길이를 내용에 따라 자동으로 조절 */
+  overflow: y-auto; /* 내용이 넘칠 때 스크롤 표시 */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  -ms-overflow-style: none;
+  /* width: 100%; */
+
+  position: absolute;
+  margin: auto;
+  box-sizing: border-box;
+  margin-top: 30px;
+}
+div.commentbox {
+  width: 340px;
+  height: 44px;
+  top: 0px;
+  position: absolute;
+  background-color: #ffffff;
+  word-wrap: break-word;
+  margin-left: 0px;
+  margin-top: 50px;
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid #a5ec5f;
+}
+/* div.titlebox {
+  width: 340px;
+  height: 79px;
+  top: 10px;
+  position: absolute;
+  background-color: none;
+  word-wrap: break-word;
+  margin-left: 0px;
+  margin-top: 60px;
+  display: flex;
+} */
+/* div.board {
+  width: 334px;
+  height: 700px;
+  border-radius: 20px;
+  border: 1px solid #a5ec5f;
+  background-color: #ff6464;
+  margin-left: 0px;
+  margin-top: 60px;
+  position: absolute;
+  word-wrap: break-word;
+  display: flex;
+} */
+button.btn-post {
+  width: 330px;
+  height: 92px;
+  top: auto;
+  border-radius: 20px;
+  border: 1px solid #a5ec5f;
+  background-color: #f0ffe4;
+  margin-left: 0px;
+  margin-top: 10px;
+  position: relative;
+  word-wrap: break-word;
+  text-align: justify;
+  display: flex;
+}
+/* 버튼 간의 간격을 조절합니다. */
+button.board:nth-child(1) {
+  left: 0px;
+  top: 100px;
+}
+
+button.board:nth-child(2) {
+  left: 0px;
+  top: 200px; /* 예시: 두 번째 버튼은 첫 번째 버튼 아래에 위치하도록 조정 */
+}
+div.input-container {
+  width: 340px;
+  height: 44px;
+  left: 25px;
+  top: 572px;
+  position: absolute;
+  display: flex;
+  background-color: none;
+  border: 1px solid #a5ec5f;
+  border-radius: 5px;
+}
+
 input.comment1 {
-  width: 345px;
+  width: 300px;
   height: 30px;
-  left: 70px;
+  left: 50px;
   top: 5px;
   position: absolute;
   border: none;
 }
 label.nonymous {
   left: 15px;
-  top: 10px;
+  top: 5px;
+  color: #9c9b9b;
   font-size: 14px;
   font-family: Pretendard;
 }
 button.regi {
-  width: 54px;
+  width: 51px;
   height: 28px;
   top: 7px;
-  left: 270px;
+  left: 280px;
   position: absolute;
   background: #a5ec5f;
   border-radius: 5px;
@@ -240,7 +344,7 @@ input.title {
   position: absolute;
   background: white;
   border-radius: 5px;
-  border: 1px #545454 solid;
+  border: 1px solid #a5ec5f;
 }
 
 textarea {
@@ -251,7 +355,7 @@ textarea {
   position: absolute;
   background: white;
   border-radius: 5px;
-  border: 1px #545454 solid;
+  border: 1px solid #a5ec5f;
 }
 button.write {
   width: 312px;
@@ -262,7 +366,8 @@ button.write {
   justify-content: center;
   align-items: center;
   display: inline-flex;
-  background: #a5ec5f;
+  border: 1px solid #a5ec5f;
+  background: #f0ffe4;
   border-radius: 5px;
 }
 button.writing {
@@ -272,6 +377,7 @@ button.writing {
   top: 721px;
   position: absolute;
   background: #f0ffe4;
+  border: 1px solid #a5ec5f;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
 }
@@ -296,4 +402,16 @@ div.filebox {
   font-size: 12;
   font-family: Pretendard;
   border-radius: 5px;
+}
+
+div.nopost {
+  width: 343px;
+  height: 94px;
+  left: 25px;
+  top: 200px;
+  position: absolute;
+  font-size: 18px;
+  font-family: Pretendard;
+  font-weight: 400;
+  text-align: center;
 }
