@@ -150,8 +150,8 @@ p.time {
 button.remove_comment {
   width: 55px;
   height: 21px;
-  right: 0;
-  top: 0px;
+  right: 10px;
+  top: 11px;
   position: absolute;
   color: #9c9b9b;
   font-size: 10px;
@@ -164,7 +164,6 @@ button.remove_comment {
 p.comment_content {
   width: 340px;
   left: 20px;
-  top: 20px;
   position: absolute;
   color: #161616;
   font-size: 12px;
@@ -293,7 +292,7 @@ div.input-container {
 }
 
 input.comment1 {
-  width: 300px;
+  width: 280px;
   height: 30px;
   left: 50px;
   top: 5px;
