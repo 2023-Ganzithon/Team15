@@ -19,7 +19,10 @@
                 onClick="goBack()"
               />
             </div>
-            <div class="logo"><image></image></div>
+            <div class="logo"><image
+              src="{% static 'images/logo.png' %}"
+              class="boardImg2"  onClick="goMain()"
+            ></image></div>
             <div class="empty"></div>
           </div>
 
@@ -52,6 +55,10 @@
 
       function goBack() {
         window.history.back();
+      }
+
+      function goMain() {
+        window.location.href = "/main/";
       }
     </script>
   </body>
