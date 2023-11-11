@@ -12,82 +12,65 @@
 </head>
 
 <body>
-
-    {{ cId }}
-    {{ request.user.cSelect }}
-    {% if check %}
-    <div> 챌린지 성공</div>
-    {% else %}
-    <div> 챌린지 결과 대기중</div>
-    <form method="POST">
-        {% csrf_token %}
-        <div> 챌린지 진행 확인하기</div>
-        <div><button type='submit'> 확인</button></div>
-    </form>
-    {% endif %}
-    {% if cImage %}
-    <image src="{{ cImage.url }}" class="img"></image>
-    {% else %}
-    <image src=""></image> <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
-    {% endif %}
-
-
-
-    <body>
-        <div class="iphone-frame">
-            <div class="all">
-                <h1>챌린지</h1>
+    <div class="iphone-frame">
+        <div class="all">
+            <h1>챌린지</h1>
 
 
 
 
 
 
-                <button class="mission" style="top:602px;">
-                    {% if check %}
-                    <div> 챌린지 성공</div>
-                    {% else %}
-                    <div> 챌린지 결과 대기중</div>
-                </button>
-
+            <button class="mission" type='submit' style="top:602px;">
+                {% if check %}
+                <div> 챌린지 성공</div>
+                {% else %}
+                <div> 챌린지 결과 대기중</div>
                 <form method="POST">
                     {% csrf_token %}
-                    <div> 챌린지 진행 확인하기</div>
-                    <div><button type='submit'> 확인</button></div>
 
 
-
-
-                    <p class="line"></p>
-                    <button class="challenge" id="Button1" style="top:180px;">
-                        {{ cId }}
-                        {{ request.user.cSelect }}
-                    </button>
                 </form>
-
-                {% endif %}
-                {% if cImage %}
-                <img src="{{ cImage.url }}" style="width: 334px;
-            height: 245px;
-            left: 30px;
-            top: 322px;
-            position: absolute;" />
-
-
-
-                {% else %}
-                <image src=""></image> <!-- 챌린지 사진 업로드 전 보여줄 디폴트 이미지 -->
-                {% endif %}
+            </button>
+            {% endif %}
 
 
 
 
 
 
-                {% include 'footer.html' %}
-            </div>
+
+
+            <p class="line"></p>
+            <button class="challenge" id="Button1" style="top:180px;">
+                {{ cId }}
+                {{ request.user.cSelect }}
+            </button>
+            </form>
+
+
+            {% if cImage %}
+            <img src="{{ cImage.url }}" style="width: 334px;
+        height: 245px;
+        left: 30px;
+        top: 322px;
+        position: absolute;" />
+
+
+
+            <!-- {% else %} -->
+            <!-- <image src=""></image> -->
+            <!-- {% endif %} -->
+
+
+
+
+
+
+            {% include 'footer.html' %}
         </div>
+    </div>
 
-    </body>
+</body>
 
 </html>
