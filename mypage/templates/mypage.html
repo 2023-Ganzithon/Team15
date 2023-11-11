@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../static/css/mypage.css" />
+    <link rel="stylesheet" href="{%static 'css/mypage.css'%}" />
     <title>마이페이지</title>
   </head>
   <body>
@@ -25,15 +25,8 @@
 
           <div class="profileBox">
             <div class="logoBig">
-              {% if top_percentage <= 5 %}
-                🌲
-              {% elif top_percentage <= 15 %}
-                🌳
-              {% elif top_percentage <= 30 %}
-                🌿
-              {% else %}
-                🌱
-              {% endif %}
+              {% if top_percentage <= 5 %} 🌲 {% elif top_percentage <= 15 %} 🌳
+              {% elif top_percentage <= 30 %} 🌿 {% else %} 🌱 {% endif %}
             </div>
             <div class="nameG">
               <div class="name">{{ nickname }}</div>
