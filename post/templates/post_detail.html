@@ -161,42 +161,9 @@
             </div>
 
 
-
-            <nav class="하단바">
-                <div class="하단바선"></div>
-
-                <button class="하단바게시판구역" style="cursor: pointer;" onclick="location.href='../board/board.html'">
-                    <div class="하단바게시판이미지">
-                        <img src="{%static 'images/messages.svg'%}" />
-                    </div>
-                    <div class="하단바폰트">게시판</div>
-                </button>
-
-                <button class="하단바숏폼구역" style="cursor: pointer;" onclick="location.href='../home/home.html'">
-                    <div class="하단바숏폼이미지">
-                        <img src="{%static 'images/home.svg'%}" />
-                    </div>
-                    <div class="하단바폰트">숏폼</div>
-                </button>
-
-                <button class="하단바챌린지구역" style="cursor: pointer;" onclick="location.href='../challenge/challenge.html'">
-                    <div class="하단바챌린지이미지">
-                        <img src="{%static 'images/frame.svg'%}" />
-
-                        <div class=" 하단바폰트">챌린지
-                        </div>
-                </button>
-
-                <button class="하단바마이페이지구역" style="cursor: pointer;" onclick="location.href='../commu/commu.html'">
-                    <div class="하단바마이페이지이미지">
-                        <img src="{%static 'images/user.svg'%}" />
-                    </div>
-                    <div class="하단바폰트">마이페이지</div>
-                </button>
-
-                <div class="하단바선" style="bottom: 0px"></div>
-            </nav>
-
+            <div>
+                {% include 'footer.html' %}
+            </div>
 
 
         </div>
