@@ -1,171 +1,230 @@
 {%load static%}
 <!DOCTYPE html>
 <html lang="ko">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
     <link rel="stylesheet" href="{%static 'css/board.css'%}" />
     <link rel="stylesheet" href="{%static 'css/style.css'%}" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="iphone-frame">
-        <div class="all">
-            <div class="topBar">
-                <div class="back"></div>
-                <div class="logo">
-                    <image src="{% static 'images/logo.png' %}" class="boardImg2" onClick="goMain()"></image>
-                </div>
-                <div class="empty"></div>
-            </div>
-            <script>
-                function goMain() {
-                    window.location.href = "/main/";
-                }
+      <div class="all">
+        <div class="topBar">
+          <div class="back"></div>
+          <div class="logo">
+            <image
+              src="{% static 'images/logo.png' %}"
+              class="boardImg2"
+              onClick="goMain()"
+            ></image>
+          </div>
+          <div class="empty"></div>
+        </div>
+        <script>
+          function goMain() {
+            window.location.href = "/main/";
+          }
 
-                function goBack() {
-                    window.history.back;
-                }
-            </script>
-            <h1>재활용 게시판</h1>
-            <form method="GET" action="{% url 'post:post_list'%}">
-                {% csrf_token %}
-                <!-- <button class="back" type="submit">
+          function goBack() {
+            window.history.back;
+          }
+        </script>
+        <h1>재활용 게시판</h1>
+        <form method="GET" action="{% url 'post:post_list'%}">
+          {% csrf_token %}
+          <!-- <button class="back" type="submit">
             <img src="{%static 'images/arrow.svg'%}" />
           </button> -->
+        </form>
+
+        <article>
+          <h2>{{ post.userId.nickname }}</h2>
+          <h3>{{ post.title }}</h3>
+          <p class="hour">{{ post.regTime|date:"Y.m.d H:i" }}</p>
+          <p class="content">{{ post.content }}</p>
+          <img src="{{ post.image.url }}" class="content_img" alt="사진" />
+
+          {% if post.videoKey %}
+          <!-- <div>비디오키: {{ post.videoKey }}</div> -->
+          <!-- 실제 구현은 js 통해 비디오 출력 -->
+          {% endif %}
+
+          <!-- 게시글 작성 / 수정 버튼 -->
+          <!--작성자에게만 보임-->
+          {% if request.user == post.userId %}
+          <form
+            method="GET"
+            action="{% url 'post:post_delete' postId=post.pk %}"
+          >
+            {% csrf_token %}
+            <button class="edit" type="submit" style="left: 310px">
+              글 삭제
+            </button>
+          </form>
+
+          <form
+            method="GET"
+            action="{% url 'post:post_update' postId=post.pk %}"
+          >
+            {% csrf_token %}
+            <button class="edit" type="submit">글 수정</button>
+          </form>
+          {% endif %}
+
+          <!-- 좋아요 / 살래요 / 북마크 버튼 -->
+          <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
+          <div>
+            {% if request.user in liked_user %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='like_cancel' %}"
+            >
+              {% csrf_token %}
+
+              <button class="icon" style="left: 27px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/blackheart.png'%}"
+                  alt="검정하트"
+                />
+              </button>
+            </form>
+            {% else %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='like' %}"
+            >
+              {% csrf_token %}
+
+              <button class="icon" style="left: 27px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/heart.png'%}"
+                  alt="하트"
+                />
+              </button>
             </form>
 
-            <article>
-                <h2>{{ post.userId.nickname }}</h2>
-                <h3>{{ post.title }}</h3>
-                <p class="hour">{{ post.regTime|date:"Y.m.d H:i" }}</p>
-                <p class="content">{{ post.content }}</p>
-                <img src="{{ post.image.url }}" class="content_img" alt="사진" />
+            {% endif %}
+          </div>
 
-                {% if post.videoKey %}
-                <!-- <div>비디오키: {{ post.videoKey }}</div> -->
-                <!-- 실제 구현은 js 통해 비디오 출력 -->
-                {% endif %}
+          <div>
+            {% if request.user in buy_user %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='buy_cancel' %}"
+            >
+              {% csrf_token %}
+              <button class="icon" style="left: 58px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/blackbuy.svg'%}"
+                  alt="사고싶다"
+                />
+              </button>
+            </form>
+            {% else %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='buy' %}"
+            >
+              {% csrf_token %}
+              <button class="icon" style="left: 58px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/buy.svg'%}"
+                  alt="사고싶다"
+                />
+              </button>
+            </form>
+            {% endif %}
+          </div>
 
-                <!-- 게시글 작성 / 수정 버튼 -->
-                <!--작성자에게만 보임-->
-                {% if request.user == post.userId %}
-                <form method="GET" action="{% url 'post:post_delete' postId=post.pk %}">
-                    {% csrf_token %}
-                    <button class="edit" type="submit" style="left: 310px">
-                        글 삭제
-                    </button>
-                </form>
+          <div>
+            {% if request.user in bookmarked_user %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='bookmark_cancel' %}"
+            >
+              {% csrf_token %}
+              <button class="icon" style="left: 98px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/blackbookmark.svg'%}"
+                  alt="북마크"
+                />
+              </button>
+            </form>
+            {% else %}
+            <form
+              method="GET"
+              action="{% url 'post:post_status' postId=post.pk status='bookmark' %}"
+            >
+              {% csrf_token %}
+              <button class="icon" style="left: 98px" type="submit">
+                <img
+                  class="icon"
+                  src="{%static 'images/bookmark.png'%}"
+                  alt="북마크"
+                />
+              </button>
+            </form>
+            {% endif %}
+          </div>
+        </article>
 
-                <form method="GET" action="{% url 'post:post_update' postId=post.pk %}">
-                    {% csrf_token %}
-                    <button class="edit" type="submit">글 수정</button>
-                </form>
-                {% endif %}
+        <h4>댓글</h4>
+        <article class="bigbox">
+          <!--댓글 출력 코드입니다.-->
+          {% for comment in comments %}
 
-                <!-- 좋아요 / 살래요 / 북마크 버튼 -->
-                <!-- 각 form 태그마다 이미지 넣어주시면 됩니다. -->
-                <div>
-                    {% if request.user in liked_user %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like_cancel' %}">
-                        {% csrf_token %}
+          <div>{{ comment.title }}</div>
+          <div class="commentbox">
+            <!-- False = 실명제 -> 작성자 출력 -->
+            {% if not comment.anonymous %}
+            <p class="nick">{{ comment.userId.nickname }}</p>
+            {% endif %}
 
-                        <button class="icon" style="left: 27px" type="submit">
-                            <img class="icon" src="{%static 'images/blackheart.png'%}" alt="검정하트" />
-                        </button>
-                    </form>
-                    {% else %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='like' %}">
-                        {% csrf_token %}
+            <p class="comment_content">{{ comment.content }}</p>
+            <p class="time">{{ comment.regTime|date:"Y.m.d H:i" }}</p>
 
-                        <button class="icon" style="left: 27px" type="submit">
-                            <img class="icon" src="{%static 'images/heart.png'%}" alt="하트" />
-                        </button>
-                    </form>
+            {% if request.user == comment.userId %}
+            <form
+              method="GET"
+              action="{% url 'post:comment_delete' commentId=comment.pk %}"
+            >
+              {% csrf_token %}
+              <button class="remove_comment" type="submit">삭제하기</button>
+            </form>
+            {% endif %} {% endfor %}
+          </div>
+        </article>
 
-                    {% endif %}
-                </div>
+        <!--댓글 작성란 입니다.-->
+        <div class="input-container">
+          <form
+            method="POST"
+            action="{% url 'post:comment_create' postId=post.pk %}"
+          >
+            {% csrf_token %}
 
-                <div>
-                    {% if request.user in buy_user %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy_cancel' %}">
-                        {% csrf_token %}
-                        <button class="icon" style="left: 58px" type="submit">
-                            <img class="icon" src="{%static 'images/blackbuy.svg'%}" alt="사고싶다" />
-                        </button>
-                    </form>
-                    {% else %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='buy' %}">
-                        {% csrf_token %}
-                        <button class="icon" style="left: 58px" type="submit">
-                            <img class="icon" src="{%static 'images/buy.svg'%}" alt="사고싶다" />
-                        </button>
-                    </form>
-                    {% endif %}
-                </div>
+            <label for="anonymous" class="nonymous">익명</label>
+            <input type="checkbox" name="anonymous" id="anonymous" checked />
 
-                <div>
-                    {% if request.user in bookmarked_user %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark_cancel' %}">
-                        {% csrf_token %}
-                        <button class="icon" style="left: 98px" type="submit">
-                            <img class="icon" src="{%static 'images/blackbookmark.svg'%}" alt="북마크" />
-                        </button>
-                    </form>
-                    {% else %}
-                    <form method="GET" action="{% url 'post:post_status' postId=post.pk status='bookmark' %}">
-                        {% csrf_token %}
-                        <button class="icon" style="left: 98px" type="submit">
-                            <img class="icon" src="{%static 'images/bookmark.png'%}" alt="북마크" />
-                        </button>
-                    </form>
-                    {% endif %}
-                </div>
-            </article>
-
-            <h4>댓글</h4>
-            <article class="bigbox">
-                <!--댓글 출력 코드입니다.-->
-                {% for comment in comments %}
-
-                <div>{{ comment.title }}</div>
-                <div class="commentbox">
-                    <!-- False = 실명제 -> 작성자 출력 -->
-                    {% if not comment.anonymous %}
-                    <p class="nick">{{ comment.userId.nickname }}</p>
-                    {% endif %}
-
-                    <p class="comment_content">{{ comment.content }}</p>
-                    <p class="time">{{ comment.regTime|date:"Y.m.d H:i" }}</p>
-
-                    {% if request.user == comment.userId %}
-                    <form method="GET" action="{% url 'post:comment_delete' commentId=comment.pk %}">
-                        {% csrf_token %}
-                        <button class="remove_comment" type="submit">삭제하기</button>
-                    </form>
-                    {% endif %} {% endfor %}
-                </div>
-            </article>
-
-            <!--댓글 작성란 입니다.-->
-            <div class="input-container">
-                <form method="POST" action="{% url 'post:comment_create' postId=post.pk %}">
-                    {% csrf_token %}
-
-                    <label for="anonymous" class="nonymous">익명</label>
-                    <input type="checkbox" name="anonymous" id="anonymous" checked />
-
-                    <input class="comment1" type="text" name="content" placeholder="클릭하여 댓글 작성하기" />
-                    <button class="regi" type="submit">등록</button>
-                </form>
-            </div>
-
-            <div>{% include 'footer.html' %}</div>
+            <input
+              class="comment1"
+              type="text"
+              name="content"
+              placeholder="클릭하여 댓글 작성하기"
+            />
+            <button class="regi" type="submit">등록</button>
+          </form>
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

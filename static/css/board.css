@@ -7,7 +7,7 @@ h1 {
   text-align: center;
   color: black;
   font-size: 30px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 700;
   word-wrap: break-word;
 }
@@ -51,7 +51,7 @@ h2 {
   position: absolute;
   color: #161616;
   font-size: 19px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 700;
   line-height: 26.22px;
   word-wrap: break-word;
@@ -62,7 +62,7 @@ h3 {
   position: absolute;
   color: #161616;
   font-size: 19px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 600;
   line-height: 26.22px;
   word-wrap: break-word;
@@ -73,7 +73,7 @@ p.content {
   position: absolute;
   color: #161616;
   font-size: 14px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 500;
   line-height: 18.76px;
   word-wrap: break-word;
@@ -84,7 +84,7 @@ p.hour {
   position: absolute;
   color: #777777;
   font-size: 10px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 500;
   line-height: 13.8px;
   word-wrap: break-word;
@@ -131,7 +131,7 @@ p.nick {
   position: absolute;
   color: #161616;
   font-size: 15px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 600;
 
   word-wrap: break-word;
@@ -155,7 +155,7 @@ button.remove_comment {
   position: absolute;
   color: #9c9b9b;
   font-size: 10px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 400;
   word-wrap: break-word;
   border: 1px solid #a5ec5f;
@@ -168,7 +168,7 @@ p.comment_content {
   position: absolute;
   color: #161616;
   font-size: 12px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 500;
 
   word-wrap: break-word;
@@ -305,7 +305,7 @@ label.nonymous {
   top: 5px;
   color: #9c9b9b;
   font-size: 14px;
-  font-family: Pretendard;
+  font-family: "Inter";
 }
 button.regi {
   width: 51px;
@@ -318,7 +318,7 @@ button.regi {
   position: absolute;
   color: white;
   font-size: 14px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 500;
   line-height: 19.32px;
   word-wrap: break-word;
@@ -402,7 +402,7 @@ div.filebox {
   align-items: center;
   display: inline-flex;
   font-size: 12;
-  font-family: Pretendard;
+  font-family: "Inter";
   border-radius: 5px;
 }
 
@@ -413,7 +413,7 @@ div.nopost {
   top: 200px;
   position: absolute;
   font-size: 18px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 400;
   text-align: center;
 }
