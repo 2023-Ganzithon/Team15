@@ -4,6 +4,6 @@ app_name = "challenge"
 
 urlpatterns = [
     path('', challenge_home, name = 'challenge_home'),
-    path('upload/', challenge_upload, name = 'challenge_upload'),
-    path('detail/<int:cId>', challenge_detail, name = 'challenge_detail'),
+    path('upload/<int:Id>', challenge_upload, name = 'challenge_upload'),
+    path('detail/<int:Id>', challenge_detail, name = 'challenge_detail'),
 ]
