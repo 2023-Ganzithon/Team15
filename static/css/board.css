@@ -281,13 +281,15 @@ button.board:nth-child(2) {
 div.input-container {
   width: 340px;
   height: 44px;
-  left: 25px;
-  top: 572px;
-  position: absolute;
-  display: flex;
+
+  top: 620px;
+  position: fixed; /* position을 fixed로 변경 */
+  /* display: flex; */
   background-color: none;
   border: 1px solid #a5ec5f;
   border-radius: 5px;
+  margin-left: 25px;
+  /* margin-top: 550px; */
 }
 
 input.comment1 {
