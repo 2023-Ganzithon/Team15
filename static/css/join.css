@@ -1,0 +1,46 @@
+h2 {
+  width: 274px;
+  height: 63px;
+  left: 23px;
+  top: 86.57px;
+  position: absolute;
+  color: #575757;
+  font-size: 24px;
+  font-family: Pretendard;
+  font-weight: 700;
+  line-height: 28.87px;
+  word-wrap: break-word;
+}
+p.ex {
+  width: 300px;
+  height: 23px;
+  left: 23px;
+  top: 126.57px;
+  position: absolute;
+  color: #787878;
+  font-size: 16px;
+  font-family: Pretendard;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+input {
+  width: 344px;
+  height: 52px;
+  left: 23px;
+  top: 375px;
+  position: absolute;
+  border-radius: 5px;
+}
+
+/* input.signup {
+  width: 344px;
+  height: 52px;
+  left: 23px;
+  top: 700px;
+  position: absolute;
+  background: #a5ec5f;
+  border-radius: 5px;
+  border-radius: 20px;
+  border: 1px solid #a5ec5f;
+} */
