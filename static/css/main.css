@@ -1,6 +1,6 @@
 .container {
-  /* width: 393px;
-  height: 852px; */
+  width: 393px;
+  height: 852px;
   /* background: red; */
   display: flex;
   flex-direction: column;
@@ -10,17 +10,18 @@
   -ms-overflow-style: none;
   overflow: hidden;
 
+  margin: auto;
+
   /* 미디어 쿼리 적용
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+    @media (hover: hover) {
+      width: 390px;
+      margin: 0 auto;
+    }
 
-  &::-webkit-scrollbar {
-    display: none;
-  } */
+    &::-webkit-scrollbar {
+      display: none;
+    } */
 }
-
 .bodyWrapper {
   flex: 1;
   overflow: auto;
@@ -57,17 +58,17 @@
 }
 
 .bottomBar {
+  position: fixed;
+  bottom: 0;
+  width: 393px;
   height: 80px;
-  position: relative;
-  border: none;
-  margin: 0;
+  border-top: 1px solid #a5ec5f;
+  border-bottom: 1px solid #a5ec5f;
+  background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  border-top: 1px solid #a5ec5f;
-  border-bottom: 1px solid #a5ec5f;
-  background-color: white;
 }
 
 .topicBox {
