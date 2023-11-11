@@ -6,7 +6,7 @@ h2 {
   position: absolute;
   color: #575757;
   font-size: 24px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 700;
   line-height: 28.87px;
   word-wrap: break-word;
@@ -19,7 +19,7 @@ p.ex {
   position: absolute;
   color: #787878;
   font-size: 16px;
-  font-family: Pretendard;
+  font-family: "Inter";
   font-weight: 400;
   word-wrap: break-word;
 }
