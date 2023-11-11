@@ -55,7 +55,12 @@
 
           <textarea type="textarea" name="content" value="{{ post.content }}" placeholder="클릭하여 내용을 입력해 주세요"
             required></textarea>
-          <div class="filebox"><input type="file" class="file" name="image" value="{{ post.image }}" required>
+          <div class="filebox">
+
+            <!-- To. 서연 : 파일 선택 버튼 css 수정 필요 !! -->
+            <label for="custom-file" class="file">사진</label>
+            <input type="file" name="image" value="{{ post.image }}" style="display:none" id="custom-file" required>
+
             <input type="text" name="videoKey" value="{{ post.videoKey }}" placeholder="비디오 키를 입력해주세요." />
           </div>
 
