@@ -49,13 +49,13 @@
 .logo {
   width: 40px;
   height: 40px;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .empty {
   width: 40px;
   height: 40px;
-  background-color: blue;
+  /* background-color: blue; */
 }
 
 .bottomBar {
@@ -441,4 +441,8 @@
   text-align: right;
 
   color: #728263;
+}
+
+.boardImg2 {
+  width: 40px;
 }

@@ -14,6 +14,20 @@
 <body>
     <div class="iphone-frame">
         <div class="all">
+            <div class="topBar">
+                <div class="back">
+                  <img
+                    src="{% static 'images/back.png' %}"
+                    class="back"
+                    onClick="goBack()"
+                  />
+                </div>
+                <div class="logo" onClick="goMain()"><image
+                  src="{% static 'images/logo.png' %}"
+                  class="boardImg2" 
+                ></image></div>
+                <div class="empty"></div>
+              </div>
             <h1>챌린지</h1>
 
 
@@ -70,7 +84,19 @@
             {% include 'footer.html' %}
         </div>
     </div>
-
+    <script>
+        function goMypage() {
+          window.location.href = "/mypage/";
+        }
+  
+        function goBack() {
+          window.history.back();
+        }
+  
+        function goMain() {
+          window.location.href = "/main/";
+        }
+      </script>
 </body>
 
 </html>

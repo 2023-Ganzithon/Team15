@@ -93,12 +93,9 @@
         font-size: 25px;;
       }
 
-      /* #player {
-        width: 393px;
-        height: auto; 
-        background-color: black;
-        overflow-y: auto;
-      } */
+      .boardImg2 {
+  width: 40px;
+}
     </style>
   </head>
   <body>
@@ -114,7 +111,10 @@
         {% csrf_token %}
         <button type="submit" class="title">{{ post_status.post.title }}</button>
       </form>
-      <div class="empty"></div>
+      <div class="empty"><image
+        src="{% static 'images/logo.png' %}"
+        class="boardImg2" onClick="goMain()"
+      ></image></div>
     </div>
         <!-- 비디오출력하는 자바스크립트 코드입니다 -->
         <script>
@@ -188,6 +188,10 @@
       function goBack() {
             window.history.back();
           }
+
+          function goMain() {
+        window.location.href = "/main/";
+      }
     </script>
   </body>
 </html>
