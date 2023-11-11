@@ -107,7 +107,7 @@
       <div class="shorts-container">
       {% for post_status in posts_status %}
       <div class="topBar">
-      <image src="{% static 'images/back.png' %}" class="back"></image>
+      <image src="{% static 'images/back.png' %}" class="back" onClick="goBack()"></image>
 
        <!-- 숏폼에서도 해당 게시글 제목 표시 및 클릭 시 상세 페이지 이동 -->
        <form method="GET" action="{% url 'post:post_detail' postId=post_status.post.pk %}">
@@ -136,7 +136,7 @@
             });
           }
         </script>
-        
+
         <!-- 영상 출력 코드입니다. -->
         <div id="player" class="shorts-container"></div>
        
@@ -184,5 +184,10 @@
       </div>
       {% endfor %}
     </div>
+    <script>
+      function goBack() {
+            window.history.back();
+          }
+    </script>
   </body>
 </html>
