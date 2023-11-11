@@ -9,8 +9,7 @@
   <title>Document</title>
   <link rel="stylesheet" href="../../static/css/board.css">
   <link rel="stylesheet" href="../../static/css/style.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -54,7 +53,7 @@
           <input type="text" name="title" class="title" value="{{ post.title }}" placeholder="클릭하여 제목을 작성해 주세요">
 
           <textarea type="textarea" name="content" value="{{ post.content }}" placeholder="클릭하여 내용을 입력해 주세요"></textarea>
-          <div class="filebox"><input type="file" name="image" value="{{ post.image }}">
+          <div class="filebox"><input type="file" class="file" name="image" value="{{ post.image }}">
             <input type="text" name="videoKey" value="{{ post.videoKey }}" placeholder="비디오 키를 입력해주세요." />
           </div>
 
@@ -72,9 +71,7 @@
 
     </div>
   </div>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script> -->
+
 </body>
 
 
